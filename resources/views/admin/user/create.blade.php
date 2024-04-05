@@ -1,174 +1,192 @@
-@extends('admin.layouts.master')
-@section('page-title')
-{{ __('general.supervisors') }}
+@extends('admin.layouts.layout')
+@section('content')
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Users</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
+                            <li class="breadcrumb-item active">Users</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <!-- Horizontal Form -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Add User</h3>
+                </div>
+                <!-- form start -->
+                <div class="card-body  row">
+                  <div class="col-lg-8">
+                <form class="form-horizontal" name="create_form" method="POST" action="{{url('admin/user')}}" enctype="multipart/form-data" id="create_form">
+                    @csrf
+                 
+                        <!-- first_name start -->
+
+                        <div class="form-group row">
+                            <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control     "
+                                    name="first_name" id="first_name" placeholder="* First Name"
+                                    value="">
+                              
+                                    <span id="first_name-error" class="error invalid-feedback"></span>
+                                
+                            </div>
+                        </div>
+                        <!-- first_name end -->
+
+                        <!-- last_name start -->
+                        <div class="form-group row">
+                            <label for="last_name" class="col-sm-2 col-form-label">Last name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control "
+                                    name="last_name" id="last_name" placeholder="* Last Name" value="">                              
+                                    <span id="last_name-error" class="error invalid-feedback"></span>
+                                
+                            </div>
+                        </div>
+                        <!-- last_name end -->
+                        <!-- Email start -->
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="email"class="form-control" id="email" placeholder="Email" value="">                              
+                                    <span id="email-error" class="error invalid-feedback"></span>                              
+                            </div>
+                        </div>
+                        <!-- Email end -->
+                        <!-- name start -->
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-2 col-form-label">Username</label>
+                            <div class="col-sm-10">
+                                <input type="text"  class="form-control "   name="name" id="name" placeholder="* Name" value="">                             
+                                    <span id="name-error" class="error invalid-feedback"></span>                                
+                            </div>
+                        </div>
+                        <!-- name end -->
+
+                        <!-- Password start -->
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control  "
+                                    name="password" id="password" placeholder="Password" value="">
+                               
+                                    <span id="password-error" class="error invalid-feedback"></span>
+                             
+                            </div>
+                        </div>
+                        <!-- Password end -->
+                        <!--Confirm Password start -->
+                        <div class="form-group row">
+                            <label for="confirm_password" class="col-sm-2 col-form-label">Confirm Password</label>
+                            <div class="col-sm-10">
+                                <input type="password"
+                                    class="form-control  "
+                                    id="confirm_password" name="confirm_password" placeholder="Confirm Password"
+                                    value="">                                
+                                    <span id="confirm_password-error" class="error invalid-feedback"></span>
+                               
+                            </div>
+                        </div>
+                        <!-- Confirm Password end -->
+                        <!-- mobile start -->
+
+                        <div class="form-group row">
+                            <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"
+                                    name="mobile" id="mobile" placeholder="mobile" value="">                             
+                                    <span id="mobile-error" class="error invalid-feedback"></span>
+                               
+                            </div>
+                        </div>
+                        <!-- mobile end -->
+
+                        <!-- first_name start -->
+                        <div class="form-group">
+                            <!-- <label for="customFile">Custom File</label> -->
+                            <div class="form-group row">
+                                <label for="image" class="col-sm-2 col-form-label">Image</label>
+                                <div class="col-sm-10">
+
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="image" id="image">
+                                        <label class="custom-file-label" for="image">Choose file</label>
+                                 
+                                            <span id="image-error" class="error invalid-feedback"></span>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="status" class="col-sm-2 col-form-label">Status</label>
+                            <div class="col-sm-10 custom-control custom-switch ">
+                                <input type="checkbox" class="custom-control-input" id="status" name="status"
+                                    value="1" checked="checked">
+                                <label class="custom-control-label" for="status" id="status_lbl">Active</label>                             
+                                    <span id="status-error" class="error invalid-feedback"></span>                               
+                            </div>
+                        </div>
+                                                <div class="form-group row">
+                          <div   class="col-sm-2 col-form-label"></div>
+                          <div class="col-sm-10">
+                            <button type="submit" type="submit" name="btn_save" id="btn_save" class="btn btn-primary">Save</button>
+                            <a class="btn btn-default float-right" href="{{ route('user.index') }}">Cancel</a>
+                          </div>
+                      </div>               
+                  </form>
+                </div>
+                <div class="col-lg-4  sm-3  ">
+                  <img alt="" id="imgshow" class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0"
+                   src="{{URL::asset('assets/admin/img/default/1.jpg')}}" >							 	
+                </div>
+                </div>
+            </div>
+            <!-- first_name end -->
+            <!-- /.card-body -->
+            <div class="card-footer">
+                            </div>
+            <!-- /.card-footer -->
+       
+    </div>
+    <!-- /.card -->
+    </section>
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- /.card -->
+@endsection
+
+ 
+ 
+
+@section('js')
+<script src="{{ URL::asset('assets/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <!-- Toastr -->
+    <script src="{{ URL::asset('assets/admin/plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{URL::asset('assets/admin/js/custom/validate.js')}}"></script>
+<script src="{{URL::asset('assets/admin/js/custom/content.js')}}"></script>
+
 @endsection
 @section('css')
-<!-- Internal Select2 css -->
-<link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
-<!--Internal  Datetimepicker-slider css -->
-<link href="{{URL::asset('assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css')}}" rel="stylesheet">
-<link href="{{URL::asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css')}}" rel="stylesheet">
-<link href="{{URL::asset('assets/plugins/pickerjs/picker.min.css')}}" rel="stylesheet">
-<!-- Internal Spectrum-colorpicker css -->
-<link href="{{URL::asset('assets/plugins/spectrum-colorpicker/spectrum.css')}}" rel="stylesheet">
-
-<link href="{{URL::asset('assets/css/admin/content.css')}}" rel="stylesheet">
-
-@endsection
-@section('page-header')
-				<!-- breadcrumb -->
-				<div class="breadcrumb-header justify-content-between">
-					<div class="my-auto">
-						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto"><a href="{{ route('user.index') }}">{{ __('general.supervisors') }}</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"></span>
-						</div>
-					</div>
-				</div>
-				<!-- breadcrumb -->
-@endsection
-@section('content')
-				<!-- row -->
-				<div class="row row-sm">
-					<div class="col">
-						<div class="card  box-shadow-0">
-						
-							<div class="card-header">
-								<h4 class="card-title mb-1">{{ __('general.supervisor info') }}</h4>
-								<p class="mb-2"></p>
-								
-							</div>
-							<div class="card-body row pt-0">
-								<div class="col-lg-8">
-								<form class="form-horizontal" name="create_form" method="POST" action="{{url('admin/user')}}" enctype="multipart/form-data" id="create_form">
-									@csrf
-									<div class="form-group">
-										<input type="text" class="form-control " id="first_name" placeholder="{{ __('general.first_name') }}" name="first_name">
-										<ul class="parsley-errors-list filled" >
-											<li class="parsley-required" id="first_name_error"></li>
-										</ul>
-										 
-									</div>
-
-                                    <div class="form-group">
-										<input type="text" class="form-control" id="last_name" placeholder="{{ __('general.last_name') }}" name="last_name">
-										<ul class="parsley-errors-list filled" >
-											<li class="parsley-required" id="last_name_error"></li>
-										</ul>
-									</div>
-									<div class="form-group">
-										<input type="email" class="form-control" id="email" placeholder="{{ __('general.email') }}" name="email">
-										<ul class="parsley-errors-list filled" >
-											<li class="parsley-required" id="email_error"></li>
-										</ul>
-									</div>
-                                    <div class="form-group">
-										<input type="text" class="form-control" id="name" placeholder="{{ __('general.user_name') }}" name="name">
-										<ul class="parsley-errors-list filled" >
-											<li class="parsley-required" id="name_error"></li>
-										</ul>
-									</div>
-									<div class="form-group">
-										<input type="password" class="form-control" id="password" placeholder="{{ __('general.password') }}" name="password">
-										<ul class="parsley-errors-list filled" >
-											<li class="parsley-required" id="password_error"></li>
-										</ul>
-									</div>
-									<div class="form-group">
-										<input type="password" class="form-control" id="confirm_password" placeholder="{{ __('general.confirm_password') }}" name="confirm_password">
-										<ul class="parsley-errors-list filled" >
-											<li class="parsley-required" id="confirm_password_error"></li>
-										</ul>
-									</div>
-                                    <div class="mb-4">
-                                        <select name="role"   id="role" class="form-control SlectBox" onclick="console.log($(this).val())" onchange="console.log('change is firing')">
-                                            <!--placeholder-->
-                                            <option title=""   class="text-muted">{{ __('general.choose role') }}</option>
-                                            <option value="admin">{{ __('general.admin') }}</option>
-                                            <option value="super">{{ __('general.super') }}</option>
-                                        </select>
-										<ul class="parsley-errors-list filled">
-											<li class="parsley-required"  id="role_error"></li>
-										</ul>
-                                    </div>
-                                    <div class="form-group">
-										<input type="text" class="form-control" id="mobile" placeholder="Mobile" name="mobile">
-										<ul class="parsley-errors-list filled" >
-											<li class="parsley-required" id="mobile_error"></li>
-										</ul>
-									</div>
-                                    <div class="form-group justify-content-end">
-										<div class="checkbox">
-											<div class="custom-checkbox custom-control">
-												<input type="checkbox" data-checkboxes="mygroup" checked="" class="custom-control-input" id="checkbox-2" value="0" name="is_active">
-												<label for="checkbox-2" class="custom-control-label mt-1"  >{{ __('general.is_active') }}</label>
-											</div>
-											
-										</div>
-										<ul class="parsley-errors-list filled" >
-											<li class="parsley-required" id="is_active_error"></li>
-										</ul>
-									</div>
-									{{-- image --}}
-                                    <div class="form-group mb-4 justify-content-end">
-										<div class="custom-file">
-											<input class="custom-file-input" id="image" name="image" type="file"> <label class="custom-file-label" id="image_label" for="customFile">{{ __('general.choose image') }}</label>
-											<ul class="parsley-errors-list filled" >
-												<li class="parsley-required" id="image_error"></li>
-											</ul>
-										</div>
-										
-									</div>
-									<div class="form-group mb-0 mt-3 justify-content-end">
-										<div>
-											<button type="submit" name="btn_save" id="btn_save" class="btn btn-primary">{{ __('general.save') }}</button>
-											<button type="button" name="btn_cancel" id="btn_cancel"  class="btn btn-secondary">{{ __('general.cancel') }}</button>
-										</div>
-									</div>
-								</form>
-							</div>
-
-							<div class="col-lg-4 mt-sm-3 mt-lg-0">
-								<img alt="" id="imgshow" class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0"
-								 src="{{URL::asset('assets/img/photos/1.jpg')}}" >							 	
-							</div>
-							  
-							</div>
-
-						</div>
-								 
-								
-					</div>
-				</div>
-				<!-- row -->
-			</div>
-			<!-- Container closed -->
-		</div>
-		<!-- main-content closed -->
-@endsection
-@section('js')
-<!--Internal  Datepicker js -->
-<script src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
-<!--Internal  jquery.maskedinput js -->
-<script src="{{URL::asset('assets/plugins/jquery.maskedinput/jquery.maskedinput.js')}}"></script>
-<!--Internal  spectrum-colorpicker js -->
-<script src="{{URL::asset('assets/plugins/spectrum-colorpicker/spectrum.js')}}"></script>
-<!-- Internal Select2.min js -->
-<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
-<!--Internal Ion.rangeSlider.min js -->
-<script src="{{URL::asset('assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js')}}"></script>
-<!--Internal  jquery-simple-datetimepicker js -->
-<script src="{{URL::asset('assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js')}}"></script>
-<!-- Ionicons js -->
-<script src="{{URL::asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js')}}"></script>
-<!--Internal  pickerjs js -->
-<script src="{{URL::asset('assets/plugins/pickerjs/picker.min.js')}}"></script>
-
-<!-- Internal form-elements js -->
-
-<script src="{{URL::asset('assets/js/admin/validate.js')}}"></script>
-<script src="{{URL::asset('assets/js/admin/content.js')}}"></script>
-<script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
-<script  >  
-var emptyimg ="{{URL::asset('assets/img/photos/1.jpg')}}"</script>
- 
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="{{ URL::asset('assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ URL::asset('assets/admin/plugins/toastr/toastr.min.css') }}">
 @endsection

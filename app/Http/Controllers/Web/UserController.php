@@ -32,7 +32,7 @@ class UserController extends Controller
   {
 
 
-    $users = DB::table('users')->get();
+    $users = User::get();
     return view('admin.user.show', ['users' => $users]);
     //return response()->json($users);
 
@@ -84,7 +84,7 @@ class UserController extends Controller
       $newObj->email = $formdata['email'];
       $newObj->password = bcrypt($formdata['password']);
       $newObj->mobile = $formdata['mobile'];
-      $newObj->role = $formdata['role'];
+     // $newObj->role = $formdata['role'];
       //   $newObj->is_active = $formdata['is_active'];
       $newObj->createuser_id = Auth::user()->id;
       $newObj->updateuser_id = Auth::user()->id;

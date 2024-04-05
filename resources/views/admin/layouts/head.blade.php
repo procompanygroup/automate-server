@@ -1,40 +1,38 @@
-<!-- Title -->
-<title style="direction: rtl">  @yield('page-title') | {{ config('app.name', 'Rouh') }}</title>
-<!-- Favicon -->
-<link rel="icon" href="{{URL::asset('assets/img/brand/logo-title.svg')}}" type="image/x-icon"/>
-<!-- Icons css -->
-<link href="{{URL::asset('assets/css/icons.css')}}" rel="stylesheet">
-<!--  Custom Scroll bar-->
-<link href="{{URL::asset('assets/plugins/mscrollbar/jquery.mCustomScrollbar.css')}}" rel="stylesheet"/>
-<!--  Sidebar css -->
-<link href="{{URL::asset('assets/plugins/sidebar/sidebar.css')}}" rel="stylesheet">
-<!-- Sidemenu css -->
-<link rel="stylesheet" href="{{URL::asset('assets/css-rtl/sidemenu.css')}}">
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-@yield('css')
-<!--Fonts-->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic&display=swap" rel="stylesheet">
-
-<!--- Style css -->
-<link href="{{URL::asset('assets/css-rtl/style.css')}}" rel="stylesheet">
-<!--- Dark-mode css -->
-<link href="{{URL::asset('assets/css-rtl/style-dark.css')}}" rel="stylesheet">
-<!---Skinmodes css-->
-<link href="{{URL::asset('assets/css-rtl/skin-modes.css')}}" rel="stylesheet">
-<!--Internal   Notify -->
-<link href="{{URL::asset('assets/plugins/notify/css/notifIt.css')}}" rel="stylesheet">
-<link href="{{URL::asset('assets/css/admin/main.css')}}" rel="stylesheet">
-<style>
-    body {
-        font-family: 'Noto Kufi Arabic', sans-serif;
-
-    }
-    
-
-</style>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  @yield('page-title')
+  <title>AdminLTE 3 | Dashboard</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{URL::asset('assets/admin/plugins/fontawesome-free/css/all.min.css')}}">
  
  
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="{{URL::asset('assets/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{URL::asset('assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <!-- JQVMap -->
+  <link  href="{{URL::asset('assets/admin/plugins/jqvmap/jqvmap.min.css')}}">
+  @yield('showmessagecss')
+  @yield('css')
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{URL::asset('assets/admin/dist/css/adminlte.min.css')}}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{URL::asset('assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{{URL::asset('assets/admin/plugins/daterangepicker/daterangepicker.css')}}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{{URL::asset('assets/admin/plugins/summernote/summernote-bs4.css')}}">
 
+      <!-- Custom Css -->
+      <link href="{{URL::asset('assets/admin/css/style.css')}}" rel="stylesheet">
+      <link href="{{URL::asset('assets/admin/css/custom/main.css')}}" rel="stylesheet">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+ 
