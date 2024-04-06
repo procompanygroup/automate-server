@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Users</h1>
+                        <h1></h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -30,140 +30,147 @@
                 </div>
                 <!-- form start -->
                 <div class="card-body  row">
-                  <div class="col-lg-8">
-                <form class="form-horizontal" name="create_form" method="POST" action="{{url('admin/user')}}" enctype="multipart/form-data" id="create_form">
-                    @csrf
-                 
-                        <!-- first_name start -->
+                    <div class="col-lg-8">
+                        <form class="form-horizontal" name="create_form" method="POST" action="{{ url('admin/user') }}"
+                            enctype="multipart/form-data" id="create_form">
+                            @csrf
 
-                        <div class="form-group row">
-                            <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control     "
-                                    name="first_name" id="first_name" placeholder="* First Name"
-                                    value="">
-                              
-                                    <span id="first_name-error" class="error invalid-feedback"></span>
-                                
-                            </div>
-                        </div>
-                        <!-- first_name end -->
+                            <!-- first_name start -->
 
-                        <!-- last_name start -->
-                        <div class="form-group row">
-                            <label for="last_name" class="col-sm-2 col-form-label">Last name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control "
-                                    name="last_name" id="last_name" placeholder="* Last Name" value="">                              
-                                    <span id="last_name-error" class="error invalid-feedback"></span>
-                                
-                            </div>
-                        </div>
-                        <!-- last_name end -->
-                        <!-- Email start -->
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="email"class="form-control" id="email" placeholder="Email" value="">                              
-                                    <span id="email-error" class="error invalid-feedback"></span>                              
-                            </div>
-                        </div>
-                        <!-- Email end -->
-                        <!-- name start -->
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label">Username</label>
-                            <div class="col-sm-10">
-                                <input type="text"  class="form-control "   name="name" id="name" placeholder="* Name" value="">                             
-                                    <span id="name-error" class="error invalid-feedback"></span>                                
-                            </div>
-                        </div>
-                        <!-- name end -->
-
-                        <!-- Password start -->
-                        <div class="form-group row">
-                            <label for="password" class="col-sm-2 col-form-label">Password</label>
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control  "
-                                    name="password" id="password" placeholder="Password" value="">
-                               
-                                    <span id="password-error" class="error invalid-feedback"></span>
-                             
-                            </div>
-                        </div>
-                        <!-- Password end -->
-                        <!--Confirm Password start -->
-                        <div class="form-group row">
-                            <label for="confirm_password" class="col-sm-2 col-form-label">Confirm Password</label>
-                            <div class="col-sm-10">
-                                <input type="password"
-                                    class="form-control  "
-                                    id="confirm_password" name="confirm_password" placeholder="Confirm Password"
-                                    value="">                                
-                                    <span id="confirm_password-error" class="error invalid-feedback"></span>
-                               
-                            </div>
-                        </div>
-                        <!-- Confirm Password end -->
-                        <!-- mobile start -->
-
-                        <div class="form-group row">
-                            <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control"
-                                    name="mobile" id="mobile" placeholder="mobile" value="">                             
-                                    <span id="mobile-error" class="error invalid-feedback"></span>
-                               
-                            </div>
-                        </div>
-                        <!-- mobile end -->
-
-                        <!-- first_name start -->
-                        <div class="form-group">
-                            <!-- <label for="customFile">Custom File</label> -->
                             <div class="form-group row">
-                                <label for="image" class="col-sm-2 col-form-label">Image</label>
+                                <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
                                 <div class="col-sm-10">
+                                    <input type="text" class="form-control     " name="first_name" id="first_name"
+                                        placeholder="* First Name" value="">
 
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="image" id="image">
-                                        <label class="custom-file-label" for="image">Choose file</label>
-                                 
+                                    <span id="first_name-error" class="error invalid-feedback"></span>
+
+                                </div>
+                            </div>
+                            <!-- first_name end -->
+
+                            <!-- last_name start -->
+                            <div class="form-group row">
+                                <label for="last_name" class="col-sm-2 col-form-label">Last name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control " name="last_name" id="last_name"
+                                        placeholder="* Last Name" value="">
+                                    <span id="last_name-error" class="error invalid-feedback"></span>
+
+                                </div>
+                            </div>
+                            <!-- last_name end -->
+                            <!-- Email start -->
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="email"class="form-control" id="email"
+                                        placeholder="Email" value="">
+                                    <span id="email-error" class="error invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <!-- Email end -->
+                            <!-- name start -->
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-2 col-form-label">Username</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control " name="name" id="name"
+                                        placeholder="* Name" value="">
+                                    <span id="name-error" class="error invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <!-- name end -->
+
+                            <!-- Password start -->
+                            <div class="form-group row">
+                                <label for="password" class="col-sm-2 col-form-label">Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control  " name="password" id="password"
+                                        placeholder="Password" value="">
+
+                                    <span id="password-error" class="error invalid-feedback"></span>
+
+                                </div>
+                            </div>
+                            <!-- Password end -->
+                            <!--Confirm Password start -->
+                            <div class="form-group row">
+                                <label for="confirm_password" class="col-sm-2 col-form-label">Confirm Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control  " id="confirm_password"
+                                        name="confirm_password" placeholder="Confirm Password" value="">
+                                    <span id="confirm_password-error" class="error invalid-feedback"></span>
+
+                                </div>
+                            </div>
+                            <!-- Confirm Password end -->
+                            <!-- mobile start -->
+
+                            <div class="form-group row">
+                                <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="mobile" id="mobile"
+                                        placeholder="mobile" value="">
+                                    <span id="mobile-error" class="error invalid-feedback"></span>
+
+                                </div>
+                            </div>
+                            <!-- mobile end -->
+
+                            <!-- first_name start -->
+                            <div class="form-group">
+                                <!-- <label for="customFile">Custom File</label> -->
+                                <div class="form-group row">
+                                    <label for="image" class="col-sm-2 col-form-label">Image</label>
+                                    <div class="col-sm-10">
+
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="image"
+                                                id="image">
+                                            <label class="custom-file-label" id="image_label" for="image">Choose file</label>
+
                                             <span id="image-error" class="error invalid-feedback"></span>
-                                     
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="status" class="col-sm-2 col-form-label">Status</label>
-                            <div class="col-sm-10 custom-control custom-switch ">
-                                <input type="checkbox" class="custom-control-input" id="status" name="status"
-                                    value="1" checked="checked">
-                                <label class="custom-control-label" for="status" id="status_lbl">Active</label>                             
-                                    <span id="status-error" class="error invalid-feedback"></span>                               
+                            <div class="form-group row">
+                                <label for="is_active" class="col-sm-2 col-form-label">Status</label>
+                                <div class="col-sm-10 custom-control custom-switch ">
+                                    <input type="checkbox" class="custom-control-input" id="is_active" name="is_active"
+                                        value="1" checked="checked">
+                                    <label class="custom-control-label" for="is_active" id="is_active_lbl">Active</label>
+                                    <span id="is_active-error" class="error invalid-feedback"></span>
+                                </div>
                             </div>
-                        </div>
-                                                <div class="form-group row">
-                          <div   class="col-sm-2 col-form-label"></div>
-                          <div class="col-sm-10">
-                            <button type="submit" type="submit" name="btn_save" id="btn_save" class="btn btn-primary">Save</button>
-                            <a class="btn btn-default float-right" href="{{ route('user.index') }}">Cancel</a>
-                          </div>
-                      </div>               
-                  </form>
-                </div>
-                <div class="col-lg-4  sm-3  ">
-                  <img alt="" id="imgshow" class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0"
-                   src="{{URL::asset('assets/admin/img/default/1.jpg')}}" >							 	
-                </div>
+                            <div class="form-group row">
+                                <div class="col-sm-2 col-form-label"></div>
+                                <div class="col-sm-10">
+                                     
+                                    <button type="submit" type="submit" name="btn_save" id="btn_save"
+                                        class="btn btn-primary   ">Save</button>
+                          
+                                    <a class="btn btn-danger float-right " href="{{ route('user.index') }}">Cancel</a>
+                                    <button id="btn_reset" class="btn btn-default float-right  " style="margin-right: 20px;margin-left: 20px"  >Reset</button>
+                                
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-4  sm-3  ">
+                        <img alt="" id="imgshow"
+                            class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0"
+                            src="{{ URL::asset('assets/admin/img/default/1.jpg') }}">
+                    </div>
                 </div>
             </div>
             <!-- first_name end -->
             <!-- /.card-body -->
             <div class="card-footer">
-                            </div>
+            </div>
             <!-- /.card-footer -->
-       
+
     </div>
     <!-- /.card -->
     </section>
@@ -173,20 +180,17 @@
     <!-- /.card -->
 @endsection
 
- 
- 
+
+
 
 @section('js')
-<script src="{{ URL::asset('assets/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    <!-- Toastr -->
-    <script src="{{ URL::asset('assets/admin/plugins/toastr/toastr.min.js') }}"></script>
-<script src="{{URL::asset('assets/admin/js/custom/validate.js')}}"></script>
-<script src="{{URL::asset('assets/admin/js/custom/content.js')}}"></script>
 
+    <script src="{{ URL::asset('assets/admin/js/custom/validate.js') }}"></script>
+    <script src="{{ URL::asset('assets/admin/js/custom/content.js') }}"></script>
+    <script  >  
+        var emptyimg ="{{ URL::asset('assets/admin/img/default/1.jpg') }}";
+        </script>
 @endsection
 @section('css')
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="{{ URL::asset('assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
-    <!-- Toastr -->
-    <link rel="stylesheet" href="{{ URL::asset('assets/admin/plugins/toastr/toastr.min.css') }}">
+
 @endsection

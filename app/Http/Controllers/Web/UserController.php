@@ -58,9 +58,11 @@ class UserController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(StoreUserRequest $request)
+  public function store(StoreUserRequest $request)//StoreUserRequest
   {
+ 
     $formdata = $request->all();
+   // return  $formdata;
     // return redirect()->back()->with('success_message', $formdata);
     $validator = Validator::make(
       $formdata,
@@ -145,9 +147,6 @@ class UserController extends Controller
       return response()->json($validator);
 
     } else {
-
-
-
       if ($request->hasFile('image')) {
         $file = $request->file('image');
         // $filename= $file->getClientOriginalName();                
@@ -162,7 +161,7 @@ class UserController extends Controller
 
         //'password' => bcrypt($formdata['password']),
         'mobile' => $formdata['mobile'],
-        'role' => $formdata['role'],
+    //    'role' => $formdata['role'],
         'updateuser_id' => Auth::user()->id,
         'is_active' => isset ($formdata["is_active"]) ? 1 : 0,
       ]);

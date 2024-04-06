@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use App\Http\Controllers\Web\StorageController;
 
 class User extends Authenticatable
 {
@@ -61,6 +61,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    protected $appends= ['image_path'];
+    public function getImagePathAttribute(){
+        $conv="";
+        $strgCtrlr = new StorageController(); 
+        if(is_null($this->image) ){
+            $conv =$strgCtrlr->DefaultPath('image'); 
+        }else if($this->image==''){
+            $conv =$strgCtrlr->DefaultPath('image'); 
+        } else {
+            $url = $strgCtrlr->UserPath();
+            $conv =  $url.$this->image;
+        }     
+       
+            return  $conv;
+     }
+
 
     public function createusers(): HasMany
     {
@@ -86,12 +102,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Permission::class);
     }
-    public function notificationUsers(): HasMany
-    {
-        return $this->hasMany(NotificationUser::class);
-    }
-    public function selectedservices(): HasMany
-    {
-        return $this->hasMany(Selectedservice::class,'comment_user_id');
-    }
+    
+   
 }

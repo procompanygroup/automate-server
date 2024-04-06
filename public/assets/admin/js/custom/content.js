@@ -10,7 +10,11 @@ $(document).ready(function () {
 		resetForm();
 		ClearErrors();
 	});
-
+	
+	$('#btn_reset').on('click', function (e) {
+	 	resetForm();
+		ClearErrors();
+	});
 	//{{ route('user.index') }}
 	$('#btn_save').on('click', function (e) {
 		e.preventDefault();
@@ -116,8 +120,8 @@ $(document).ready(function () {
 				// $('#errormsg').html( errorresult );
 				noteError();
 				$.each(response.errors, function (key, val) {
-					$("#" + key + "_error").text(val[0]);
-					$("#" + key).addClass('parsley-error');
+					$("#" + key + "-error").text(val[0]);
+					$("#" + key).addClass('is-invalid');
 					//$('#error').append(key+"-"+ val[0] +"/");
 				});
 
@@ -884,8 +888,8 @@ function noteError() {
 }
 function resetForm() {
 	jQuery('#create_form')[0].reset();
-	$('#image_label').text("اختر ملف الصورة");
-	$('#icon_label').text('اختر ملف SVG');
+	$('#image_label').text("Choose File");
+	//$('#icon_label').text('اختر ملف SVG');
 	$('#imgshow').attr("src", emptyimg);
 	$('#iconshow').attr("src", emptyimg);
 }
