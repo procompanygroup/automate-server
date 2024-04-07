@@ -25,6 +25,10 @@ Route::get('/clear', function() {
     $exitCode = Artisan::call('route:cache');
       return 'ok';
  });
+ Route::get('/storagelink', function() {
+    $exitCode = Artisan::call('storage:link');
+      return 'ok';
+ });
 
 
 //Route::get('/', [AuthenticatedSessionController::class, 'create']);
@@ -40,14 +44,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     
     Route::middleware('role.admin:admin')->group(function () {
-
-       
-
-        Route::resource('user', UserController::class, ['except' => ['update']]);
+                Route::resource('user', UserController::class, ['except' => ['update']]);
         Route::prefix('user')->group(function () {
             Route::post('/update/{id}', [UserController::class, 'update'])->name('user.update');
+            Route::get('/editprofile/{id}', [UserController::class, 'editprofile'])->name('user.editprofile');
+            Route::post('/updateprofile/{id}', [UserController::class, 'updateprofile'])->name('user.updateprofile');
+    
         });
-      
+       
           
  
     });

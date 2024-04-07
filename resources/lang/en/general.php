@@ -22,6 +22,7 @@ return [
     'supervisors'=> 'Supervisors',
  
   'new user' =>'New user',
+  'users' =>'Users',
   'name' => 'Name',
   'manage Accounts' =>'Manage accounts',
   
@@ -45,8 +46,8 @@ return [
   'first_name' => 'الاسم الأول',
   'last_name' => 'الاسم الثاني/الكنية',
   
-  'email' => 'البريد الإلكتروني',
-  'password' => 'كلمة السر',
+  'email' => 'Email',
+  'password' => 'Password',
   'confirm_password' => 'تأكيد كلمة السر',
   'mobile' => 'رقم الهاتف الجوال',
   'birthdate' => 'تاريخ الميلاد',
@@ -87,7 +88,7 @@ return [
  
 'order_for_client' => 'طلب :Name',
 'remember me' => 'Remember me',
-'Forgot your password' => 'نسيت كلمة السر ؟',
+'Forgot your password' => 'Forgot your password?',
 'Reset Password' => 'اعادة ضبط',
 'Are you sure' => 'Are you sure?',
 'download' => 'تحميل', 

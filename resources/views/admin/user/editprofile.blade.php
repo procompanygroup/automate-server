@@ -135,15 +135,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="is_active" class="col-sm-2 col-form-label">Status</label>
-                                <div class="col-sm-10 custom-control custom-switch ">
-                                    <input type="checkbox" class="custom-control-input" id="is_active" name="is_active"
-                                        value="{{ $user->is_active }}" @if ( $user->is_active=='1') @checked(true) @endif >
-                                    <label class="custom-control-label" for="is_active" id="is_active_lbl">Active</label>
-                                    <span id="is_active-error" class="error invalid-feedback"></span>
-                                </div>
-                            </div>
+                      
                             <div class="form-group row">
                                 <div class="col-sm-2 col-form-label"></div>
                                 <div class="col-sm-10">
@@ -161,7 +153,7 @@
                     <div class="col-lg-4  sm-3  ">
                         <img alt="" id="imgshow" style="float: left !important;"
                             class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0"                             
-                            src="@if($user->image==''){{URL::asset('assets/admin/img/default/1.jpg') }}@else {{ $user->fullpathimg }} @endif"
+                            src="{{ $user->image_path }}"
                             >
                     </div>
                 </div>

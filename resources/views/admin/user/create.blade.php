@@ -12,7 +12,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Users</li>
+                            <li class="breadcrumb-item active"><a href= "{{ route('user.index') }}" >{{ __('general.users',[],'en') }}</a></li>   
                         </ol>
                     </div>
                 </div>

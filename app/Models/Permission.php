@@ -13,15 +13,9 @@ class Permission extends Model
         'service_id',
         'allowcomment',
         'allowanswer',
-        'allowsend',
-          
-        
-             
+        'allowsend',            
     ];
-    public function service(): BelongsTo
-    {
-        return $this->belongsTo(Service::class)->withDefault();
-    }
+ 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault();

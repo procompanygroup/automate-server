@@ -4,7 +4,7 @@
     <a href="index3.html" class="brand-link">
       <img src="{{url('assets/admin/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">{{ config('app.name', 'Prevalent Automation') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -12,12 +12,12 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{url('assets/admin/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{auth()->user()->image_path}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          @if(Session::has('loguser'))
-          <a href="#" class="d-block">{{(Session::get('loguser'))->name}}</a>
-          @endif
+      
+          <a href="{{route('user.editprofile',auth()->user()->id)}}" class="d-block">{{auth()->user()->full_name}}</a>
+          
         </div>
       </div>
 

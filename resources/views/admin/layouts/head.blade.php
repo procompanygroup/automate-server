@@ -1,8 +1,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  @yield('page-title')
-  <title>AdminLTE 3 | Dashboard</title>
+
+  <title> @yield('page-title') | {{ config('app.name', 'Prevalent Automation') }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="{{URL::asset('assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}"> --}}
   <!-- JQVMap -->
   {{-- <link  href="{{URL::asset('assets/admin/plugins/jqvmap/jqvmap.min.css')}}"> --}}
-  @yield('showmessagecss')
+ 
   @yield('css')
       <!-- SweetAlert2 -->
       <link rel="stylesheet" href="{{ URL::asset('assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">

@@ -86,7 +86,7 @@ class UserController extends Controller
       $newObj->email = $formdata['email'];
       $newObj->password = bcrypt($formdata['password']);
       $newObj->mobile = $formdata['mobile'];
-     // $newObj->role = $formdata['role'];
+      $newObj->role = 'admin';
       //   $newObj->is_active = $formdata['is_active'];
       $newObj->createuser_id = Auth::user()->id;
       $newObj->updateuser_id = Auth::user()->id;
@@ -186,12 +186,14 @@ class UserController extends Controller
 
       return redirect()->route('admin');
     } else {
-      $url = url(Storage::url($this->path)) . '/';
       $user = User::find($id);
+      /*
+      $url = url(Storage::url($this->path)) . '/';
+     
       if ($user->image != "") {
         $user->fullpathimg = $url . $user->image;
       }
-
+*/
       return view('admin.user.editprofile', ['user' => $user]);
     }
 
@@ -240,7 +242,7 @@ class UserController extends Controller
           'mobile' => $formdata['mobile'],
         //  'role' => $formdata['role'],
           'updateuser_id' => Auth::user()->id,
-          'is_active' => isset ($formdata["is_active"]) ? 1 : 0,
+         // 'is_active' => isset ($formdata["is_active"]) ? 1 : 0,
         ]);
 
         if (isset ($formdata['password'])) {

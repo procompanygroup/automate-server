@@ -61,7 +61,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    protected $appends= ['image_path'];
+    protected $appends= ['image_path','full_name'];
     public function getImagePathAttribute(){
         $conv="";
         $strgCtrlr = new StorageController(); 
@@ -77,7 +77,10 @@ class User extends Authenticatable
             return  $conv;
      }
 
-
+ 
+     public function getFullNameAttribute(){     
+            return  $this->first_name.' '. $this->last_name ;
+     }
     public function createusers(): HasMany
     {
         return $this->hasMany(User::class,'createuser_id');
