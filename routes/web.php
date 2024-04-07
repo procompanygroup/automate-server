@@ -29,6 +29,13 @@ Route::get('/clear', function() {
     $exitCode = Artisan::call('storage:link');
       return 'ok';
  });
+ Route::get('/cashclear', function() {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('view:clear');
+   
+      return 'ok';
+ });
 
 
 //Route::get('/', [AuthenticatedSessionController::class, 'create']);
