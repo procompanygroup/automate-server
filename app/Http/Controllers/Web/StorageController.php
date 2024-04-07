@@ -13,7 +13,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use PhpParser\Node\Expr\Cast\Object_;
 use Ramsey\Uuid\Type\Decimal;
-
+use Illuminate\Support\Facades\URL;
 class StorageController extends Controller
 {
 
@@ -66,7 +66,7 @@ class StorageController extends Controller
     $url = "";  
   //  $url = Storage::url($this->path['users'])  . '/';
     //  $url = url(Storage::url($this->path['users'])) . '/';
-      $url = url(storage_path('app/public') . '/' . $this->path['users']). '/'; 
+      $url = URL::asset( 'storage/app/public' . '/' . $this->path['users']). '/'; 
           return $url;
   }
    
