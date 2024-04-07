@@ -64,7 +64,9 @@ class StorageController extends Controller
   public function UserPath()
   {  
     $url = "";  
-      $url = url(Storage::url($this->path['users'])) . '/';
+  //  $url = Storage::url($this->path['users'])  . '/';
+    //  $url = url(Storage::url($this->path['users'])) . '/';
+      $url = url(storage_path('app/public') . '/' . $this->path['users']). '/'; 
           return $url;
   }
    

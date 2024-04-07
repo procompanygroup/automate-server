@@ -288,9 +288,11 @@ class UserController extends Controller
   public function storeImage($file, $id)
   {
     $imagemodel = User::find($id);
+    $strgCtrlr = new StorageController();
+    $path = $strgCtrlr->path['users'];
     $oldimage = $imagemodel->image;
     $oldimagename = basename($oldimage);
-    $oldimagepath = $this->path . '/' . $oldimagename;
+    $oldimagepath = $path . '/' . $oldimagename;
     //save photo
 
     if ($file !== null) {
@@ -299,15 +301,15 @@ class UserController extends Controller
       $manager = new ImageManager(new Driver());
       $image = $manager->read($file);
       $image = $image->toWebp(75);
-      if (!File::isDirectory(Storage::url('/' . $this->path))) {
-        Storage::makeDirectory('public/' . $this->path);
+      if (!File::isDirectory(Storage::url('/' .$path))) {
+        Storage::makeDirectory('public/' . $path);
       }
-      $image->save(storage_path('app/public') . '/' . $this->path . '/' . $filename);
-      //   $url = url('storage/app/public' . '/' . $this->path . '/' . $filename);
+      $image->save(storage_path('app/public') . '/' . $path . '/' . $filename);
+      //   $url = url('storage/app/public' . '/' . $path . '/' . $filename);
       User::find($id)->update([
         "image" => $filename
       ]);
-      Storage::delete("public/" . $this->path . '/' . $oldimagename);
+      Storage::delete("public/" .$path . '/' . $oldimagename);
     }
     return 1;
   }
