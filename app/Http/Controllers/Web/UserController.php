@@ -301,9 +301,9 @@ class UserController extends Controller
       $manager = new ImageManager(new Driver());
       $image = $manager->read($file);
       $image = $image->toWebp(75);
-      if (!File::isDirectory(Storage::url('/' .$path))) {
-        Storage::makeDirectory('public/' . $path);
-      }
+      // if (!File::isDirectory(Storage::url('/' .$path))) {
+      //   Storage::makeDirectory('public/' . $path);
+      // }
       $image->save(storage_path('app/public') . '/' . $path . '/' . $filename);
       //   $url = url('storage/app/public' . '/' . $path . '/' . $filename);
       User::find($id)->update([
