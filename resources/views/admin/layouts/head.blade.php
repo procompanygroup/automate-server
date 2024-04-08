@@ -6,6 +6,8 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
+  <!-- Favicon -->
+<link rel="icon" href="{{URL::asset('assets/admin/img/brand/logo-title.svg')}}" type="image/x-icon"/>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{URL::asset('assets/admin/plugins/fontawesome-free/css/all.min.css')}}">
  
@@ -21,7 +23,7 @@
  
   @yield('css')
       <!-- SweetAlert2 -->
-      <link rel="stylesheet" href="{{ URL::asset('assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
       <!-- Toastr -->
       <link rel="stylesheet" href="{{ URL::asset('assets/admin/plugins/toastr/toastr.min.css') }}">
   <!-- Theme style -->
