@@ -40,6 +40,8 @@ class StorageController extends Controller
     //empty
     $this->path['default'] = 'images/default';
     $this->iconpath['default'] = 'images/default/icons';
+    $this->path['languages'] = 'images/languages';
+   
     //value
  
     //answer
@@ -65,11 +67,26 @@ class StorageController extends Controller
   {  
     $url = "";  
   //  $url = Storage::url($this->path['users'])  . '/';
-    //  $url = url(Storage::url($this->path['users'])) . '/';
-      $url = URL::asset( 'storage/app/public' . '/' . $this->path['users']). '/'; 
+    // $url = url(Storage::url($this->path['users'])) . '/';
+     if(!File::isDirectory(Storage::url('/images')))  {
+      $url = url(Storage::url($this->path['users'])) . '/';
+     }
+     else{
+      $url = url('public'.Storage::url($this->path['users'])) . '/';
+     }
+   //  $url = url('public'.Storage::url($this->path['users'])) . '/';//temp
+   //   $url = url(Storage::url( 'storage/app/public' ) ). '/'. $this->path['users']. '/'; 
           return $url;
   }
-   
+  public function LanguagePath()
+  {  
+    $url = "";  
+  //  $url = Storage::url($this->path['users'])  . '/';
+     $url = url(Storage::url($this->path['languages'])) . '/';
+     // $url = URL::asset( 'storage/app/public' . '/' . $this->path['languages']). '/'; 
+  //   $url = URL::asset( 'storage/app/public' . '/' . $this->path['languages']). '/'; 
+          return $url;
+  }
 
   public function DefaultPath($type)
   { //image icon
