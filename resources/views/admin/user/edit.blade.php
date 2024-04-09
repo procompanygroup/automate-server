@@ -161,7 +161,7 @@
                     <div class="col-lg-4  sm-3  ">
                         <img alt="" id="imgshow" style="float: left !important;"
                             class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0"                             
-                            src="@if($user->image==''){{URL::asset('assets/admin/img/default/1.jpg') }}@else {{ $user->fullpathimg }} @endif"
+                            src="{{ $user->image_path }}"
                             >
                     </div>
                 </div>
@@ -169,6 +169,7 @@
             <!-- first_name end -->
             <!-- /.card-body -->
             <div class="card-footer">
+             
             </div>
             <!-- /.card-footer -->
 
