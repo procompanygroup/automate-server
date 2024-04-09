@@ -68,7 +68,7 @@ class StorageController extends Controller
     $url = "";  
   //  $url = Storage::url($this->path['users'])  . '/';
     // $url = url(Storage::url($this->path['users'])) . '/';
-     if(File::isDirectory(Storage::url('/images')))  {
+     if(File::exists(base_path('public\index.php')))  {
       $url = url(Storage::url($this->path['users'])) . '/';
      }
      else{
