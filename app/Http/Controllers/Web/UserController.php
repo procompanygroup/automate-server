@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-  public $path = 'images/users';
+ // public $path = 'images/users';
   /**
    * Display a listing of the resource.
    */
@@ -119,13 +119,11 @@ class UserController extends Controller
    */
   public function edit($id)
   {
-    $url = url(Storage::url($this->path)) . '/';
-    $user = User::find($id);
-    if ($user->image != "") {
-      $user->fullpathimg = $url . $user->image;
-    }
 
-    //
+    
+    $user = User::find($id);
+    
+ 
     return view('admin.user.edit', ['user' => $user]);
   }
 
@@ -277,7 +275,9 @@ class UserController extends Controller
     //delete user
     $user = User::find($id);
     $oldimagename = $user->image;
-    Storage::delete("public/" . $this->path . '/' . $oldimagename);
+    $strgCtrlr = new StorageController();
+    $path = $strgCtrlr->path['users'];
+    Storage::delete("public/" .$path. '/' . $oldimagename);
     if (!($user === null)) {
       User::find($id)->delete();
     }
