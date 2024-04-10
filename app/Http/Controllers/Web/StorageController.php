@@ -82,9 +82,13 @@ class StorageController extends Controller
   {  
     $url = "";  
   //  $url = Storage::url($this->path['users'])  . '/';
-     $url = url(Storage::url($this->path['languages'])) . '/';
-     // $url = URL::asset( 'storage/app/public' . '/' . $this->path['languages']). '/'; 
-  //   $url = URL::asset( 'storage/app/public' . '/' . $this->path['languages']). '/'; 
+     
+     if(File::exists(base_path('public\index.php')))  {
+      $url = url(Storage::url($this->path['languages'])) . '/';
+     }
+     else{
+      $url = url('public'.Storage::url($this->path['languages'])) . '/';
+     }
           return $url;
   }
 
@@ -101,7 +105,7 @@ class StorageController extends Controller
 
   }
   
- 
+ /*
   public static function CalcPercentVal($percent,$total)
   {
       //10% 200->200*10/100
@@ -132,7 +136,7 @@ class StorageController extends Controller
       }
       return $minutes;
   }
-  
+ */ 
   
   
 }

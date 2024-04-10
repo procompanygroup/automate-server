@@ -92,6 +92,9 @@ return [
 'manage orders'=>'ادارة الطلبات',
 'general setting' => 'اعدادات عامة',
 'detail' => 'تفاصيل',
+'language'=> 'اللغة',
+'active' => 'مفعل',
+'notactive' => 'غير مفعل',
 ];
 /*
 

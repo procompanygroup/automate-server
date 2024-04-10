@@ -1,4 +1,7 @@
 @extends('admin.layouts.layout')
+@section('page-title')
+{{ __('general.language',[],'en') }}
+@endsection
 @section('content')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -7,13 +10,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Languages</h1>
+            <h1></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ url('/cpanel') }}">Home</a></li>
-              <li class="breadcrumb-item active">Languages</li>
-              <li class="breadcrumb-item active">Language</li>
+              <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
+              <li class="breadcrumb-item active">{{ __('general.language',[],'en') }}</li>
             </ol>
           </div>
         </div>
@@ -26,10 +28,10 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Show Languages</h3>
+          <h3 class="card-title">Language</h3>
 
           <div class="card-tools">
-          <a class="btn btn-info btn-sm" href="{{ url('/cpanel/language/add') }}">
+          <a class="btn btn-info btn-sm" href="{{ route('language.create')}}">
                               <i class="fas fa-plus">
                               </i>
                              New
@@ -39,46 +41,49 @@
              
           </div>
         </div>
-        <div class="card-body" id="post-content">
+        <div class="card-body">
         <table id="example1" class="table table-bordered table-striped table-hover">
       
                 <thead>
                 <tr>
                   <th>Code</th>
-                  <th>Language</th>                 
+                  <th>Language</th>
                   <th>Status</th>
+                  <th>Default</th>
+                
                   <th></th>                   
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($languages as $language)
-            
+                @foreach ($List as $item)
                 <tr>
-                  <td>{{ $language->code }}</td>
-                  <td>{{ $language->name }}</td>
-               
-                  <td>@if($language->status==1)Published @else Draft @endif</td>
-                  <td>    <a class="btn btn-info btn-sm" href="{{url('/cpanel/language/edit',[$language->id]) }}">
+                  <td>{{ $item->code }}</td>
+                  <td>{{ $item->name }}</td>
+                  <td>{{ $item->status_conv }}</td>
+                  <td>{{ $item->is_default_conv }}</td>
+                               
+                    
+                  <td>    <a class="btn btn-info btn-sm" href="{{route('language.edit', $item->id)}}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                           </a>
-                          <a class="btn btn-danger btn-sm"  href="{{url('/cpanel/language/delete',[$language->id]) }}">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>  </td>                
+                          <form action="{{route('language.destroy', $item->id)}}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" id="del-{{$item->id}}" class="btn btn-danger btn-sm delete"  data-toggle="modal" data-target="#modal-delete"   title="Delete">   <i class="fas fa-trash">
+                            </i>Delete</button>
+</form>
+                           </td>                
                 </tr>
 @endforeach
            
                 </tbody>            
               </table>
-               
         </div>
-     
         <!-- /.card-body -->
         <div class="card-footer">
-          Footer
+       
         </div>
         <!-- /.card-footer-->
       </div>
@@ -88,67 +93,51 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+	 
 
+  <div class="modal fade" id="modal-delete">
+    <div class="modal-dialog  modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center" style="padding-bottom: 5px;	padding-top: 30px;">
+          <h4 class="modal-title">{{ __('general.Are you sure',[],'en') }}</h4>
+             </div>
+        <div class="modal-footer justify-content-between" style="border-top: 0px solid  ">
+          <button class="btn ripple btn-secondary"  id="btn-cancel-modal"  data-dismiss="modal" type="button">{{ __('general.cancel',[],'en') }}</button>
+      
+          <button class="btn ripple btn-danger " id="btn-modal-del" type="button">{{ __('general.delete',[],'en') }}</button>
+           </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
 @endsection
 
-@section('footerscript')
+@section('js')
  <!-- DataTables -->
-<script src="{{url('admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{url('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{url('admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{url('admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
- 
+<script src="{{ URL::asset('assets/admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ URL::asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ URL::asset('assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{ URL::asset('assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{URL::asset('assets/admin/js/custom/delete.js')}}"></script>
 <!-- page script -->
 <script>
   $(function () {
     $("#example1").DataTable({
-      "paging": false,
+      "paging": true,
       "responsive": true,     
       "info": true,
       "autoWidth": false,
     });
     $('#example2').DataTable({
-      "paging": false,
+      "paging": true,
       "lengthChange": false,
     
       "ordering": true,
       "info": true,
       "autoWidth": false,
       "responsive": true,
-    });
-    $('#btn_search').on('click', function(e) {//edit_image
-    e.preventDefault();
-    if($('#text_search').val()==''){
-      window.location.href = '{{url("cpanel/language/view")}}'; 
-    }else{
-      var txt= $('#text_search').val();
-var urlget='{{url("cpanel/language/search")}}';
-        $.ajax({
-          //  url: "{{url('cpanel/category/updatesort/',["+parentid+"])}}",   
-          url: urlget,              
-          type: "Get",         
-          data:"text="+ txt,          
-            success: function(data){
-              $('#post-content').html(data);
-          
-               /* if(data.length==0){
-                $('#errormsg').html('No Data');
-               }else{
-               
-                $('#title_edit').attr('value', data.title);
-                
-               } */
-        
-             // $('.alert').html(result.success);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-             alert(jqXHR.responseText);
-              // $('#errormsg').html(jqXHR.responseText);
-              $('#errormsg').html("Error");
-            }        
-        });
-    }   
-
     });
   });
 </script>

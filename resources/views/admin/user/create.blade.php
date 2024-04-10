@@ -1,4 +1,7 @@
 @extends('admin.layouts.layout')
+@section('page-title')
+{{ __('general.users',[],'en') }}
+@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

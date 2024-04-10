@@ -29,22 +29,22 @@
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Edit Language</h3>
+                    <h3 class="card-title">Add Language</h3>
                 </div>
                 <!-- form start -->
                 <div class="card-body  row">
                     <div class="col-lg-8">
-                      <form class="form-horizontal" name="create_form" method="POST" action="{{route('language.update', $item->id)}}" 
-                        enctype="multipart/form-data" id="create_form">
+                        <form class="form-horizontal" name="create_form" method="POST" action="{{ url('admin/language') }}"
+                            enctype="multipart/form-data" id="create_form">
                             @csrf
 
-                       
+                            <!-- first_name start -->
 
                             <div class="form-group row">
                                 <label for="code" class="col-sm-2 col-form-label">Code</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="code" id="code"
-                                        placeholder="* Code" value="{{ $item->code }}">
+                                        placeholder="* Code" value="">
 
                                     <span id="code-error" class="error invalid-feedback"></span>
 
@@ -55,7 +55,7 @@
                                 <label for="name" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control " name="name" id="name"
-                                        placeholder="* Name" value="{{ $item->name }}">
+                                        placeholder="* Name" value="">
                                     <span id="name-error" class="error invalid-feedback"></span>
 
                                 </div>
@@ -82,7 +82,7 @@
                                 <label for="status" class="col-sm-2 col-form-label">Status</label>
                                 <div class="col-sm-10 custom-control custom-switch ">
                                     <input type="checkbox" class="custom-control-input" id="status" name="status"
-                                    value="{{ $item->status }}" @if ( $item->status=='1') @checked(true) @endif >
+                                        value="1" checked="checked">
                                     <label class="custom-control-label" for="status" id="status_lbl">Active</label>
                                     <span id="status-error" class="error invalid-feedback"></span>
                                 </div>
@@ -91,8 +91,7 @@
                             <div class="form-group row">
                               <label for="is_default" class="col-sm-2 col-form-label">Default</label>
                               <div class="col-sm-10 custom-control custom-switch ">
-                                  <input type="checkbox" class="custom-control-input" id="is_default" name="is_default"
-                                  value="{{ $item->is_default }}" @if ( $item->is_default=='1') @checked(true) @endif >
+                                  <input type="checkbox" class="custom-control-input" id="is_default" name="is_default" >
                                   <label class="custom-control-label" for="is_default" id="is_default_lbl">Default</label>
                                   <span id="is_default-error" class="error invalid-feedback"></span>
                               </div>
@@ -101,7 +100,7 @@
                                 <div class="col-sm-2 col-form-label"></div>
                                 <div class="col-sm-10">
                                      
-                                    <button type="submit" type="submit" name="btn_update_user" id="btn_update_user"
+                                    <button type="submit" type="submit" name="btn_save" id="btn_save"
                                         class="btn btn-primary">Save</button>
                           
                                     <a class="btn btn-danger float-right " href="{{ route('language.index') }}">Cancel</a>
@@ -111,10 +110,10 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-lg-4  sm-3 ">
+                    <div class="col-lg-4  sm-3  ">
                         <img alt="" id="imgshow"
                             class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0"
-                            src="{{ $item->image_path }}">
+                            src="{{ URL::asset('assets/admin/img/default/1.jpg') }}">
                     </div>
                 </div>
             </div>

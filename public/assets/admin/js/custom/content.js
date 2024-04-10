@@ -12,6 +12,7 @@ $(document).ready(function () {
 	});
 	
 	$('#btn_reset').on('click', function (e) {
+		e.preventDefault();
 	 	resetForm();
 		ClearErrors();
 	});
@@ -459,6 +460,18 @@ $(document).ready(function () {
 			return true;
 		}
 	});
+
+	//language
+ 
+$("#code").focusout(function (e) {
+	if (!validatempty($(this))) {
+		return false;
+	} else {
+
+		return true;
+	}
+});
+	//end lang
 	$("#gender").focusout(function (e) {
 		if (!validatempty($(this))) {
 			return false;

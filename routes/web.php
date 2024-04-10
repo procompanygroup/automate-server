@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
  
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Web\UserController;
- 
+use App\Http\Controllers\Web\LanguageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +60,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     
         });
        
-          
+        Route::resource('language', LanguageController::class, ['except' => ['update']]);
+        Route::prefix('language')->group(function () {
+            Route::post('/update/{id}', [LanguageController::class, 'update'])->name('language.update');
+            
+        });  
  
     });
 

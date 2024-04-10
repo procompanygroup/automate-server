@@ -63,8 +63,9 @@ return [
   'choose role'=>'اختر المهمة..',
   'admin'=>'مدير',
   'super'=>'مشرف',
-  'yes' => 'نعم',
-  'no'=> 'لا',
+  'yes' => 'Yes',
+  'no'=> 'No',
+
 
  
    // table
@@ -95,7 +96,9 @@ return [
 'manage orders'=>'ادارة الطلبات',
 'general setting' => 'اعدادات عامة',
 'detail' =>'Detail',
- 
+'language'=>'Language',
+'active' => 'Active',
+'notactive' => 'Not active',
 /*
 
   {{ __('general.welcome_name',['Name'=>'احمد']) }}
