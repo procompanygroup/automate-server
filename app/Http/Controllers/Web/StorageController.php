@@ -21,6 +21,7 @@ class StorageController extends Controller
   public $path = [];
   public $iconpath = [];
   public $recordpath = [];
+  public $vidpath = [];
   private $defaultimage = "default.png";
   private $defaultsvg = "default.svg";
   public function __construct()
@@ -41,7 +42,8 @@ class StorageController extends Controller
     $this->path['default'] = 'images/default';
     $this->iconpath['default'] = 'images/default/icons';
     $this->path['languages'] = 'images/languages';
-   
+    $this->path['projects'] = 'images/projects';
+    $this->vidpath['projects'] = 'images/projects/video';
     //value
  
     //answer
@@ -96,9 +98,51 @@ class StorageController extends Controller
   { //image icon
     $url = "";
     if ($type == "image") {
-      $url = url(Storage::url($this->path['default'])) . '/' . $this->defaultimage;
+
+      if(File::exists(base_path('public\index.php')))  {
+        $url = url(Storage::url($this->path['default'])) . '/' . $this->defaultimage;
+       }
+       else{
+        $url = url('public'.Storage::url($this->path['default'])) . '/' . $this->defaultimage;
+      
+       }
+      
     } else {
-      $url = url(Storage::url($this->iconpath['default'])) . '/' . $this->defaultsvg;
+      if(File::exists(base_path('public\index.php')))  {
+        $url = url(Storage::url($this->iconpath['default'])) . '/' . $this->defaultsvg;
+       }
+       else{
+        
+        $url = url('public'.Storage::url($this->iconpath['default'])) . '/' . $this->defaultsvg;
+       }
+  
+    }
+    return $url;
+
+
+  }
+
+  public function ProjectPath($type)
+  { //image vid
+    $url = "";
+    if ($type == "image") {
+
+      if(File::exists(base_path('public\index.php')))  {
+        $url = url(Storage::url($this->path['projects'])) . '/'  ;
+       }
+       else{
+        $url = url('public'.Storage::url($this->path['projects'])) . '/' ;
+      
+       }
+      
+    } else {
+      if(File::exists(base_path('public\index.php')))  {
+        $url = url(Storage::url($this->vidpath['projects'])) . '/'  ;
+       }
+       else{        
+        $url = url('public'.Storage::url($this->vidpath['projects'])) . '/'  ;
+       }
+  
     }
     return $url;
 

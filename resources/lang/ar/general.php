@@ -95,6 +95,7 @@ return [
 'language'=> 'اللغة',
 'active' => 'مفعل',
 'notactive' => 'غير مفعل',
+'projects' => 'المشاريع',
 ];
 /*
 

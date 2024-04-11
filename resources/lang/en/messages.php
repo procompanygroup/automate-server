@@ -41,4 +41,5 @@ return [
 'amount_bigger' =>'amount is bigger',
 'Not allowed'=>'Not allowed',
 'faild'=>'Faild ',
+
 ];

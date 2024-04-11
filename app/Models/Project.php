@@ -18,5 +18,16 @@ class Project extends Model
 'status',
 'category_id',
 'notes',
+'metakey',
     ];
+    protected $appends= ['status_conv'];
+    public function getStatusConvAttribute(){
+        $conv="";
+       if($this->status==1){
+        $conv=__('general.active',[],'en');
+       }else{
+        $conv=__('general.notactive',[],'en');
+       }      
+            return  $conv;
+     }
 }

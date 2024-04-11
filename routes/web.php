@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\LanguageController;
+use App\Http\Controllers\Web\ProjectController;
 
 
 /*
@@ -63,6 +64,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         Route::resource('language', LanguageController::class, ['except' => ['update']]);
         Route::prefix('language')->group(function () {
             Route::post('/update/{id}', [LanguageController::class, 'update'])->name('language.update');
+            
+        });  
+        Route::resource('project', ProjectController::class, ['except' => ['update']]);
+        Route::prefix('project')->group(function () {
+            Route::post('/update/{id}', [ProjectController::class, 'update'])->name('project.update');
             
         });  
  

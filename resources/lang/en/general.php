@@ -99,6 +99,7 @@ return [
 'language'=>'Language',
 'active' => 'Active',
 'notactive' => 'Not active',
+'projects' => 'Projects',
 /*
 
   {{ __('general.welcome_name',['Name'=>'احمد']) }}
