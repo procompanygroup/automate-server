@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\LanguageController;
 use App\Http\Controllers\Web\ProjectController;
 
+use App\Http\Controllers\Web\LangProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::post('/update/{id}', [ProjectController::class, 'update'])->name('project.update');
             
         });  
+        
+        Route::prefix('langproject')->group(function () {
+            Route::post('/update/{id}', [LangProjectController::class, 'update'])->name('langproject.update');
+            
+        });
  
     });
 

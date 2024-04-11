@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Project;
+namespace App\Http\Requests\LangProject;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProjectRequest extends FormRequest
+class UpdateLangProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,12 +19,14 @@ class UpdateProjectRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-
+    
+  
      public function rules(): array
      {
    
         return[
-        'title'=>'required|string', 
+        'title_trans'=>'required|string', 
+        'lang_id'=>'required', 
         ];   
      
      }
@@ -39,7 +41,7 @@ class UpdateProjectRequest extends FormRequest
  //    $minMobileLength=10;
  //    $maxMobileLength=15;
     return[
-      'title.required'=>__('messages.this field is required',[],'en') ,
+      'title_trans.required'=>__('messages.this field is required',[],'en') ,
      // 'title.alpha_num'=>'The title format must be alphabet',
      //  'code.regex'=>'The Code format must be alphabet',
      //  'code.unique'=>'The Code is already exist',

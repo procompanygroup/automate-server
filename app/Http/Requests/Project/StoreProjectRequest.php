@@ -37,12 +37,12 @@ public function messages(): array
 //    $minMobileLength=10;
 //    $maxMobileLength=15;
    return[
-     'code.required'=>'The Code is required',
+     'title.required'=>__('messages.this field is required',[],'en') ,
     // 'title.alpha_num'=>'The title format must be alphabet',
-     'code.regex'=>'The Code format must be alphabet',
-     'code.unique'=>'The Code is already exist',
-     'name.required'=>'The Name is required',
-     'image'=>__('messages.file must be image',[],'en') ,
+    //  'code.regex'=>'The Code format must be alphabet',
+    //  'code.unique'=>'The Code is already exist',
+    //  'name.required'=>'The Name is required',
+    //  'image'=>__('messages.file must be image',[],'en') ,
     ];
     
 }

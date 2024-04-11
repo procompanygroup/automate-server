@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Web\StorageController;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Language extends Model
 {
@@ -54,5 +55,8 @@ class Language extends Model
        }      
             return  $conv;
      }
-
+     public function langprojects(): HasMany
+     {
+         return $this->hasMany(LangProject::class,'lang_id');
+     }
 }

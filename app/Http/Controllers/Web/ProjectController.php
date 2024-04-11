@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Language;
 use File;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -55,24 +56,35 @@ class ProjectController extends Controller
       return response()->json($validator);
 
     } else {
+
         $tmpslug="";
         if ($formdata["slug"] == "" || empty($formdata["slug"])) {
             $tmpslug = $formdata["title"];
         } else {
             $tmpslug = $formdata["slug"];
         }
+        $promodel=Project::where('slug', $tmpslug )->first();
+        if (!is_null($promodel)) {
+            // error
+           return response()->json([
+             "errors" =>  ["slug" => [__('messages.this field exist',[],'en')]]          
+           ], 422);      
         
-      $newObj = new Project;
-   
-      $newObj->title = $formdata['title'];
-      $newObj->slug =Str::slug($tmpslug);;  
-      $newObj->metakey = $formdata['metakey'];   
-      $newObj->status = isset ($formdata["status"]) ? 1 : 0;
+         } else{        
+            
+          $newObj = new Project;
+       
+          $newObj->title = $formdata['title'];
+          $newObj->slug =Str::slug($tmpslug);;  
+          $newObj->metakey = $formdata['metakey'];   
+          $newObj->status = isset ($formdata["status"]) ? 1 : 0;
+        
+          $newObj->save();   
     
-      $newObj->save();
+          return response()->json("ok");
 
+         }
 
-      return response()->json("ok");
     }
     }
 
@@ -90,9 +102,13 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $item = Project::find($id);
- 
+ $lang_list=Language::orderByDesc('is_default')->with(
+ ['langprojects' => function ($q) use ($id) {
+    $q->where('project_id', $id) ;
+}])->get();
         //
-        return view("admin.project.edit", ["item" => $item]);
+       // return $lang_list;
+        return view("admin.project.edit", ["item" => $item,'lang_list'=>$lang_list]);
     }
 
     /**
@@ -111,28 +127,40 @@ class ProjectController extends Controller
       return response()->json($validator);
 
     } else {
-      if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        // $filename= $file->getClientOriginalName();                
-        $this->storeImage($file, $id);
-      }
-      //reset all to 0
-  $isdefault=0;
-  if(isset ($formdata["is_default"])){
-    $isdefault=1;
-    Project::query()->update([       
-        'is_default' =>0,
-      ]);
-  }
-      Project::find($id)->update([
-        //'user_name'=>$formdata['user_name'],
-        'code' => $formdata['code'],
-        'name' => $formdata['name'],
-        'status' => isset ($formdata["status"]) ? 1 : 0,
-        'is_default' => $isdefault,
-      ]);
-  
-      return response()->json("ok");
+        //check if slug exist
+        $tmpslug="";
+        if ($formdata["slug"] == "" || empty($formdata["slug"])) {
+            $tmpslug = $formdata["title"];
+        } else {
+            $tmpslug = $formdata["slug"];
+        }
+        $promodel=Project::where('slug', $tmpslug )->whereNot('id',$id)->first();
+        if (!is_null($promodel)) {
+            // error
+           return response()->json([
+             "errors" =>  ["slug" => [__('messages.this field exist',[],'en')]]          
+           ], 422);      
+        
+         } else{
+ 
+//    $tmpslug="";
+//    if ($formdata["slug"] == "" || empty($formdata["slug"])) {
+//        $tmpslug = $formdata["title"];
+//    } else {
+//        $tmpslug = $formdata["slug"];
+//    }
+   Project::find($id)->update([
+     //'user_name'=>$formdata['user_name'],
+     'title' => $formdata['title'],
+     'metakey' => $formdata['metakey'],
+     'slug' =>Str::slug($tmpslug),
+   
+     'status' => isset ($formdata["status"]) ? 1 : 0,      
+   ]);
+
+   return response()->json("ok");
+         }
+   
     }
     }
 

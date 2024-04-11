@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
+ 
 class Project extends Model
 {
     use HasFactory;
@@ -29,5 +30,14 @@ class Project extends Model
         $conv=__('general.notactive',[],'en');
        }      
             return  $conv;
+     }
+//
+     public function langprojects(): HasMany
+     {
+         return $this->hasMany(LangProject::class);
+     }
+     public function mediaprojects(): HasMany
+     {
+         return $this->hasMany(MediaProject::class);
      }
 }
