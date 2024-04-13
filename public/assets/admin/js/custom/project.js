@@ -129,7 +129,11 @@ $(document).ready(function () {
         var formid = $(this).closest('form').attr("id");
         sendform('#'+formid);
         });
-
+		$('#btn_create_image').on('click', function (e) {
+			e.preventDefault();	 
+			var formid = $(this).attr("form");
+			sendform('#'+formid);
+			});
         function sendform(formid) {
             startLoading();
 		ClearErrors();
@@ -196,4 +200,32 @@ function noteError() {
 	toastr.error("Faild");	
 	 
 }
+$("#images").focusout(function (e) {
+	if (!validatempty($(this))) {
+		return false;
+	} else {
+
+		return true;
+	}
+});
+
+$("#images").on("change", function () {
+	imageChangeForm("#images", "#image_label", "#imgshow");
+});
+
+function imageChangeForm(btn_id, upload_label, imageId) {
+	/* Current this object refer to input element */
+	var $input = $(btn_id);
+	var reader = new FileReader();
+
+	reader.onload = function () {
+		$(imageId).attr("src", reader.result);
+		//   var filename = $('#photo_edit')[0].files.length ? ('#photo_edit')[0].files[0].name : "";
+		var filename = $(btn_id).val().split('\\').pop();
+		$(upload_label).text(filename);
+	}
+	reader.readAsDataURL($input[0].files[0]);
+
+}
+
 });

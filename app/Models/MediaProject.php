@@ -17,6 +17,17 @@ class MediaProject extends Model
         'notes',
               
     ];
+
+    protected $appends= ['media_type'];
+    public function getMediaTypeAttribute(){
+        $conv="";
+       if($this->mediastore){
+        $conv=$this->mediastore->type;
+       
+    }    
+            return  $conv;
+     }
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class)->withDefault();

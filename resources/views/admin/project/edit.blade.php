@@ -84,8 +84,7 @@
                                         class="btn btn-primary">Save</button>
 
                                     <a class="btn btn-danger float-right " href="{{ route('project.index') }}">Cancel</a>
-                                    <button id="btn_reset" class="btn btn-default float-right  "
-                                        style="margin-right: 20px;margin-left: 20px">Reset</button>
+                                  
 
                                 </div>
                             </div>
@@ -172,7 +171,58 @@
                              
                           </div>
                           <div class="tab-pane fade" id="custom-tabs-one-media" role="tabpanel" aria-labelledby="custom-tabs-one-media-tab">
-                            Media Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam. 
+                             <p >Edit Media</p> 
+                             <div class="card card-primary card-outline card-outline-tabs">
+                              <div class="card-header p-0 border-bottom-0">
+                                <ul class="nav nav-tabs" id="custom-tabs-four-media" role="tablist">
+                                  <li class="nav-item">
+                                    <a class="nav-link active" id="custom-tabs-four-images-tab" data-toggle="pill" href="#custom-tabs-four-images" role="tab" aria-controls="custom-tabs-four-images" aria-selected="true">Images</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-four-video-tab" data-toggle="pill" href="#custom-tabs-four-video" role="tab" aria-controls="custom-tabs-four-video" aria-selected="false">Video</a>
+                                  </li>
+                                  
+                                </ul>
+                              </div>
+                              <div class="card-body">
+                                <div class="tab-content" id="custom-tabs-four-tabContent">
+                                  <div class="tab-pane fade show active" id="custom-tabs-four-images" role="tabpanel" aria-labelledby="custom-tabs-four-images-tab">
+                                  
+                                    <div class="card-header">
+                                      <h3 class="card-title"></h3>
+                            
+                                      <div class="card-tools">
+                                   
+                                                      <button type="button"  class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-newimage">
+                                                        <i class="fas fa-plus">
+                                                        </i>
+                                                       New
+                                                      </button>
+                                       
+                                         
+                                      </div>
+                                    </div>
+                                    <div class="row" style="margin-top:20px; ">
+                                      @foreach ($item->mediaprojects->where('media_type','image')  as $itemimage)
+                                      <div class="col-sm-2">
+                                        <a href="#" data-toggle="lightbox" data-title="{{ $itemimage->mediastore->caption }}" data-gallery="gallery">
+                                          <img src="{{$itemimage->mediastore->image_path }}" class="img-fluid mb-2" alt="{{ $itemimage->mediastore->caption }}"/>
+                                        </a>
+                                      </div>
+                                      @endforeach                                      
+                                    </div>
+                                    </div>
+                                  <div class="tab-pane fade" id="custom-tabs-four-video" role="tabpanel" aria-labelledby="custom-tabs-four-video-tab">
+                                     Vedio tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam. 
+                                  </div>
+                                  
+                                   
+                                </div>
+                              </div>
+                              <!-- /.card -->
+                            </div>
+
+
                           </div>
                           
                         </div>
@@ -196,18 +246,77 @@
     </div>
     <!-- /.content-wrapper -->
     <!-- /.card -->
+    <div class="modal fade" id="modal-newimage">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add image</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+           <div class="col-sm-6">
+            <div class="form-group row">
+              <form class="form-horizontal col-sm-12" name="create_image_form" method="POST" action="{{route('mediaproject.store', $item->id)}}" 
+                enctype="multipart/form-data" id="create_image_form">
+                @csrf
+              <div class="col-sm-12">
+                <textarea   name="caption" style="width: 100%" id="caption" rows="2"  placeholder="Description" ></textarea>
+           
+              </div>
+          </div>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" name="images[]"
+              multiple  accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg"   id="images">
+              <label class="custom-file-label" id="image_label" for="images">Choose file</label>
+
+              <span id="images-error" class="error invalid-feedback"></span>
+
+          </div>
+        </form>
+           </div>
+           <div class="col-sm-6">
+            <img alt="" id="imgshow"
+            class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0"
+            src="{{ URL::asset('assets/admin/img/default/1.jpg') }}">
+
+           </div>
+           
+       
+        
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" name="btn_create_image" id="btn_create_image" class="btn btn-primary" form="create_image_form" >Save</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
 @endsection
 
-
-
-
 @section('js')
+
     <script src="{{ URL::asset('assets/admin/js/custom/validate.js') }}"></script>
     <script src="{{ URL::asset('assets/admin/js/custom/project.js') }}"></script>
+ 
     <script>
         var emptyimg = "{{ URL::asset('assets/admin/img/default/1.jpg') }}";
         $(function() {
         $('.textarea').summernote();
+/*
+       
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+      event.preventDefault();
+      $(this).ekkoLightbox({
+        alwaysShowClose: true
+      });
+    }); 
+*/
         });
     </script>
 @endsection

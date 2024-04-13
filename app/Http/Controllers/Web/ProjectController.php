@@ -101,13 +101,16 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        $item = Project::find($id);
+        $item = Project::with(['mediaprojects' => function ($q) use ($id) {
+          $q->with('mediastore') ;
+      }])->find($id);
  $lang_list=Language::orderByDesc('is_default')->with(
  ['langprojects' => function ($q) use ($id) {
     $q->where('project_id', $id) ;
-}])->get();
+}
+])->get();
         //
-       // return $lang_list;
+      //   return $item;
         return view("admin.project.edit", ["item" => $item,'lang_list'=>$lang_list]);
     }
 

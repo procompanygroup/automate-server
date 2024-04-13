@@ -28,7 +28,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Language</h3>
+          <h3 class="card-title">Projects</h3>
 
           <div class="card-tools">
           <a class="btn btn-info btn-sm" href="{{ route('project.create')}}">

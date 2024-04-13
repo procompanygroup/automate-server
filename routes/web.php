@@ -8,6 +8,8 @@ use App\Http\Controllers\Web\LanguageController;
 use App\Http\Controllers\Web\ProjectController;
 
 use App\Http\Controllers\Web\LangProjectController;
+use App\Http\Controllers\Web\MediaProjectController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -77,7 +79,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::post('/update/{id}', [LangProjectController::class, 'update'])->name('langproject.update');
             
         });
- 
+        Route::prefix('mediaproject')->group(function () {
+            Route::post('/store/{id}', [MediaProjectController::class, 'storeimages'])->name('mediaproject.store');
+            
+        });
     });
 
      
