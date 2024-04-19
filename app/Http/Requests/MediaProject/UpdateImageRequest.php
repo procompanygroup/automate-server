@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\LangProject;
+namespace App\Http\Requests\MediaProject;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateLangProjectRequest extends FormRequest
+class UpdateImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class UpdateLangProjectRequest extends FormRequest
      {
    
         return[
-        'title_trans'=>'required|string', 
-        'lang_id'=>'required', 
+          
+            'image-'=>'required|file|mimes:jpg,bmp,png,jpeg,gif,svg,webp',
         ];   
      
      }
@@ -41,7 +41,8 @@ class UpdateLangProjectRequest extends FormRequest
  //    $minMobileLength=10;
  //    $maxMobileLength=15;
     return[
-      'title_trans.required'=>__('messages.this field is required',[],'en') ,
+      'images.required'=>__('messages.this field is required',[],'en') ,
+      'images.mimes'=>  __('messages.file must be image',[],'en') ,
      // 'title.alpha_num'=>'The title format must be alphabet',
      //  'code.regex'=>'The Code format must be alphabet',
      //  'code.unique'=>'The Code is already exist',

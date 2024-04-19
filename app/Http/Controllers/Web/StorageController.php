@@ -65,19 +65,24 @@ class StorageController extends Controller
   //   return $url;
 
   // }
+  public function getlocalpath($subpath)
+  {  
+    $url = "";  
+
+     if(File::exists(base_path('public\index.php'))){
+      $url = url(Storage::url($subpath)) . '/';
+     }
+     else{
+      $url = url('public'.Storage::url($subpath)) . '/';
+     }
+        return $url;
+  }
   public function UserPath()
   {  
     $url = "";  
-  //  $url = Storage::url($this->path['users'])  . '/';
-    // $url = url(Storage::url($this->path['users'])) . '/';
-     if(File::exists(base_path('public\index.php')))  {
-      $url = url(Storage::url($this->path['users'])) . '/';
-     }
-     else{
-      $url = url('public'.Storage::url($this->path['users'])) . '/';
-     }
-   //  $url = url('public'.Storage::url($this->path['users'])) . '/';//temp
-   //   $url = url(Storage::url( 'storage/app/public' ) ). '/'. $this->path['users']. '/'; 
+   
+     $url =  $this->getlocalpath($this->path['users']);
+ 
           return $url;
   }
   public function LanguagePath()
@@ -85,12 +90,13 @@ class StorageController extends Controller
     $url = "";  
   //  $url = Storage::url($this->path['users'])  . '/';
      
-     if(File::exists(base_path('public\index.php')))  {
-      $url = url(Storage::url($this->path['languages'])) . '/';
-     }
-     else{
-      $url = url('public'.Storage::url($this->path['languages'])) . '/';
-     }
+    //  if(File::exists(base_path('public\index.php')))  {
+    //   $url = url(Storage::url($this->path['languages'])) . '/';
+    //  }
+    //  else{
+    //   $url = url('public'.Storage::url($this->path['languages'])) . '/';
+    //  }
+     $url =  $this->getlocalpath($this->path['languages']);
           return $url;
   }
 
@@ -99,23 +105,24 @@ class StorageController extends Controller
     $url = "";
     if ($type == "image") {
 
-      if(File::exists(base_path('public\index.php')))  {
-        $url = url(Storage::url($this->path['default'])) . '/' . $this->defaultimage;
-       }
-       else{
-        $url = url('public'.Storage::url($this->path['default'])) . '/' . $this->defaultimage;
+      // if(File::exists(base_path('public\index.php')))  {
+      //   $url = url(Storage::url($this->path['default'])) . '/' . $this->defaultimage;
+      //  }
+      //  else{
+      //   $url = url('public'.Storage::url($this->path['default'])) . '/' . $this->defaultimage;
       
-       }
+      //  }
+       $url =  $this->getlocalpath($this->path['default']). $this->defaultimage;
       
     } else {
-      if(File::exists(base_path('public\index.php')))  {
-        $url = url(Storage::url($this->iconpath['default'])) . '/' . $this->defaultsvg;
-       }
-       else{
+      // if(File::exists(base_path('public\index.php')))  {
+      //   $url = url(Storage::url($this->iconpath['default'])) . '/' . $this->defaultsvg;
+      //  }
+      //  else{
         
-        $url = url('public'.Storage::url($this->iconpath['default'])) . '/' . $this->defaultsvg;
-       }
-  
+      //   $url = url('public'.Storage::url($this->iconpath['default'])) . '/' . $this->defaultsvg;
+      //  }
+       $url =  $this->getlocalpath($this->iconpath['default']). $this->defaultsvg;
     }
     return $url;
 
@@ -127,22 +134,23 @@ class StorageController extends Controller
     $url = "";
     if ($type == "image") {
 
-      if(File::exists(base_path('public\index.php')))  {
-        $url = url(Storage::url($this->path['projects'])) . '/'  ;
-       }
-       else{
-        $url = url('public'.Storage::url($this->path['projects'])) . '/' ;
+      // if(File::exists(base_path('public\index.php')))  {
+      //   $url = url(Storage::url($this->path['projects'])) . '/'  ;
+      //  }
+      //  else{
+      //   $url = url('public'.Storage::url($this->path['projects'])) . '/' ;
       
-       }
+      //  }
+       $url =  $this->getlocalpath($this->path['projects']);
       
     } else {
-      if(File::exists(base_path('public\index.php')))  {
-        $url = url(Storage::url($this->vidpath['projects'])) . '/'  ;
-       }
-       else{        
-        $url = url('public'.Storage::url($this->vidpath['projects'])) . '/'  ;
-       }
-  
+      // if(File::exists(base_path('public\index.php')))  {
+      //   $url = url(Storage::url($this->vidpath['projects'])) . '/'  ;
+      //  }
+      //  else{        
+      //   $url = url('public'.Storage::url($this->vidpath['projects'])) . '/'  ;
+      //  }
+       $url =  $this->getlocalpath($this->vidpath['projects']);
     }
     return $url;
 

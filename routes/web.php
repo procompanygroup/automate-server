@@ -9,7 +9,7 @@ use App\Http\Controllers\Web\ProjectController;
 
 use App\Http\Controllers\Web\LangProjectController;
 use App\Http\Controllers\Web\MediaProjectController;
-
+use App\Http\Controllers\Web\MediaStoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,7 +81,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         });
         Route::prefix('mediaproject')->group(function () {
             Route::post('/store/{id}', [MediaProjectController::class, 'storeimages'])->name('mediaproject.store');
-            
+            Route::post('/update/{id}', [MediaProjectController::class, 'update'])->name('mediaproject.update');
+        });
+        
+        Route::prefix('mediastore')->group(function () {
+            Route::get('/getbyid/{id}', [MediaStoreController::class, 'getbyid']);
+            Route::delete('/destroyimage/{id}', [MediaStoreController::class, 'destroyimage']);
+           
         });
     });
 

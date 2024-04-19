@@ -14,6 +14,8 @@ use App\Models\Mediastore;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
 use File;
+use App\Http\Requests\MediaProject\UpdateImageRequest;
+
 class MediaProjectController extends Controller
 {
     /**
@@ -99,10 +101,46 @@ $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
        return response()->json("ok");
      }
     }
-    public function update(Request $request, string $id)
+    public function update(UpdateImageRequest $request,$id)
     {
-        //
+      $formdata = $request->all();
+      //return (dd( $formdata));
+       $validator = Validator::make(
+         $formdata,
+         $request->rules(),
+         $request->messages()
+       );
+   
+       if ($validator->fails()) {
+       
+         return response()->json($validator);
+   
+       } else {
+          //$modelpro=Project::find($id);
+        //  return dd($request->all());
+  $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
+   
+          foreach ($request->file('images') as $imagefile) {
+              
+              $newObj = new Mediastore;
+             // $newObj->name='';
+              $newObj->caption = $caption;
+              $newObj->title='';
+             $newObj->local_path='projects';
+              $newObj->type='image';
+             
+              $newObj->save();
+         $res=$this->storeImage($imagefile, $newObj->id);
+            $mediaproj=new  MediaProject();
+            $mediaproj->project_id=$id;
+            $mediaproj->media_id=$newObj->id;
+            $mediaproj->status=1;
+            $mediaproj->save();        
+            }  
+         return response()->json("ok");
+       }
     }
+     
 
     /**
      * Remove the specified resource from storage.

@@ -202,12 +202,15 @@
                                          
                                       </div>
                                     </div>
-                                    <div class="row" style="margin-top:20px; ">
+                                    <div class="row" style="margin-top:20px;">
                                       @foreach ($item->mediaprojects->where('media_type','image')  as $itemimage)
                                       <div class="col-sm-2">
-                                        <a href="#" data-toggle="lightbox" data-title="{{ $itemimage->mediastore->caption }}" data-gallery="gallery">
-                                          <img src="{{$itemimage->mediastore->image_path }}" class="img-fluid mb-2" alt="{{ $itemimage->mediastore->caption }}"/>
-                                        </a>
+                                        <div  class="image-contain" >
+                                          <img src="{{$itemimage->mediastore->image_path }}" class="img-fluid mb-2 image-show" alt="{{ $itemimage->mediastore->caption }}"/>
+                                          <input id="edit-{{$itemimage->mediastore->id }}" class="btn btn-xs btn-primary update " type="button" value="Edit" data-toggle="modal" data-target="#modal-editimage">
+                                          <input id="del-{{$itemimage->mediastore->id }}" class="btn btn-xs btn-danger delete " type="button" value="Delete" data-toggle="modal" data-target="#modal-delete">
+                                      
+                                        </div>
                                       </div>
                                       @endforeach                                      
                                     </div>
@@ -269,7 +272,7 @@
           </div>
             <div class="custom-file">
               <input type="file" class="custom-file-input" name="images[]"
-              multiple  accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg"   id="images">
+              multiple  accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg,image/webp"   id="images">
               <label class="custom-file-label" id="image_label" for="images">Choose file</label>
 
               <span id="images-error" class="error invalid-feedback"></span>
@@ -289,7 +292,7 @@
             </div>
           </div>
           <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             <button type="submit" name="btn_create_image" id="btn_create_image" class="btn btn-primary" form="create_image_form" >Save</button>
           </div>
         </div>
@@ -297,6 +300,79 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
+
+
+    <div class="modal fade" id="modal-editimage">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit image</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+           <div class="col-sm-6">
+            <div class="form-group row">
+              <form class="form-horizontal col-sm-12" name="update_image_form" method="POST" action="{{route('mediaproject.update','item_Id')}}" 
+                enctype="multipart/form-data" id="update_image_form">
+                @csrf
+              <div class="col-sm-12">
+                <textarea   name="caption-edit" style="width: 100%" id="caption-edit" rows="2"  placeholder="Description" ></textarea>
+           
+              </div>
+          </div>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" name="image"
+              multiple  accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg,image/webp" id="image">
+              <label class="custom-file-label" id="image_label" for="images">Choose file</label>
+
+              <span id="images-error" class="error invalid-feedback"></span>
+
+          </div>
+        </form>
+           </div>
+           <div class="col-sm-6">
+            <img alt="" id="imgshow-edit"
+            class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0"
+            src="{{ URL::asset('assets/admin/img/default/1.jpg') }}">
+           </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" name="btn_update_image" id="btn_update_image" class="btn btn-primary" form="update_image_form" >Save</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-delete">
+      <div class="modal-dialog  modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center" style="padding-bottom: 5px;	padding-top: 30px;">
+            <h4 class="modal-title">{{ __('general.Are you sure',[],'en') }}</h4>
+               </div>
+          <div class="modal-footer justify-content-between" style="border-top: 0px solid  ">
+
+            <button class="btn ripple btn-secondary"  id="btn-cancel-modal"  data-dismiss="modal" type="button">{{ __('general.cancel',[],'en') }}</button>
+         
+            <form   name="del_image_form" method="POST" action="{{url('admin/mediastore/destroyimage','ItemId')}}" 
+            enctype="multipart/form-data" id="del_image_form">
+            @csrf
+            @method('DELETE')
+            <button class="btn ripple btn-danger " id="btn-modal-del" type="button" >{{ __('general.delete',[],'en') }}</button>
+            </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @endsection
 
 @section('js')
@@ -306,6 +382,10 @@
  
     <script>
         var emptyimg = "{{ URL::asset('assets/admin/img/default/1.jpg') }}";
+        var imgId = 0;
+       
+        var editimgurl = "{{url('admin/mediastore/getbyid','ItemId')}}"; 
+        var delimgurl = "{{url('admin/mediastore/destroyimage','ItemId')}}"; 
         $(function() {
         $('.textarea').summernote();
 /*
@@ -321,5 +401,5 @@
     </script>
 @endsection
 @section('css')
-
+<link href="{{URL::asset('assets/admin/css/custom/content.css')}}" rel="stylesheet">
 @endsection
