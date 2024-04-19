@@ -159,6 +159,7 @@ $(document).ready(function () {
 					} else   {
 						$('#imgshow-edit').attr('src',data.image_path);
 						$('#caption-edit').html(data.caption);
+						$("#btn-cancel-modal").trigger("click");	
 					//	noteSuccess();
 	
 					//	ClearErrors();
@@ -169,7 +170,8 @@ $(document).ready(function () {
 					var response = $.parseJSON(errorresult.responseText);			
 					noteError();	
 				}, finally: function () {
-					endLoading();	
+					endLoading();
+				
 				}
 			});
 			}
@@ -324,6 +326,7 @@ urlval=urlformval.replace("ItemId", imgId);
 
 			ClearErrors();
 		}
+		$("#btn-cancel-modal").trigger("click");
 		// $('.alert').html(result.success);
 	}, error: function (errorresult) {
 		endLoading();

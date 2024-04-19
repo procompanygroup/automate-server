@@ -295,7 +295,7 @@ $(document).ready(function () {
 					ClearErrors();
 					resetfieldForm();
 					loadinputsview();
-					$("#btn_cancel_field").trigger("click");
+					$("#btn-cancel-modal").trigger("click");
 				}
 
 				// $('.alert').html(result.success);
@@ -313,7 +313,7 @@ $(document).ready(function () {
 
 			}, finally: function () {
 				endLoading();
-
+				$("#btn-cancel-modal").trigger("click");
 			}
 
 
@@ -356,25 +356,9 @@ $(document).ready(function () {
 		$(":input").removeClass('is-invalid');
 		 
 	}
-	function showimgcount(imgcheck, imgcount) {
-		if (imgcheck.is(':checked')) {
+ 
 
-			imgcount.show();
-		} else {
-			imgcount.hide();
-		}
-	}
-
-	function clearTypeinputs() {
-		$('#bool_field').hide();
-		$('#list_option').hide();
-		$('#btn_add_option').hide();
-
-	}
-	$("#image_check").on("change", function () {
-		showimgcount($("#image_check"), $('#image_count'));
-
-	});
+	 
 	$("#image").on("change", function () {
 		imageChangeForm("#image", "#image_label", "#imgshow");
 	});

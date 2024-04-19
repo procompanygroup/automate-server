@@ -119,24 +119,19 @@ $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
           //$modelpro=Project::find($id);
         //  return dd($request->all());
   $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
-   
-          foreach ($request->file('images') as $imagefile) {
-              
-              $newObj = new Mediastore;
+    
+            $file=   $request->file('image');
+              $MediaObj =Mediastore::find($id);
              // $newObj->name='';
-              $newObj->caption = $caption;
-              $newObj->title='';
-             $newObj->local_path='projects';
-              $newObj->type='image';
+             $MediaObj->caption = $caption;
+            // $MediaObj->title='';
+             $MediaObj->local_path='projects';
+             $MediaObj->type='image';
              
-              $newObj->save();
-         $res=$this->storeImage($imagefile, $newObj->id);
-            $mediaproj=new  MediaProject();
-            $mediaproj->project_id=$id;
-            $mediaproj->media_id=$newObj->id;
-            $mediaproj->status=1;
-            $mediaproj->save();        
-            }  
+             $MediaObj->save();
+         $res=$this->storeImage( $file,  $MediaObj->id);
+           
+            
          return response()->json("ok");
        }
     }
