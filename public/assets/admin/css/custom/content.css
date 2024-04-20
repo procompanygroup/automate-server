@@ -63,3 +63,12 @@ border: #ee335e  solid 1px !important;
    top: 4%;
    left: 68%;
 }
+ 
+.image-contain input.update-video  {
+    top:4%;
+    left:4%;
+}
+.image-contain input.delete-video  {
+   top: 4%;
+   left: 68%;
+}

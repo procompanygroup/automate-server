@@ -24,16 +24,27 @@ class Mediastore extends Model
     public function getImagePathAttribute(){
         $conv="";
         $strgCtrlr = new StorageController(); 
-        if(is_null($this->name) ){
-            $conv =$strgCtrlr->DefaultPath('image'); 
-        }else if($this->name==''){
-            $conv =$strgCtrlr->DefaultPath('image'); 
-        } else {
-            if($this->local_path=='projects'){
+        if($this->type=='image'){
+            if(is_null($this->name) ){
+                $conv =$strgCtrlr->DefaultPath('image'); 
+            }else if($this->name==''){
+                $conv =$strgCtrlr->DefaultPath('image'); 
+            } else {
+                if($this->local_path=='projects'){
+                    $url = $strgCtrlr->ProjectPath($this->type);
+                    $conv =  $url.$this->name;
+                }         
+            }   
+        }else{
+            //video
+            if(is_null($this->name) ){
+                $conv =''; 
+            }else {
                 $url = $strgCtrlr->ProjectPath($this->type);
                 $conv =  $url.$this->name;
-            }         
-        }        
+            }
+        }
+       
             return  $conv;
      }
     public function mediaprojects(): HasMany

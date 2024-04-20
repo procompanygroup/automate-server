@@ -888,7 +888,8 @@ function resetForm() {
 	$('#image_label').text("Choose File");
 	//$('#icon_label').text('اختر ملف SVG');
 	$('#imgshow').attr("src", emptyimg);
-	$('#iconshow').attr("src", emptyimg);
+	$('#imgshow').attr("src", emptyimg);
+	//$('#iconshow').attr("src", emptyimg);
 }
 function resetfieldForm() {
 	jQuery('#field_form')[0].reset();

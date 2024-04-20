@@ -1,6 +1,6 @@
 @extends('admin.layouts.layout')
 @section('page-title')
-    {{ __('general.projects', [], 'en') }}
+    {{ __('general.products', [], 'en') }}
 @endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -16,7 +16,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                             <li class="breadcrumb-item active"><a
-                                    href= "{{ route('project.index') }}">{{ __('general.projects', [], 'en') }}</a></li>
+                                    href= "{{ route('project.index') }}">{{ __('general.products', [], 'en') }}</a></li>
                         </ol>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Edit Project</h3>
+                    <h3 class="card-title">Edit Product</h3>
                 </div>
                 <!-- form start -->
                 <div class="card-body  row">
@@ -180,8 +180,7 @@
                                   </li>
                                   <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-four-video-tab" data-toggle="pill" href="#custom-tabs-four-video" role="tab" aria-controls="custom-tabs-four-video" aria-selected="false">Video</a>
-                                  </li>
-                                  
+                                  </li>                                  
                                 </ul>
                               </div>
                               <div class="card-body">
@@ -189,8 +188,7 @@
                                   <div class="tab-pane fade show active" id="custom-tabs-four-images" role="tabpanel" aria-labelledby="custom-tabs-four-images-tab">
                                   
                                     <div class="card-header">
-                                      <h3 class="card-title"></h3>
-                            
+                                      <h3 class="card-title"></h3>                            
                                       <div class="card-tools">
                                    
                                                       <button type="button"  class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-newimage" id="btn-new-img">
@@ -216,8 +214,32 @@
                                     </div>
                                     </div>
                                   <div class="tab-pane fade" id="custom-tabs-four-video" role="tabpanel" aria-labelledby="custom-tabs-four-video-tab">
-                                     Vedio tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam. 
-                                  </div>
+                                    
+                                    {{-- Video --}}
+                                    <div class="card-header">
+                                      <h3 class="card-title"></h3>                            
+                                      <div class="card-tools">                                   
+                                                      <button type="button"  class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-newvid" id="btn-new-vid">
+                                                        <i class="fas fa-plus">
+                                                        </i>
+                                                       New
+                                                      </button>                                     
+                                      </div>
+                                    </div>
+                                    <div class="row" style="margin-top:20px;" id="video-gallery-content">
+                                      @foreach ($item->mediaprojects->where('media_type','video')  as $itemimage)
+                                      <div class="col-sm-2">
+                                        <div  class="image-contain" >
+                                        
+                                          <video controls  class="img-fluid mb-2 image-show" alt="{{ $itemimage->mediastore->caption }}"  ><source src="{{$itemimage->mediastore->image_path }}" > </video>
+                                          <input id="edit-{{$itemimage->mediastore->id }}" class="btn btn-xs btn-primary update-video " type="button" value="Edit" data-toggle="modal" data-target="#modal-edit-video">
+                                          <input id="del-{{$itemimage->mediastore->id }}" class="btn btn-xs btn-danger delete-video " type="button" value="Delete" data-toggle="modal" data-target="#modal-delete">
+                                      
+                                        </div>
+                                      </div>
+                                      @endforeach                                      
+                                    </div>
+                                    </div>
                                   
                                    
                                 </div>
@@ -325,7 +347,7 @@
           </div>
             <div class="custom-file">
               <input type="file" class="custom-file-input" name="image"
-              multiple  accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg,image/webp" id="image">
+                accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg,image/webp" id="image">
               <label class="custom-file-label" id="image_label" for="images">Choose file</label>
 
               <span id="images-error" class="error invalid-feedback"></span>
@@ -373,6 +395,107 @@
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+   <!-- video -->
+    <div class="modal fade" id="modal-newvid">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Video</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+           <div class="col-sm-6">
+            <div class="form-group row">
+              <form class="form-horizontal col-sm-12" name="create_video_form" method="POST" action="{{route('mediaproject.storevideo', $item->id)}}" 
+                enctype="multipart/form-data" id="create_video_form">
+                @csrf
+              <div class="col-sm-12">
+                <textarea   name="caption" style="width: 100%" id="caption" rows="2"  placeholder="Description" ></textarea>
+           
+              </div>
+          </div>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" name="image"
+                accept="video/mp4,video/mkv,video/x-m4v,video/*"   id="image-video">
+              <label class="custom-file-label" id="video_label" for="image-video">Choose file</label>
+
+              <span id="image-error" class="error invalid-feedback"></span>
+
+          </div>
+        </form>
+           </div>
+           <div class="col-sm-6">
+            <video controls id="vidshow"
+            class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0" alt=""  ><source src="" > </video>
+            
+
+           </div>
+           
+       
+        
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" id="btn-cancel-modal-create-video" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" name="btn_create_video" id="btn_create_video" class="btn btn-primary" form="create_video_form" >Save</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-edit-video">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit video</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+           <div class="col-sm-6">
+            <div class="form-group row">
+              <form class="form-horizontal col-sm-12" name="update_video_form" method="POST" action="{{route('mediaproject.updatevideo','item_Id')}}" 
+                enctype="multipart/form-data" id="update_video_form">
+                @csrf
+              <div class="col-sm-12">
+                <textarea   name="caption-edit" style="width:100%" id="caption-edit-video" rows="2"  placeholder="Description" ></textarea>
+           
+              </div>
+          </div>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" name="image"
+                 accept="video/mp4,video/mkv, video/x-m4v,video/*" id="image-video-edit">
+              <label class="custom-file-label" id="image_label-video-edit" for="image-video-edit">Choose file</label>
+
+              <span id="image-error" class="error invalid-feedback"></span>
+
+          </div>
+        </form>
+           </div>
+           <div class="col-sm-6">
+            <video controls id="vidshow-edit"
+            class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0" alt=""  ><source src="" > </video>
+            
+
+           </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" id="btn-cancel-modal-edit-video" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" name="btn_update_video" id="btn_update_video" class="btn btn-primary" form="update_video_form" >Save</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
 @endsection
 
 @section('js')
@@ -386,10 +509,12 @@
     <script>
         var emptyimg = "{{ URL::asset('assets/admin/img/default/1.jpg') }}";
         var imgId = 0;
-       
+        var delType = '';
         var editimgurl = "{{url('admin/mediastore/getbyid','ItemId')}}"; 
         var delimgurl = "{{url('admin/mediastore/destroyimage','ItemId')}}"; 
         var galimgurl = "{{url('admin/mediastore/getgallery',$item->id)}}"; 
+        var vidurl = "{{url('admin/mediastore/getvideo',$item->id)}}"; 
+        
         $(function() {
         $('.textarea').summernote();
 /*

@@ -41,5 +41,6 @@ return [
 'amount_bigger' =>'amount is bigger',
 'Not allowed'=>'Not allowed',
 'faild'=>'Faild ',
-
+'file must be image'=>'File must be image',
+'file must be video'=>'File must be video',
 ];

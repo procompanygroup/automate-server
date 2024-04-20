@@ -100,6 +100,7 @@ return [
 'active' => 'Active',
 'notactive' => 'Not active',
 'projects' => 'Projects',
+'products'=> 'Products',
 /*
 
   {{ __('general.welcome_name',['Name'=>'احمد']) }}

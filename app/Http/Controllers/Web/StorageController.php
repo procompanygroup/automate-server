@@ -130,10 +130,9 @@ class StorageController extends Controller
   }
 
   public function ProjectPath($type)
-  { //image vid
+  { //image video
     $url = "";
     if ($type == "image") {
-
       // if(File::exists(base_path('public\index.php')))  {
       //   $url = url(Storage::url($this->path['projects'])) . '/'  ;
       //  }
@@ -141,9 +140,9 @@ class StorageController extends Controller
       //   $url = url('public'.Storage::url($this->path['projects'])) . '/' ;
       
       //  }
-       $url =  $this->getlocalpath($this->path['projects']);
-      
+       $url =  $this->getlocalpath($this->path['projects']);      
     } else {
+      //video
       // if(File::exists(base_path('public\index.php')))  {
       //   $url = url(Storage::url($this->vidpath['projects'])) . '/'  ;
       //  }
@@ -153,7 +152,6 @@ class StorageController extends Controller
        $url =  $this->getlocalpath($this->vidpath['projects']);
     }
     return $url;
-
 
   }
   

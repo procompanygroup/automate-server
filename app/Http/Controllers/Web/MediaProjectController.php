@@ -15,6 +15,8 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
 use File;
 use App\Http\Requests\MediaProject\UpdateImageRequest;
+use App\Http\Requests\MediaProject\StoreVideoRequest;
+use App\Http\Requests\MediaProject\UpdateVideoRequest;
 
 class MediaProjectController extends Controller
 {
@@ -62,16 +64,14 @@ class MediaProjectController extends Controller
      * Update the specified resource in storage.
      */
     public function storeimages(StoreImagesRequest $request,$id)//StoreImagesRequest
-    {
-       
+    {       
     $formdata = $request->all();
     //return (dd( $formdata));
      $validator = Validator::make(
        $formdata,
        $request->rules(),
        $request->messages()
-     );
- 
+     ); 
      if ($validator->fails()) {
      
        return response()->json($validator);
@@ -91,7 +91,7 @@ $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
             $newObj->type='image';
            
             $newObj->save();
-       $res=$this->storeImage($imagefile, $newObj->id);
+       $res=$this->storeImage($imagefile, $newObj->id,'image');
           $mediaproj=new  MediaProject();
           $mediaproj->project_id=$id;
           $mediaproj->media_id=$newObj->id;
@@ -101,6 +101,7 @@ $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
        return response()->json("ok");
      }
     }
+
     public function update(UpdateImageRequest $request,$id)
     {
       $formdata = $request->all();
@@ -118,7 +119,7 @@ $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
        } else {
           //$modelpro=Project::find($id);
         //  return dd($request->all());
-  $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
+  $caption= isset ($formdata["caption-edit"]) ? $formdata["caption-edit"] : '';
     
             $file=   $request->file('image');
               $MediaObj =Mediastore::find($id);
@@ -129,14 +130,45 @@ $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
              $MediaObj->type='image';
              
              $MediaObj->save();
-         $res=$this->storeImage( $file,  $MediaObj->id);
+         $res=$this->storeImage( $file,  $MediaObj->id,'image');
            
             
          return response()->json("ok");
        }
     }
      
-
+    public function updatevideo(UpdateVideoRequest $request,$id)
+    {
+      $formdata = $request->all();
+      //return (dd( $formdata));
+       $validator = Validator::make(
+         $formdata,
+         $request->rules(),
+         $request->messages()
+       );
+   
+       if ($validator->fails()) {       
+         return response()->json($validator);   
+       } else {
+          //$modelpro=Project::find($id);
+        //  return dd($request->all());
+  $caption= isset ($formdata["caption-edit"]) ? $formdata["caption-edit"] : '';
+    
+            $file=   $request->file('image');
+              $MediaObj =Mediastore::find($id);
+             // $newObj->name='';
+             $MediaObj->caption = $caption;
+            // $MediaObj->title='';
+             $MediaObj->local_path='projects';
+           //  $MediaObj->type='image';
+             
+             $MediaObj->save();
+         $res=$this->storeImage( $file,  $MediaObj->id,'video');
+           
+            
+         return response()->json("ok");
+       }
+    }
     /**
      * Remove the specified resource from storage.
      */
@@ -144,47 +176,101 @@ $caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
     {
         //
     }
-    public function storeImage($file, $id)
+    public function storeImage($file, $id,$type)
     {
       $imagemodel = Mediastore::find($id);
-      $strgCtrlr = new StorageController();
-      $path = $strgCtrlr->path['projects'];
       $oldimage = $imagemodel->name;
       $oldimagename = basename($oldimage);
-    //  $oldimagepath = $path . '/' . $oldimagename;    
+      $strgCtrlr = new StorageController();
+ 
       $ext=$file->getClientOriginalExtension();
-      if(Str::lower($ext)=='svg'){
-        if ($file !== null) {          
-            $ext=$file->getClientOriginalExtension();       
-            $filename = rand(10000, 99999). $id .'.'.$ext;         
-            Storage::delete("public/" .$path . '/' . $oldimagename);   
-            $path = $file->storeAs($path ,$filename,'public');          
-            Mediastore::find($id)->update([
-              "name" => $filename
-            ]);          
-          }
-      }else{
-
-        if ($file !== null) {
-       
-            $filename = rand(10000, 99999) . $id . ".webp";
-            $manager = new ImageManager(new Driver());
-            $image = $manager->read($file);
-            $image = $image->toWebp(75);
-            if (!File::isDirectory(Storage::url('/' .$path))) {
-              Storage::makeDirectory('public/' . $path);
+      if($type == 'image')
+      {
+        $path = $strgCtrlr->path['projects'];
+        if(Str::lower($ext)=='svg'){
+          if ($file !== null) {          
+              $ext=$file->getClientOriginalExtension();       
+              $filename = rand(10000, 99999). $id .'.'.$ext;         
+              Storage::delete("public/" .$path . '/' . $oldimagename);   
+              $path = $file->storeAs($path ,$filename,'public');          
+              Mediastore::find($id)->update([
+                "name" => $filename
+              ]);          
             }
-            $image->save(storage_path('app/public') . '/' . $path . '/' . $filename);
-      
-            Mediastore::find($id)->update([
-              "name" => $filename
-            ]);
-            Storage::delete("public/" .$path . '/' . $oldimagename);
-          }
+        }else{  
+          if ($file !== null) {
+         
+              $filename = rand(10000, 99999) . $id . ".webp";
+              $manager = new ImageManager(new Driver());
+              $image = $manager->read($file);
+              $image = $image->toWebp(75);
+              if (!File::isDirectory(Storage::url('/' .$path))) {
+                Storage::makeDirectory('public/' . $path);
+              }
+              $image->save(storage_path('app/public') . '/' . $path . '/' . $filename);
+        
+              Mediastore::find($id)->update([
+                "name" => $filename
+              ]);
+              Storage::delete("public/" .$path . '/' . $oldimagename);
+            }
+        }
       }
-      //save photo
-  
+      else{
+     //vedio
+            $path = $strgCtrlr->vidpath['projects'];
+            if ($file !== null) {          
+              $ext=$file->getClientOriginalExtension();       
+              $filename = rand(10000, 99999). $id .'.'.$ext;         
+              Storage::delete("public/" .$path . '/' . $oldimagename);   
+              $path = $file->storeAs($path ,$filename,'public');          
+              Mediastore::find($id)->update([
+                "name" => $filename
+              ]);          
+            }
+      }  
       return 1;
+    }
+
+    public function storevideo(StoreVideoRequest $request,$id)//StoreImagesRequest
+    {
+       
+    $formdata = $request->all();
+    //return (dd( $formdata));
+     $validator = Validator::make(
+       $formdata,
+       $request->rules(),
+       $request->messages()
+     );
+ 
+     if ($validator->fails()) {
+     
+       return response()->json($validator);
+ 
+     } else {
+        //$modelpro=Project::find($id);
+      //  return dd($request->all());
+$caption= isset ($formdata["caption"]) ? $formdata["caption"] : '';
+ 
+      
+          $file=   $request->file('image');
+            $newObj = new Mediastore;
+           // $newObj->name='';
+            $newObj->caption = $caption;
+            $newObj->title='';
+           $newObj->local_path='projects';
+            $newObj->type='video';
+           
+            $newObj->save();
+       $res=$this->storeImage($file, $newObj->id,'video');
+          $mediaproj=new  MediaProject();
+          $mediaproj->project_id=$id;
+          $mediaproj->media_id=$newObj->id;
+          $mediaproj->status=1;
+          $mediaproj->save();        
+          
+       return response()->json("ok");
+     }
     }
   
 }

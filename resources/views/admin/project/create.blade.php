@@ -1,6 +1,6 @@
 @extends('admin.layouts.layout')
 @section('page-title')
-{{ __('general.projects',[],'en') }}
+{{ __('general.products',[],'en') }}
 @endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -15,7 +15,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
-                            <li class="breadcrumb-item active"><a href= "{{ route('project.index') }}" >{{ __('general.projects',[],'en') }}</a></li>   
+                            <li class="breadcrumb-item active"><a href= "{{ route('project.index') }}" >{{ __('general.products',[],'en') }}</a></li>   
                         </ol>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Add Project</h3>
+                    <h3 class="card-title">Add Product</h3>
                 </div>
                 <!-- form start -->
                 <div class="card-body  row">

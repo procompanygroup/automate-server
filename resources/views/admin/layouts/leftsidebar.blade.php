@@ -67,7 +67,7 @@
                
               <i class="nav-icon fa fa-users" aria-hidden="true"  ></i>
               <p>
-               {{ __('general.projects',[],'en') }}
+               {{ __('general.products',[],'en') }}
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>

@@ -82,12 +82,18 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         Route::prefix('mediaproject')->group(function () {
             Route::post('/store/{id}', [MediaProjectController::class, 'storeimages'])->name('mediaproject.store');
             Route::post('/update/{id}', [MediaProjectController::class, 'update'])->name('mediaproject.update');
+            Route::post('/storevideo/{id}', [MediaProjectController::class, 'storevideo'])->name('mediaproject.storevideo');
+            Route::post('/updatevideo/{id}', [MediaProjectController::class, 'updatevideo'])->name('mediaproject.updatevideo');
+ 
+            
         });
         
         Route::prefix('mediastore')->group(function () {
             Route::get('/getbyid/{id}', [MediaStoreController::class, 'getbyid']);
             Route::delete('/destroyimage/{id}', [MediaStoreController::class, 'destroyimage']);
             Route::get('/getgallery/{id}', [MediaStoreController::class, 'getgallery']);
+            Route::get('/getvideo/{id}', [MediaStoreController::class, 'getvideo']);
+            
         });
     });
 
