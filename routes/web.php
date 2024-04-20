@@ -87,7 +87,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         Route::prefix('mediastore')->group(function () {
             Route::get('/getbyid/{id}', [MediaStoreController::class, 'getbyid']);
             Route::delete('/destroyimage/{id}', [MediaStoreController::class, 'destroyimage']);
-           
+            Route::get('/getgallery/{id}', [MediaStoreController::class, 'getgallery']);
         });
     });
 

@@ -193,7 +193,7 @@
                             
                                       <div class="card-tools">
                                    
-                                                      <button type="button"  class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-newimage">
+                                                      <button type="button"  class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-newimage" id="btn-new-img">
                                                         <i class="fas fa-plus">
                                                         </i>
                                                        New
@@ -202,7 +202,7 @@
                                          
                                       </div>
                                     </div>
-                                    <div class="row" style="margin-top:20px;">
+                                    <div class="row" style="margin-top:20px;" id="image-gallery-content">
                                       @foreach ($item->mediaprojects->where('media_type','image')  as $itemimage)
                                       <div class="col-sm-2">
                                         <div  class="image-contain" >
@@ -292,7 +292,7 @@
             </div>
           </div>
           <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" id="btn-cancel-modal-create" class="btn btn-default" data-dismiss="modal">Cancel</button>
             <button type="submit" name="btn_create_image" id="btn_create_image" class="btn btn-primary" form="create_image_form" >Save</button>
           </div>
         </div>
@@ -341,7 +341,7 @@
             </div>
           </div>
           <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" id="btn-cancel-modal-edit" class="btn btn-default" data-dismiss="modal">Cancel</button>
             <button type="submit" name="btn_update_image" id="btn_update_image" class="btn btn-primary" form="update_image_form" >Save</button>
           </div>
         </div>
@@ -378,7 +378,10 @@
 @section('js')
 
     <script src="{{ URL::asset('assets/admin/js/custom/validate.js') }}"></script>
-    <script src="{{ URL::asset('assets/admin/js/custom/project.js') }}"></script>
+    @once 
+<script src="{{ URL::asset('assets/admin/js/custom/project.js') }}"></script>
+ @endonce
+     
  
     <script>
         var emptyimg = "{{ URL::asset('assets/admin/img/default/1.jpg') }}";
@@ -386,6 +389,7 @@
        
         var editimgurl = "{{url('admin/mediastore/getbyid','ItemId')}}"; 
         var delimgurl = "{{url('admin/mediastore/destroyimage','ItemId')}}"; 
+        var galimgurl = "{{url('admin/mediastore/getgallery',$item->id)}}"; 
         $(function() {
         $('.textarea').summernote();
 /*

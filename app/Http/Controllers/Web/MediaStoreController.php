@@ -49,6 +49,13 @@ return response()->json($item);
     {
         //
     }
+    public function getgallery($id)
+    {
+        $List= MediaProject::with('mediastore')->where('project_id',$id)->get()  ;
+         $List= $List->where('media_type','image');
+        return view('admin.media.showgallery', ['List' => $List]);
+     //   return  $List;
+    }
 
     /**
      * Update the specified resource in storage.
@@ -61,20 +68,21 @@ return response()->json($item);
     /**
      * Remove the specified resource from storage.
      */
-    public function destroyimage( $id)
+    public function destroyimage($id)
     {
-       
-          //delete user
+             
           $item = Mediastore::find($id);
-          //delete image          
-          $oldimagename =  $item ->name;
+          if (!( $item  === null)) {
+            $oldimagename =  $item ->name;
           $strgCtrlr = new StorageController();
           $path = $strgCtrlr->path['projects'];
           Storage::delete("public/" .$path. '/' . $oldimagename);          
-          if (!( $item  === null)) {
+          
             MediaProject::where('media_id',$id)->delete();
             Mediastore::find($id)->delete();
-          }
+         
+          }        
+         
           return response()->json("ok");  
       
     }
