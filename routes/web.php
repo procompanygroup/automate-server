@@ -10,7 +10,10 @@ use App\Http\Controllers\Web\ProjectController;
 use App\Http\Controllers\Web\LangProjectController;
 use App\Http\Controllers\Web\MediaProjectController;
 use App\Http\Controllers\Web\MediaStoreController;
+use App\Http\Controllers\Web\SettingController;
 
+//site
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,10 +25,10 @@ use App\Http\Controllers\Web\MediaStoreController;
 |
 */
 
-Route::get('/', function () {
-      return view('welcome');
-   // return redirect()->route('login');
-});
+ 
+    Route::get('/', [HomeController::class, 'index']);
+ 
+ 
 Route::get('/clear', function() {
     $exitCode = Artisan::call('route:cache');
       return 'ok';
@@ -94,6 +97,24 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::get('/getgallery/{id}', [MediaStoreController::class, 'getgallery']);
             Route::get('/getvideo/{id}', [MediaStoreController::class, 'getvideo']);
             
+        });
+
+        Route::prefix('setting')->group(function () {
+            Route::get('/siteinfo', [SettingController::class, 'getbasic']);
+            Route::post('/updatetitle', [SettingController::class, 'updatetitle']);
+            Route::post('/updatefav', [SettingController::class, 'updatefav']);
+            Route::post('/updatelogo', [SettingController::class, 'updatelogo']);
+            //social
+            Route::get('/getsocial', [SettingController::class, 'getsocial'])->name('setting.getsocial');;
+            Route::get('/createsocial', [SettingController::class, 'createsocial']);
+            Route::post('/storesocial', [SettingController::class, 'storesocial']);
+            Route::get('/editsocial/{id}', [SettingController::class, 'editsocial']);
+            Route::post('/updatesocial/{id}', [SettingController::class, 'updatesocial']);
+            Route::delete('/delsocial/{id}', [SettingController::class, 'delsocial']);
+            //header contac
+            Route::get('/headinfo', [SettingController::class, 'getheadinfo']);
+            Route::post('/updatephone', [SettingController::class, 'updatephone']);
+            Route::post('/updateemail', [SettingController::class, 'updateemail']);
         });
     });
 

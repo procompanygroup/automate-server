@@ -34,7 +34,7 @@
                 </div>
                 <!-- form start -->
                 <div class="card-body  row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 form-separate" >
                         <form class="form-horizontal" name="create_form" method="POST" action="{{route('project.update', $item->id)}}" 
                             enctype="multipart/form-data" id="create_form">
                             @csrf

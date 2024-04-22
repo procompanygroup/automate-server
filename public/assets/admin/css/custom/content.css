@@ -72,3 +72,8 @@ border: #ee335e  solid 1px !important;
    top: 4%;
    left: 68%;
 }
+.form-separate  {
+    border-bottom: 1px solid #ced4da;
+    padding-bottom: 25px;
+    margin-bottom: 40px;
+ }

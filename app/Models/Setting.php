@@ -10,14 +10,27 @@ class Setting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'value',
-        'type',
-        'notes',
-        'updateuser_id',
-        'ar_name',
-        'sequence',
-        'dept',
-
+        'name1',
+'value1',
+'name2',
+'value2',
+'name3',
+'value3',
+'category',
+'dep',
+'sequence',
+'section',
+'location',
+'is_active',
     ];
+    protected $appends= ['status_conv'];
+    public function getStatusConvAttribute(){
+        $conv="";
+       if($this->is_active==1){
+        $conv=__('general.active',[],'en');
+       }else{
+        $conv=__('general.notactive',[],'en');
+       }      
+            return  $conv;
+     }
 }

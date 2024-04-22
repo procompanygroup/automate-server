@@ -44,6 +44,8 @@ class StorageController extends Controller
     $this->path['languages'] = 'images/languages';
     $this->path['projects'] = 'images/projects';
     $this->vidpath['projects'] = 'images/projects/video';
+    $this->path['site'] = 'images/site';
+    
     //value
  
     //answer
@@ -154,7 +156,25 @@ class StorageController extends Controller
     return $url;
 
   }
+  public function SitePath($type)
+  {  
+    $url = "";  
+ 
+     $url =  $this->getlocalpath($this->path['site']);
+          return $url;
+  }
+  public function getPath($filename,$path)
+  {  
+    $conv='';
+    if(is_null($filename) ){
+          }else if($filename==''){       
+    } else {         
+        $conv = $path.$filename;
+          return $conv;
+  }
+}
   
+
  /*
   public static function CalcPercentVal($percent,$total)
   {

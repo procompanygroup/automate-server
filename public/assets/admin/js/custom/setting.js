@@ -1,59 +1,33 @@
-var urlval = "";
-var urlshowinput = "";
-var urlshowexpert = "";
-var delinputurl = "";
-
 
 $(document).ready(function () {
-
-	// $('#sortbody').html('');
-	 
-	//save personal
- 
-	//save image record
-	 
-
-
-
-	$('#btn_expert_percent').on('click', function (e) {
-		e.preventDefault();
-		sendform('#expert_percent_form');
+    $('#btn_update_title').on('click', function (e) {
+        e.preventDefault();	 
+        var formid = $(this).closest('form').attr("id");
+        sendform('#'+formid,'');
+        });
+//favicon
+$('#btn_update_favicon').on('click', function (e) {
+	e.preventDefault();	 
+	var formid = $(this).closest('form').attr("id");
+	sendform('#'+formid,'');
+	});
+//logo
+	$('#btn_update_logo').on('click', function (e) {
+		e.preventDefault();	 
+		var formid = $(this).closest('form').attr("id");
+		sendform('#'+formid,'');
 		});
 	 
-		$('#btn_expert_service_points').on('click', function (e) {
-			e.preventDefault();
-			sendform('#expert_service_points_form');
-			});
-/////////////////////
-	$('#btn_secret_key').on('click', function (e) {
-				e.preventDefault();
-				sendform('#secret_key_form');
-				});
-	$('#btn_publishable_key').on('click', function (e) {
-					e.preventDefault();
-					sendform('#publishable_key_form');
-					});
-
-	function ClearErrors() {
-
-		$('.parsley-required').html('');
-		$(":input").removeClass('parsley-error');
-	}
-  
-	function sendform(formid) {
-		startLoading();
+        function sendform(formid,formtype) {
+            startLoading();
 		ClearErrors();
-	//	$formid='#create_form';
-		 
+		//var fdata = $( "#create_form" ).serialize();
 		var form = $(formid)[0];
 		var formData = new FormData(form);
-		urlval = $(formid).attr("action")
-	 
-
-		$.ajax({
+		urlval = $(formid).attr("action");
+        		$.ajax({
 			url: urlval,
 			type: "POST",
-
 			data: formData,
 			contentType: false,
 			processData: false,
@@ -69,8 +43,9 @@ $(document).ready(function () {
 					noteSuccess();
 
 					ClearErrors();
+ 
+					
 				}
-
 				// $('.alert').html(result.success);
 			}, error: function (errorresult) {
 				endLoading();
@@ -78,8 +53,8 @@ $(document).ready(function () {
 				// $('#errormsg').html( errorresult );
 				noteError();
 				$.each(response.errors, function (key, val) {
-					$("#" + key + "_error").text(val[0]);
-					$("#" + key).addClass('parsley-error');
+					$("#" + key + "-error").text(val[0]);
+					$("#" + key).addClass('is-invalid');
 					//$('#error').append(key+"-"+ val[0] +"/");
 				});
 
@@ -87,53 +62,73 @@ $(document).ready(function () {
 				endLoading();
 
 			}
-		 
-
 		});
-
-
-	 
-	}
- 
-	});
-	 
-	 
+        }
 
  
-
-
+	
+// delete video
  
-
-///////////////////////////////////////////////////////
 
  
  
+
+
+//
+function ClearErrors() {
+
+    $('.error').html('');
+    $(":input").removeClass('is-invalid');
+     
+}
 function noteSuccess() {
-	notif({
-		msg: "تمت العملية بنجاح",
-		type: "success"
-	});
+	toastr.success("Sucsess");	 
 }
 function noteError() {
-	notif({
-		msg: "لم تنجح العملية !",
-		position: "right",
-		type: "error",
-		bottom: '10'
-	});
+	toastr.error("Faild");		 
+}
+$("#images").focusout(function (e) {
+	if (!validatempty($(this))) {
+		return false;
+	} else {
+
+		return true;
+	}
+});
+
+$("#image").on("change", function () {
+	imageChangeForm("#image", "#image_label", "#imgshow-edit");
+});
+$("#favicon").on("change", function () {
+	imageChangeForm("#favicon", "#favicon_label", "#faviconshow");
+});
+$("#logo").on("change", function () {
+	imageChangeForm("#logo", "#logo_label", "#logoshow");
+});
+function imageChangeForm(btn_id, upload_label, imageId) {
+	/* Current this object refer to input element */
+	var $input = $(btn_id);
+	var reader = new FileReader();
+	reader.onload = function () {
+		$(imageId).attr("src", reader.result);
+		//   var filename = $('#photo_edit')[0].files.length ? ('#photo_edit')[0].files[0].name : "";
+		var filename = $(btn_id).val().split('\\').pop();
+		$(upload_label).text(filename);
+	}
+	reader.readAsDataURL($input[0].files[0]);
+
 }
  
- 
-function resetexpertForm() {
-	jQuery('#expert_form')[0].reset();
-
-
-	/*
+function resetForm(formId) {
+	jQuery(formId)[0].reset();
+	$('#image_label').text("Choose File");
+	 
+	//$('#icon_label').text('اختر ملف SVG');
 	$('#imgshow').attr("src", emptyimg);
-	$('#iconshow').attr("src", emptyimg);
-	*/
+	$('#imgshow-edit').attr("src", emptyimg);
+ 
+	//$('#iconshow').attr("src", emptyimg);
 }
  
 
- 
- 
+});

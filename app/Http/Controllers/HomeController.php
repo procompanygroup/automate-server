@@ -17,12 +17,13 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return 'Illuminate\View\View'
      */
     public function index()
     {
-        return view('home');
+        //return "hi";
+       return view('site.home');
     }
 }

@@ -81,7 +81,7 @@ return [
  
  
 'dept' => 'القسم',
-'settings' => 'الاعدادات',
+'settings' => 'Settings',
 'new' => 'جديد',
 'comments' => 'التعليقات',
 'comment' => 'التعليق',

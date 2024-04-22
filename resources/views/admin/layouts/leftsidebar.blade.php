@@ -64,8 +64,8 @@
           </li>
           <li class="nav-item has-treeview ">
             <a href="#" class="nav-link ">
-               
-              <i class="nav-icon fa fa-users" aria-hidden="true"  ></i>
+             
+              <i  class="nav-icon fas fa-th" aria-hidden="true"  ></i>
               <p>
                {{ __('general.products',[],'en') }}
                 <i class="right fas fa-angle-left"></i>
@@ -210,7 +210,48 @@
               </li>
             </ul>
           </li>
-
+          <li class="nav-item has-treeview ">
+            <a href="#" class="nav-link ">
+               
+              <i class="nav-icon far fa fa-cog" aria-hidden="true"  ></i>
+              <p>
+             Setting
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('admin/setting/siteinfo') }}" class="nav-link ">
+                  <i class="far fa fa-list-alt nav-icon"></i>
+                  <p>Site info</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('admin/setting/getsocial')}}" class="nav-link ">
+                  <i class="far fa fa-list-alt nav-icon"></i>
+                  <p>Social</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('admin/setting/headinfo') }}" class="nav-link ">
+                  <i class="far fa fa-list-alt nav-icon"></i>
+                  <p>Header Info</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('language.create') }}" class="nav-link">
+                  <i class="far fa fa-plus-square nav-icon"></i>
+                  <p>Add</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/cpanel/language/sort') }}" class="nav-link">
+                  <i class="far fa fa-sort nav-icon"></i>
+                  <p>Sorting</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
         </ul>
       </nav>

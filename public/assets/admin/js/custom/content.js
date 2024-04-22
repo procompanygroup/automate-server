@@ -592,8 +592,8 @@ $("#code").focusout(function (e) {
 
 
 
-	showimgcount($("#image_check"), $('#image_count'));
-	clearTypeinputs();
+	//showimgcount($("#image_check"), $('#image_count'));
+	//clearTypeinputs();
 
 	// loadinputsview();
 	//show percent modal
