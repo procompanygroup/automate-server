@@ -237,7 +237,7 @@
                   </li>
                  
                   <li class="nav-item">
-                    <a href="{{ url('/admin/design/headsocialsort') }}" class="nav-link">
+                    <a href="{{ url('/admin/design/getsortpage','header-social') }}" class="nav-link">
                       <i class="far fa fa-sort nav-icon"></i>
                       <p>Sorting</p>
                     </a>
@@ -246,7 +246,7 @@
               </li>
 
               <li class="nav-item has-treeview">
-                <a href="{{url('admin/setting/siteinfo') }}" class="nav-link ">
+                <a href="#" class="nav-link ">
                   <i class="far fa fa-list-alt nav-icon"></i>
                   <p> Footer Social
                     <i class="right fas fa-angle-left"></i>
@@ -254,14 +254,14 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ url('/cpanel/category/view') }}" class="nav-link">
+                    <a  href="{{ url('/admin/design/footersocial') }}" class="nav-link">
                       <i class="far fa fa-list-alt nav-icon"></i>
                       <p>View</p>
                     </a>
                   </li>
                  
                   <li class="nav-item">
-                    <a href="{{ url('/cpanel/category/sort') }}" class="nav-link">
+                    <a href="{{ url('/admin/design/getsortpage','footer-social') }}" class="nav-link">
                       <i class="far fa fa-sort nav-icon"></i>
                       <p>Sorting</p>
                     </a>

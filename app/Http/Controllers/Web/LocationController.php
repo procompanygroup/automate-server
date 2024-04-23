@@ -44,7 +44,30 @@ class LocationController extends Controller
         
     }
  
+    public function footersocial()
+    {
+        $strgCtrlr = new StorageController(); 
+        $path= $strgCtrlr->SitePath('image');
+          $List = LocationSetting::wherehas('location', function ($query)  {
+            $query->where('name','footer-social');
+          })->with('location','setting')->get();
+       
+          $ComboList=Setting::whereDoesntHave('locationsettings', function ($query)  {
+            $query->wherehas('location', function ($query)  {
+                $query->where('name','footer-social');
+              });
+          })->where('category','social')->get();
+         // return  $ComboList;
+         
+         return view("admin.design.footersocial", [          
+         "List"=>   $List,
+         "combo_list"=>$ComboList,
+             
+         ]);
 
+
+        
+    }
     
 public function addheadsocial(AddHeadSocialRequest $request)
 {
@@ -77,18 +100,69 @@ public function delheadsocial($id)
     }              
     return redirect()->route('design.headsocial');   
 }
+//footer
+public function addfootsocial(AddHeadSocialRequest $request)
+{
+    $formdata = $request->all();
+    $validator = Validator::make(
+      $formdata,
+      $request->rules(),
+      $request->messages()
+    );
+    if ($validator->fails()) {
+      return response()->json($validator);
+    } else { 
+      $setting_id=  $formdata['setting_id'];
+      $locmodel=Location::where('name','footer-social')->first();
+     $location_id=$locmodel->id;
+      $locationset= LocationSetting::updateOrCreate(
+        ['location_id' =>$location_id, 'setting_id' =>  $setting_id],
+        ['sequence' => 0, 'is_active' => 1]
+    );
+   // return redirect()->route('design.headsocial');
+     return response()->json("ok");
+    }
+}
+
+public function delfootsocial($id)
+{
+    $item = LocationSetting::find($id);
+    if (!( $item  === null)) {            
+   // Setting::where('media_id',$id)->delete();
+   LocationSetting::find($id)->delete();         
+    }              
+    return redirect()->route('design.footersocial');   
+}
 
 
 
-public function headsocialsort()
+public function headsocialsort($loc)
 {
  
-    $Dblist = LocationSetting::wherehas('location', function ($query)  {
-        $query->where('name','header-social');
+    // $Dblist = LocationSetting::wherehas('location', function ($query)  {
+    //     $query->where('name','header-social');
+    //   })->wherehas('setting', function ($query)  {
+    //     $query->where('is_active',1);
+    //   })->with('location','setting')->orderBy('sequence')->get();
+   
+    //   $List= $Dblist->map(function ($locSetting) {
+    //    return [
+    //       'id' =>  $locSetting->id,
+    //       'name' =>$locSetting->setting->value1,
+    //       'sequence' => $locSetting->sequence,           
+    //     ];
+    //   });
+     
+          
+   return view("admin.design.sortheadsocial",["location"=>$loc]);
+}
+public function hsocialsort($loc)
+{ 
+    $Dblist = LocationSetting::wherehas('location', function  ($query) use($loc) {
+        $query->where('name',$loc);
       })->wherehas('setting', function ($query)  {
         $query->where('is_active',1);
-      })->with('location','setting')->orderBy('sequence')->get();
-   
+      })->with('location','setting')->orderBy('sequence')->get();   
       $List= $Dblist->map(function ($locSetting) {
        return [
           'id' =>  $locSetting->id,
@@ -97,29 +171,52 @@ public function headsocialsort()
         ];
       });
      
-          
-   return view("admin.design.sortheadsocial", ["List"=>$List]);
+      return response()->json($List);
 }
-public function headsocialsavesort()
+
+public function updatesort(Request $request)
 {
+    //  $data = json_decode($request->getContent(),true);
+    $data = json_decode($request->getContent(), true);
+    //  $data =   $request->json()->all();
+    $collection = collect($data);
  
-    $Dblist = LocationSetting::wherehas('location', function ($query)  {
-        $query->where('name','header-social');
-      })->wherehas('setting', function ($query)  {
-        $query->where('is_active',1);
-      })->with('location','setting')->orderBy('sequence')->get();
-   
-      $List= $Dblist->map(function ($locSetting) {
-       return [
-          'id' =>  $locSetting->id,
-          'name' =>$locSetting->setting->value1,
-          'sequence' => $locSetting->sequence,           
-        ];
-      });
-     return  $List;
-          
-    // return view("admin.design.sortheadsocial", ["List"=>$List]);
+    $this->updatetreesequence($collection, 0);
+    return "Saved";
+    // return response()->json(['success' => true, 'message' => $js  ]);
 }
+public function updatetreesequence($item, int $i)
+{
+
+    foreach ($item as $itemrow) {
+        LocationSetting::find($itemrow["id"])->update([
+          //  "parent_id" => $parentid,
+            "sequence" => $i,
+        ]);
+        $i++;
+        
+    }
+}
+// public function headsocialsavesort()
+// {
+ 
+//     $Dblist = LocationSetting::wherehas('location', function ($query)  {
+//         $query->where('name','header-social');
+//       })->wherehas('setting', function ($query)  {
+//         $query->where('is_active',1);
+//       })->with('location','setting')->orderBy('sequence')->get();
+   
+//       $List= $Dblist->map(function ($locSetting) {
+//        return [
+//           'id' =>  $locSetting->id,
+//           'name' =>$locSetting->setting->value1,
+//           'sequence' => $locSetting->sequence,           
+//         ];
+//       });
+//      return  $List;
+          
+//     // return view("admin.design.sortheadsocial", ["List"=>$List]);
+// }
 
 
     /**

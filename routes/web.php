@@ -124,10 +124,18 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
         Route::prefix('design')->group(function () {
             Route::get('/headsocial', [LocationController::class, 'getheadsocial'])->name('design.headsocial');
+            Route::get('/footersocial', [LocationController::class, 'footersocial'])->name('design.footersocial');
+            
             Route::post('/addheadsocial', [LocationController::class, 'addheadsocial']);
             Route::delete('/delheadsocial/{id}', [LocationController::class, 'delheadsocial']);
-            Route::get('/headsocialsort', [LocationController::class, 'headsocialsort']);
+
+            Route::post('/addfootsocial', [LocationController::class, 'addfootsocial']);
+            Route::delete('/delfootsocial/{id}', [LocationController::class, 'delfootsocial']);
+
+            Route::get('/getsortpage/{loc}', [LocationController::class, 'headsocialsort']);
             Route::get('/hsocialsavesort', [LocationController::class, 'headsocialsavesort']);
+            Route::get('/getsort/{loc}', [LocationController::class, 'hsocialsort']);
+            Route::post('/updatesort', [LocationController::class, 'updatesort']);
         });
     });
 
