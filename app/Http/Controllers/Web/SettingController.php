@@ -15,6 +15,9 @@ use  App\Http\Requests\Setting\UpdateFavRequest;
 use  App\Http\Requests\Setting\UpdateLogoRequest;
 use App\Http\Requests\Setting\StoreSocialRequest;
 use App\Http\Requests\Setting\UpdateSocialRequest;
+use App\Http\Requests\Setting\UpdateEmailRequest;
+use App\Http\Requests\Setting\UpdatePhoneRequest;
+
 class SettingController extends Controller
 {
     /**
@@ -251,6 +254,47 @@ $emailrow= $List->where('dep','email')->first();
         "emailrow"=>$emailrow,
             
         ]);
+    }
+
+    public function updatephone(UpdatePhoneRequest $request)
+    {
+        $formdata = $request->all();
+    $validator = Validator::make(
+      $formdata,
+      $request->rules(),
+      $request->messages()
+    );
+    if ($validator->fails()) {
+      return response()->json($validator);
+    } else { 
+        $item = Setting::where('category','header-info')->where('dep','phone')->first();
+      Setting::find( $item->id)->update([      
+        'value1'=> $formdata['phone'],       
+        'is_active'=>  isset ($formdata["is_active"]) ? 1 : 0, 
+   
+      ]);  
+      return response()->json("ok");
+    }
+  }
+    public function updateemail(UpdateEmailRequest $request)
+    {
+      $formdata = $request->all();
+      $validator = Validator::make(
+        $formdata,
+        $request->rules(),
+        $request->messages()
+      );
+      if ($validator->fails()) {
+        return response()->json($validator);
+      } else { 
+          $item = Setting::where('category','header-info')->where('dep','email')->first();
+        Setting::find( $item->id)->update([      
+          'value1'=> $formdata['email'],       
+          'is_active'=>  isset ($formdata["is_active-e"]) ? 1 : 0, 
+     
+        ]);  
+        return response()->json("ok");
+      }
     }
     /**
      * Show the form for creating a new resource.

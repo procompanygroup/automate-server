@@ -210,6 +210,66 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-item has-treeview ">
+            <a href="#" class="nav-link ">               
+             
+              <i class="nav-icon fas fa-edit"  aria-hidden="true"></i>
+              <p>
+             Design
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link ">
+                  <i class="far fa fa-list-alt nav-icon"></i>
+                  <p> Header Social
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/design/headsocial') }}" class="nav-link">
+                      <i class="far fa fa-list-alt nav-icon"></i>
+                      <p>View</p>
+                    </a>
+                  </li>
+                 
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/design/headsocialsort') }}" class="nav-link">
+                      <i class="far fa fa-sort nav-icon"></i>
+                      <p>Sorting</p>
+                    </a>
+                  </li>                   
+                </ul>
+              </li>
+
+              <li class="nav-item has-treeview">
+                <a href="{{url('admin/setting/siteinfo') }}" class="nav-link ">
+                  <i class="far fa fa-list-alt nav-icon"></i>
+                  <p> Footer Social
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/cpanel/category/view') }}" class="nav-link">
+                      <i class="far fa fa-list-alt nav-icon"></i>
+                      <p>View</p>
+                    </a>
+                  </li>
+                 
+                  <li class="nav-item">
+                    <a href="{{ url('/cpanel/category/sort') }}" class="nav-link">
+                      <i class="far fa fa-sort nav-icon"></i>
+                      <p>Sorting</p>
+                    </a>
+                  </li>                   
+                </ul>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item has-treeview ">
             <a href="#" class="nav-link ">
                
@@ -238,18 +298,8 @@
                   <p>Header Info</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ route('language.create') }}" class="nav-link">
-                  <i class="far fa fa-plus-square nav-icon"></i>
-                  <p>Add</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('/cpanel/language/sort') }}" class="nav-link">
-                  <i class="far fa fa-sort nav-icon"></i>
-                  <p>Sorting</p>
-                </a>
-              </li>
+              
+               
             </ul>
           </li>
 

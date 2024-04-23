@@ -11,7 +11,7 @@ use App\Http\Controllers\Web\LangProjectController;
 use App\Http\Controllers\Web\MediaProjectController;
 use App\Http\Controllers\Web\MediaStoreController;
 use App\Http\Controllers\Web\SettingController;
-
+use App\Http\Controllers\Web\LocationController;
 //site
 use App\Http\Controllers\HomeController;
 /*
@@ -44,7 +44,10 @@ Route::get('/clear', function() {
    
       return 'ok';
  });
-
+ Route::get('/{lang}/page/{id?}', function($lang,$id=null) {
+  //  $exitCode = Artisan::call('route:cache');
+      return 'ok'.$lang.'id='.$id;
+ });
 
 //Route::get('/', [AuthenticatedSessionController::class, 'create']);
 /*
@@ -105,16 +108,26 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::post('/updatefav', [SettingController::class, 'updatefav']);
             Route::post('/updatelogo', [SettingController::class, 'updatelogo']);
             //social
-            Route::get('/getsocial', [SettingController::class, 'getsocial'])->name('setting.getsocial');;
+            Route::get('/getsocial', [SettingController::class, 'getsocial'])->name('setting.getsocial');
             Route::get('/createsocial', [SettingController::class, 'createsocial']);
             Route::post('/storesocial', [SettingController::class, 'storesocial']);
             Route::get('/editsocial/{id}', [SettingController::class, 'editsocial']);
             Route::post('/updatesocial/{id}', [SettingController::class, 'updatesocial']);
             Route::delete('/delsocial/{id}', [SettingController::class, 'delsocial']);
-            //header contac
+            //header contact
             Route::get('/headinfo', [SettingController::class, 'getheadinfo']);
             Route::post('/updatephone', [SettingController::class, 'updatephone']);
             Route::post('/updateemail', [SettingController::class, 'updateemail']);
+
+
+        });
+
+        Route::prefix('design')->group(function () {
+            Route::get('/headsocial', [LocationController::class, 'getheadsocial'])->name('design.headsocial');
+            Route::post('/addheadsocial', [LocationController::class, 'addheadsocial']);
+            Route::delete('/delheadsocial/{id}', [LocationController::class, 'delheadsocial']);
+            Route::get('/headsocialsort', [LocationController::class, 'headsocialsort']);
+            Route::get('/hsocialsavesort', [LocationController::class, 'headsocialsavesort']);
         });
     });
 

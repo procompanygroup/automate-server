@@ -1,0 +1,172 @@
+<?php
+
+namespace App\Http\Controllers\Web;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\LocationSetting;
+use App\Models\Location;
+use App\Models\Setting;
+use Illuminate\Support\Facades\Validator;
+use  App\Http\Requests\Design\AddHeadSocialRequest;
+
+class LocationController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+    public function getheadsocial()
+    {
+        $strgCtrlr = new StorageController(); 
+        $path= $strgCtrlr->SitePath('image');
+          $List = LocationSetting::wherehas('location', function ($query)  {
+            $query->where('name','header-social');
+          })->with('location','setting')->get();
+       
+          $ComboList=Setting::whereDoesntHave('locationsettings', function ($query)  {
+            $query->wherehas('location', function ($query)  {
+                $query->where('name','header-social');
+              });
+          })->where('category','social')->get();
+         // return  $ComboList;
+         
+         return view("admin.design.headersocial", [          
+         "List"=>   $List,
+         "combo_list"=>$ComboList,
+             
+         ]);
+
+
+        
+    }
+ 
+
+    
+public function addheadsocial(AddHeadSocialRequest $request)
+{
+    $formdata = $request->all();
+    $validator = Validator::make(
+      $formdata,
+      $request->rules(),
+      $request->messages()
+    );
+    if ($validator->fails()) {
+      return response()->json($validator);
+    } else { 
+      $setting_id=  $formdata['setting_id'];
+      $locmodel=Location::where('name','header-social')->first();
+     $location_id=$locmodel->id;
+      $locationset= LocationSetting::updateOrCreate(
+        ['location_id' =>$location_id, 'setting_id' =>  $setting_id],
+        ['sequence' => 0, 'is_active' => 1]
+    );
+   // return redirect()->route('design.headsocial');
+     return response()->json("ok");
+    }
+}
+public function delheadsocial($id)
+{
+    $item = LocationSetting::find($id);
+    if (!( $item  === null)) {            
+   // Setting::where('media_id',$id)->delete();
+   LocationSetting::find($id)->delete();         
+    }              
+    return redirect()->route('design.headsocial');   
+}
+
+
+
+public function headsocialsort()
+{
+ 
+    $Dblist = LocationSetting::wherehas('location', function ($query)  {
+        $query->where('name','header-social');
+      })->wherehas('setting', function ($query)  {
+        $query->where('is_active',1);
+      })->with('location','setting')->orderBy('sequence')->get();
+   
+      $List= $Dblist->map(function ($locSetting) {
+       return [
+          'id' =>  $locSetting->id,
+          'name' =>$locSetting->setting->value1,
+          'sequence' => $locSetting->sequence,           
+        ];
+      });
+     
+          
+   return view("admin.design.sortheadsocial", ["List"=>$List]);
+}
+public function headsocialsavesort()
+{
+ 
+    $Dblist = LocationSetting::wherehas('location', function ($query)  {
+        $query->where('name','header-social');
+      })->wherehas('setting', function ($query)  {
+        $query->where('is_active',1);
+      })->with('location','setting')->orderBy('sequence')->get();
+   
+      $List= $Dblist->map(function ($locSetting) {
+       return [
+          'id' =>  $locSetting->id,
+          'name' =>$locSetting->setting->value1,
+          'sequence' => $locSetting->sequence,           
+        ];
+      });
+     return  $List;
+          
+    // return view("admin.design.sortheadsocial", ["List"=>$List]);
+}
+
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 class Setting extends Model
 {
     use HasFactory;
@@ -32,5 +32,9 @@ class Setting extends Model
         $conv=__('general.notactive',[],'en');
        }      
             return  $conv;
+     }
+     public function locationsettings(): HasMany
+     {
+         return $this->hasMany(LocationSetting::class,'setting_id');
      }
 }
