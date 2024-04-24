@@ -14,6 +14,7 @@ use Intervention\Image\Drivers\Gd\Driver;
 use PhpParser\Node\Expr\Cast\Object_;
 use Ramsey\Uuid\Type\Decimal;
 use Illuminate\Support\Facades\URL;
+use  App\Models\Setting;
 class StorageController extends Controller
 {
 
@@ -207,6 +208,5 @@ class StorageController extends Controller
       return $minutes;
   }
  */ 
-  
-  
+
 }

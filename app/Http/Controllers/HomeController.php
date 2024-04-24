@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Web\SiteDataController;
 class HomeController extends Controller
 {
     /**
@@ -23,7 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //return "hi";
-       return view('site.home');
+        $sitedctrlr=new SiteDataController();
+      $slidedata=  $sitedctrlr->getSlideData('home');
+      
+       
+       return view('site.home',['slidedata'=> $slidedata]);
     }
 }
