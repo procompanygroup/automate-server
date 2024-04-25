@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Web\StorageController;
 use App\Models\Setting;
 use App\Models\LocationSetting;
+use App\Models\Language;
 
 //use Illuminate\Support\Facades\View;
 class SiteDataController extends Controller
@@ -76,7 +77,14 @@ class SiteDataController extends Controller
         return $mainarr;
 
     }
+    public function FillTransData($lang=null){
+$langs=$this->getlangs($lang);
+$transarr=[
+    "langs" =>$langs,
+];
 
+ return$transarr;
+    }
     public function getSocialbyLocation($loc)
     {
         $Dblist = LocationSetting::wherehas('location', function ($query) use ($loc) {
@@ -116,6 +124,20 @@ class SiteDataController extends Controller
             ];
         }
         return $slidedata;
+    }
+
+    public function getlangs($current_lang_code=null)
+    {
+
+        if($current_lang_code==null){
+            $List = Language::where('status',1)->orderByDesc('is_default')->get();
+        }else{
+            $List = Language::where('status',1)->whereNot('code',$current_lang_code)->orderByDesc('is_default')->get();
+            $selected = Language::where('status',1)->where('code',$current_lang_code)->first();
+            $List->prepend($selected );
+        }
+   
+        return  $List ;
     }
     /**
      * Show the form for creating a new resource.

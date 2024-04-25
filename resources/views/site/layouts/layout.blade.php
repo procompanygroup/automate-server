@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    @php
+  @php
+  
+ 
      $sitedataCtrlr=new App\Http\Controllers\Web\SiteDataController();
     $mainarr=$sitedataCtrlr->FillStaticData();
-   $sittitle= $mainarr['title'];
-   $sitdesc= $mainarr['desc'];
-  @endphp
-    @include('site.layouts.head')
-@include('site.layouts.header') 
-@yield('mainslide')
-@yield('content')
-@include('site.layouts.footer')
+     
+  if(isset($lang)){
+    $transarr=$sitedataCtrlr->FillTransData( $lang);
+  }else{
+    $transarr=$sitedataCtrlr->FillTransData();
+  }
+  
+   $defultlang=$transarr['langs']->first();
+    @endphp
+ 
 
+ 
+ 
+<?php try{ ?> 
+  @include('site.layouts.head') 
+  @include('site.layouts.header') 
+  @yield('mainslide')
+  @yield('content')
+  @include('site.layouts.footer')
+<?php }catch(\Exception $e){ ?>
+    {{ abort(404)}}  
+<?php } ?>
 </html>

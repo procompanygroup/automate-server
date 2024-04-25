@@ -25,10 +25,25 @@ use App\Http\Controllers\HomeController;
 |
 */
 
- 
-    Route::get('/', [HomeController::class, 'index']);
- 
- 
+ //defaultlang
+    
+    
+
+    //selected lang
+    Route::prefix('{lang}')->group(function () {
+        Route::get('/', [HomeController::class, 'index']);
+        Route::get('/about', [HomeController::class, 'about']);
+        });
+
+        Route::get('/', [HomeController::class, 'index']);
+        Route::get('/about', [HomeController::class, 'about']);
+        
+        Route::middleware(['localemiddle'])->group(function () {
+       
+         
+            
+        });
+
 Route::get('/clear', function() {
     $exitCode = Artisan::call('route:cache');
       return 'ok';
@@ -48,6 +63,7 @@ Route::get('/clear', function() {
   //  $exitCode = Artisan::call('route:cache');
       return 'ok'.$lang.'id='.$id;
  });
+
 
 //Route::get('/', [AuthenticatedSessionController::class, 'create']);
 /*
