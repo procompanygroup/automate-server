@@ -7,6 +7,14 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
+  
+         // .....
+         //uncomment online
+//  function render($request, Throwable $exception)
+//  {
+//      return response()->view('500', [], 500);
+   
+//       }
     /**
      * The list of the inputs that are never flashed to the session on validation exceptions.
      *
