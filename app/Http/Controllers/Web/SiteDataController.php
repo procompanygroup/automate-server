@@ -19,6 +19,12 @@ class SiteDataController extends Controller
     {
         //
     }
+    // public function getlangscod()
+    // {
+    //     $List = Language::select('code')->get('code');
+    //     return $List;
+    // }
+   
     public function FillStaticData()
     {
         $strgCtrlr = new StorageController();

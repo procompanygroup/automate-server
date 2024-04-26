@@ -15,7 +15,10 @@ class HomeController extends Controller
     {
      // $this->middleware('auth');
     }
-
+    public function error500()
+    {
+        return view('500');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +30,10 @@ class HomeController extends Controller
      
         $sitedctrlr=new SiteDataController();
       $slidedata=  $sitedctrlr->getSlideData('home');
+      $transarr=$sitedctrlr->FillTransData($lang);
+    //  $transarr['langs']->select('code')->get();
+   //   return  $sitedctrlr->getlangscod()  ;
+      //
      if(isset($formdata['lang']))
      {
         $lang=$formdata['lang'];

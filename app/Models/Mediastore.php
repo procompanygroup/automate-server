@@ -51,4 +51,9 @@ class Mediastore extends Model
     {
         return $this->hasMany(MediaProject::class,'media_id');
     }
+     
+    public function mediaposts(): HasMany
+    {
+        return $this->hasMany(MediaPost::class,'media_id');
+    }
 }

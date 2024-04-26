@@ -16,7 +16,11 @@ class LocationSetting extends Model
         'type',
         'dep',
         'sequence',
-        'is_active',                     
+        'is_active', 
+        'main_table',
+'category_id',
+'post_id',
+                    
     ];
 
     public function location(): BelongsTo
@@ -26,6 +30,14 @@ class LocationSetting extends Model
     public function setting(): BelongsTo
     {
         return $this->belongsTo(Setting::class,'setting_id')->withDefault();
+    }
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class,'category_id')->withDefault();
+    }
+    public function post(): BelongsTo
+    {
+        return $this->belongsTo(Post::class,'post_id')->withDefault();
     }
 
 }

@@ -17,14 +17,12 @@
  
 
  
- 
-<?php try{ ?> 
+  
   @include('site.layouts.head') 
   @include('site.layouts.header') 
   @yield('mainslide')
   @yield('content')
   @include('site.layouts.footer')
-<?php }catch(\Exception $e){ ?>
-    {{ abort(404)}}  
-<?php } ?>
+ 
+ 
 </html>

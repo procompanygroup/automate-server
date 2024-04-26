@@ -17,6 +17,7 @@ use App\Http\Requests\Setting\StoreSocialRequest;
 use App\Http\Requests\Setting\UpdateSocialRequest;
 use App\Http\Requests\Setting\UpdateEmailRequest;
 use App\Http\Requests\Setting\UpdatePhoneRequest;
+use App\Models\LocationSetting;
 
 class SettingController extends Controller
 {
@@ -220,9 +221,9 @@ $logo=($logo==''?$strgCtrlr->DefaultPath('image'):$logo);
     public function delsocial($id)
     {             
           $item = Setting::find($id);
-          if (!( $item  === null)) {            
-         // Setting::where('media_id',$id)->delete();
-          Setting::find($id)->delete();         
+          if (!( $item  === null)) {                   
+            LocationSetting::where('setting_id',$id)->delete();
+         Setting::find($id)->delete();         
           }              
           return redirect()->route('setting.getsocial');     
     }

@@ -14,6 +14,7 @@ use App\Http\Controllers\Web\SettingController;
 use App\Http\Controllers\Web\LocationController;
 //site
 use App\Http\Controllers\HomeController;
+//use Illuminate\Support\Facades\Facade\Artisan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,21 +29,17 @@ use App\Http\Controllers\HomeController;
  //defaultlang
     
     
-
+ Route::get('/error500', [HomeController::class, 'error500'])->name('error500');
+//  Route::prefix('{lang}')->group(function () {
+   
+//     });
+   // Route::get('/about', [HomeController::class, 'about']);
+    Route::get('/', [HomeController::class, 'index']);
     //selected lang
-    Route::prefix('{lang}')->group(function () {
-        Route::get('/', [HomeController::class, 'index']);
-        Route::get('/about', [HomeController::class, 'about']);
-        });
+  
+        // Route::get('/about', [HomeController::class, 'about']);
 
-        Route::get('/', [HomeController::class, 'index']);
-        Route::get('/about', [HomeController::class, 'about']);
-        
-        Route::middleware(['localemiddle'])->group(function () {
-       
-         
-            
-        });
+    
 
 Route::get('/clear', function() {
     $exitCode = Artisan::call('route:cache');
@@ -59,10 +56,10 @@ Route::get('/clear', function() {
    
       return 'ok';
  });
- Route::get('/{lang}/page/{id?}', function($lang,$id=null) {
-  //  $exitCode = Artisan::call('route:cache');
-      return 'ok'.$lang.'id='.$id;
- });
+//  Route::get('/{lang}/page/{id?}', function($lang,$id=null) {
+//   //  $exitCode = Artisan::call('route:cache');
+//       return 'ok'.$lang.'id='.$id;
+//  });
 
 
 //Route::get('/', [AuthenticatedSessionController::class, 'create']);
@@ -91,6 +88,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::post('/update/{id}', [LanguageController::class, 'update'])->name('language.update');
             
         });  
+
         Route::resource('project', ProjectController::class, ['except' => ['update']]);
         Route::prefix('project')->group(function () {
             Route::post('/update/{id}', [ProjectController::class, 'update'])->name('project.update');
@@ -162,6 +160,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
        
       
     });
+
     /*
     Route::middleware('role.admin:super')->group(function () {
 
@@ -174,6 +173,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
    });
 */
 });
+
 /*
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -181,4 +181,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 */
+//Route::middleware(['localemiddle'])->
+Route::prefix('lang/{lang}')->group(function () {
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/about', [HomeController::class, 'about']);
+ 
+    
+});
 require __DIR__ . '/auth.php';

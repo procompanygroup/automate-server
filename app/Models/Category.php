@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+class Category extends Model
+{
+    use HasFactory;
+    protected $fillable = [
+        'title',
+        'slug',
+        'desc',
+        'meta_key',
+        'parent_id',
+        'sequence',
+        'status',
+        'update_user_id',
+        'create_user_id',
+        'notes',    
+        'code',
+       
+    ];
+
+
+ 
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+   public function createusers(): HasMany
+    {
+        return $this->hasMany(Category::class,'parent_id');
+    }
+
+    public function createruser(): BelongsTo
+    {
+        return $this->belongsTo(Category::class,'parent_id')->withDefault();
+    }
+    public function locationsettings(): HasMany
+    {
+        return $this->hasMany(LocationSetting::class,'category_id');
+    }
+    public function langposts(): HasMany
+    {
+        return $this->hasMany(LangPost::class,'category_id');
+    }
+
+    public function mediaposts(): HasMany
+    {
+        return $this->hasMany(MediaPost::class,'category_id');
+    }
+}

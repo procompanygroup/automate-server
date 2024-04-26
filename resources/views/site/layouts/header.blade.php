@@ -30,8 +30,8 @@
   
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto active" href="{{ url($transarr['langs']->first()->code)}}">Home</a></li>
-            <li><a class="nav-link scrollto" href="{{ url($transarr['langs']->first()->code,'about') }}">Company</a></li>
+            <li><a class="nav-link scrollto active" href="{{ url('lang',$transarr['langs']->first()->code)}}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{{ url('/lang'.'/'.$transarr['langs']->first()->code.'/about') }}">Company</a></li>
             <li><a class="nav-link scrollto" href="#services">Services</a></li>
             
             <li><a class="nav-link scrollto" href="#team">Team</a></li>
