@@ -266,4 +266,42 @@ public function updatetreesequence($item, int $i)
     {
         //
     }
+
+    //Footer section
+    //get for fill table
+    public function getsectionsbyname($name)
+    {
+      //  $strgCtrlr = new StorageController(); 
+        //$path= $strgCtrlr->SitePath('image');
+        //etfootersections
+        if($name=='footer'){
+          $List = LocationSetting::wherehas('location', function ($query)  {
+            $query->where('name','footer-social-title')
+            ->orwhere('name','footer-bottom')
+            ->orWhere('name','Like', '%footer-sec-%');
+          })->with('location','post')->orderBy('sequence')->get();       
+        //  return  $List;         
+         return view("admin.design.section.footer.show", [          
+         "List"=>   $List,            
+         ]);
+        }else if($name=='menu'){
+//temp
+          $List = LocationSetting::wherehas('location', function ($query)  {
+            $query->where('name','footer-social-title')
+            ->orwhere('name','footer-bottom')
+            ->orWhere('name','Like', '%footer-sec-%');
+          })->with('location','posts')->get();       
+         // return  $ComboList;         
+         return view("admin.design.headersocial", [          
+         "List"=>   $List,            
+         ]);
+        }else{
+          return "Notfound";
+        }
+     
+
+
+        
+    }
+
 }

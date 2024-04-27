@@ -278,7 +278,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a  href="{{ url('/admin/design/footersocial') }}" class="nav-link">
+                    <a  href="{{ url('/admin/design/sections','footer') }}" class="nav-link">
                       <i class="far fa fa-list-alt nav-icon"></i>
                       <p>View</p>
                     </a>

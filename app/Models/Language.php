@@ -59,4 +59,8 @@ class Language extends Model
      {
          return $this->hasMany(LangProject::class,'lang_id');
      }
+     public function langposts(): HasMany
+     {
+         return $this->hasMany(LangPost::class,'lang_id');
+     }
 }

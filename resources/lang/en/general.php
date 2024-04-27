@@ -83,9 +83,7 @@ return [
 'dept' => 'القسم',
 'settings' => 'Settings',
 'new' => 'جديد',
-'comments' => 'التعليقات',
-'comment' => 'التعليق',
-'comment name' => 'اسم المعلق',
+ 
  
 'order_for_client' => 'طلب :Name',
 'remember me' => 'Remember me',
@@ -101,6 +99,8 @@ return [
 'notactive' => 'Not active',
 'projects' => 'Projects',
 'products'=> 'Products',
+'sections'=> 'Sections',
+
 /*
 
   {{ __('general.welcome_name',['Name'=>'احمد']) }}

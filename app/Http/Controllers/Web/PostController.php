@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
+use App\Models\Language;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -42,10 +44,43 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
+        $item = Post::with([
+            'mediaposts' => function ($q) use ($id) {
+                $q->with('mediastore');
+            }
+        ])->find($id);
+        $lang_list = Language::orderByDesc('is_default')->with(
+            [
+                'langposts' => function ($q) use ($id) {
+                    $q->where('post_id', $id);
+                }
+            ]
+        )->get();
         //
+        //   return $item;
+        return view("admin.design.section.footer.edit", ["item" => $item, 'lang_list' => $lang_list]);
     }
+    public function editfooter($id)
+    {
+        $item = Post::with([
+            'mediaposts' => function ($q) use ($id) {
+                $q->with('mediastore');
+            }
+        ])->find($id);
+        $lang_list = Language::orderByDesc('is_default')->with(
+            [
+                'langposts' => function ($q) use ($id) {
+                    $q->where('post_id', $id);
+                }
+            ]
+        )->get();
+        //
+        //   return $item;
+        return view("admin.design.section.footer.edit", ["item" => $item, 'lang_list' => $lang_list]);
+    }
+
 
     /**
      * Update the specified resource in storage.

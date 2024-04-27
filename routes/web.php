@@ -12,6 +12,8 @@ use App\Http\Controllers\Web\MediaProjectController;
 use App\Http\Controllers\Web\MediaStoreController;
 use App\Http\Controllers\Web\SettingController;
 use App\Http\Controllers\Web\LocationController;
+use App\Http\Controllers\Web\PostController;
+use App\Http\Controllers\Web\CategoryController;
 //site
 use App\Http\Controllers\HomeController;
 //use Illuminate\Support\Facades\Facade\Artisan;
@@ -150,6 +152,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::get('/hsocialsavesort', [LocationController::class, 'headsocialsavesort']);
             Route::get('/getsort/{loc}', [LocationController::class, 'hsocialsort']);
             Route::post('/updatesort', [LocationController::class, 'updatesort']);
+            //footer section
+            Route::get('/sections/{name}', [LocationController::class, 'getsectionsbyname'])->name('design.sections');
+            Route::get('/editfooter/{id}', [PostController::class, 'editfooter']);
+
         });
     });
 
