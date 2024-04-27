@@ -145,6 +145,47 @@ $transarr=[
    
         return  $List ;
     }
+
+    //footer
+    public function getfooterLocation($lang_id)
+    {
+        $Dblist= LocationSetting::wherehas('location', function ($query)  {
+            $query->where('name','footer-social-title')
+            ->orwhere('name','footer-bottom')
+            ->orWhere('name','Like', '%footer-sec-%');
+          })->
+          wherehas('post', function ($query)  {
+            $query->where('status',1);
+          })
+          ->with(['location',
+            'post.langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           }])->  orderBy('sequence')->get();   
+
+    
+        $List = $Dblist->map(function ($locPost) {
+if($locPost->post && $locPost->post->langposts->first()){
+    return [
+        'id' => $locPost->id,
+        'loc_name' => $locPost->location->name,
+        'tr_title' => $locPost->post->langposts->first()->title_trans,
+        'tr_content' => $locPost->post->langposts->first()->content_trans,                 
+        'sequence' => $locPost->sequence, 
+    ];
+}else{
+    return [
+        'id' => $locPost->id,
+        'loc_name' => $locPost->location->name,
+        'tr_title' => "",
+        'tr_content' => "",                 
+        'sequence' => $locPost->sequence, 
+    ];
+}
+        
+        });
+
+        return $List;
+    }
     /**
      * Show the form for creating a new resource.
      */

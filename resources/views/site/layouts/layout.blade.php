@@ -13,10 +13,8 @@
   }
   
    $defultlang=$transarr['langs']->first();
+   $fsectionsarr=$sitedataCtrlr->getfooterLocation($defultlang->id);  
     @endphp
- 
-
- 
   
   @include('site.layouts.head') 
   @include('site.layouts.header') 

@@ -54,7 +54,7 @@
 <!-- Toastr -->
 <script src="{{ URL::asset('assets/admin/plugins/toastr/toastr.min.js') }}"></script>
 @yield('footerscript')
-@yield('showmessagescript')
+ 
 @yield('js')
 
 </body>

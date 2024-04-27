@@ -14,6 +14,8 @@ use App\Http\Controllers\Web\SettingController;
 use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\Web\PostController;
 use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\LangPostController;
+
 //site
 use App\Http\Controllers\HomeController;
 //use Illuminate\Support\Facades\Facade\Artisan;
@@ -156,6 +158,18 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::get('/sections/{name}', [LocationController::class, 'getsectionsbyname'])->name('design.sections');
             Route::get('/editfooter/{id}', [PostController::class, 'editfooter']);
 
+        });
+       // Route::resource('post', PostController::class, ['except' => ['update']]);
+       //footer
+        Route::prefix('post')->group(function () {
+            Route::post('/update/{id}', [PostController::class, 'update'])->name('post.update');
+            Route::post('/updatefooter/{id}', [PostController::class, 'updatefooter'])->name('post.updatefooter');
+         
+            
+        });  
+        Route::prefix('langpost')->group(function () {
+            Route::post('/update/{id}', [LangPostController::class,'update'])->name('langpost.update');
+            
         });
     });
 

@@ -35,14 +35,14 @@
                 <!-- form start -->
                 <div class="card-body  row">
                     <div class="col-lg-12 form-separate" >
-                        <form class="form-horizontal" name="create_form" method="POST" action="{{route('project.update', $item->id)}}" 
+                        <form class="form-horizontal" name="create_form" method="POST" action="{{route('post.updatefooter', $item->id)}}" 
                             enctype="multipart/form-data" id="create_form">
                             @csrf
 
                             <div class="form-group row">
-                                <label for="title" class="col-sm-2 col-form-label">Title</label>
+                                <label for="title"  class="col-sm-2 col-form-label">Title</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="title" id="title"
+                                    <input type="text" @disabled(true) class="form-control" name="title" id="title"
                                         placeholder="* Title" value="{{ $item->title }}">
 
                                     <span id="title-error" class="error invalid-feedback"></span>
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label for="slug" class="col-sm-2 col-form-label">Slug</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control " name="slug" id="slug"
@@ -58,14 +58,14 @@
                                     <span id="slug-error" class="error invalid-feedback"></span>
 
                                 </div>
-                            </div>
-                            <div class="form-group row">
+                            </div> --}}
+                            {{-- <div class="form-group row">
                                 <label for="metakey" class="col-sm-2 col-form-label">Keywords</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" rows="2" name="metakey" id="metakey" placeholder="Keywords">{{ $item->metakey }}</textarea>
                                     <span id="metakey-error" class="error invalid-feedback"></span>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-group row">
                                 <label for="status" class="col-sm-2 col-form-label">Status</label>
                                 <div class="col-sm-10 custom-control custom-switch ">
@@ -83,7 +83,7 @@
                                     <button type="submit" type="submit" name="btn_update_user" id="btn_update_user"
                                         class="btn btn-primary">Save</button>
 
-                                    <a class="btn btn-danger float-right " href="{{ route('project.index') }}">Cancel</a>
+                                    <a class="btn btn-danger float-right " href="{{ url('/admin/design/sections','footer') }}">Cancel</a>
                                   
 
                                 </div>
@@ -99,9 +99,9 @@
                           <li class="nav-item">
                             <a class="nav-link active" id="custom-tabs-one-trans-tab" data-toggle="pill" href="#custom-tabs-one-trans" role="tab" aria-controls="custom-tabs-one-trans" aria-selected="true">Translation</a>
                           </li>
-                          <li class="nav-item">
+                          {{-- <li class="nav-item">
                             <a class="nav-link" id="custom-tabs-one-media-tab" data-toggle="pill" href="#custom-tabs-one-media" role="tab" aria-controls="custom-tabs-one-media" aria-selected="false">Media</a>
-                          </li>
+                          </li> --}}
                           
                         </ul>
                       </div>
@@ -126,7 +126,7 @@
                                 <div class="tab-content" id="trans-tabs-four-tabContent">
                                   @foreach ($lang_list as $lang)
                                   <div class="tab-pane fade @once show active @endonce " id="lang-{{$lang->id}}" role="tabpanel" aria-labelledby="lang-{{$lang->id}}-tab">
-                                    <form class="form-horizontal" name="update_trans_form-{{$lang->id}}" method="POST" action="{{route('langproject.update', $item->id)}}" 
+                                    <form class="form-horizontal" name="update_trans_form-{{$lang->id}}" method="POST" action="{{route('langpost.update', $item->id)}}" 
                                       enctype="multipart/form-data" id="update_trans_form-{{$lang->id}}">
                                       @csrf
           
@@ -134,7 +134,7 @@
                                           <label for="title_trans" class="col-sm-2 col-form-label">Title</label>
                                           <div class="col-sm-10">
                                               <input type="text" class="form-control" name="title_trans" id="title_trans"
-                                                  placeholder="* Title" value="@if($lang->langprojects->first()){{$lang->langprojects->first()->title_trans }}@endif">
+                                                  placeholder="* Title" value="@if($lang->langposts->first()){{$lang->langposts->first()->title_trans }}@endif">
           
                                               <span id="title_trans-error" class="error invalid-feedback"></span>
           
@@ -145,7 +145,7 @@
                                           <label for="content_trans" class="col-sm-2 col-form-label">Content</label>
                                           <div class="col-sm-10">
                                             <textarea class="textarea" name="content_trans"  id="content_trans" rows="10"  placeholder="Place the translation here"
-                                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">@if($lang->langprojects->first()){{$lang->langprojects->first()->content_trans}}@endif</textarea>
+                                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">@if($lang->langposts->first()){{$lang->langposts->first()->content_trans}}@endif</textarea>
                                             <span id="content_trans-error" class="error invalid-feedback"></span>
                                           </div>
                                       </div>
@@ -170,7 +170,8 @@
                             </div>
                              
                           </div>
-                          <div class="tab-pane fade" id="custom-tabs-one-media" role="tabpanel" aria-labelledby="custom-tabs-one-media-tab">
+                               <!-- /.Media -->
+                          {{-- <div class="tab-pane fade" id="custom-tabs-one-media" role="tabpanel" aria-labelledby="custom-tabs-one-media-tab">
                              <p >Edit Media</p> 
                              <div class="card card-primary card-outline card-outline-tabs">
                               <div class="card-header p-0 border-bottom-0">
@@ -214,8 +215,7 @@
                                     </div>
                                     </div>
                                   <div class="tab-pane fade" id="custom-tabs-four-video" role="tabpanel" aria-labelledby="custom-tabs-four-video-tab">
-                                    
-                                    {{-- Video --}}
+                                     <!-- Video -->
                                     <div class="card-header">
                                       <h3 class="card-title"></h3>                            
                                       <div class="card-tools">                                   
@@ -248,8 +248,8 @@
                             </div>
 
 
-                          </div>
-                          
+                          </div> --}}
+                           <!-- /.Media  end-->
                         </div>
                       </div>
                       <!-- /.card -->
@@ -271,6 +271,7 @@
     </div>
     <!-- /.content-wrapper -->
     <!-- /.card -->
+     <!-- /.add image modal -->
     <div class="modal fade" id="modal-newimage">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -323,7 +324,9 @@
       <!-- /.modal-dialog -->
     </div>
 
+ <!-- /.end add image modal -->
 
+  <!-- /.edit image modal -->
     <div class="modal fade" id="modal-editimage">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -371,7 +374,8 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
-
+<!-- /.end edit  image modal -->
+<!-- /. delete modal -->
     <div class="modal fade" id="modal-delete">
       <div class="modal-dialog  modal-sm">
         <div class="modal-content">
@@ -394,6 +398,8 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
+    <!-- /.end delete modal -->
+
     <!-- /.modal -->
    <!-- video -->
     <div class="modal fade" id="modal-newvid">
@@ -496,6 +502,7 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
+
 @endsection
 
 @section('js')

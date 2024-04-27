@@ -9,41 +9,31 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>BizLand<span>.</span></h3>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
+        @if($fsectionsarr->where('loc_name','footer-sec-1')->first())
+            <h3>{{Str::of($fsectionsarr->where('loc_name','footer-sec-1')->first()['tr_title'])->toHtmlString()}}</h3>  
+          {{Str::of($fsectionsarr->where('loc_name','footer-sec-1')->first()['tr_content'])->toHtmlString()}}     
+        @endif
+        </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            @if($fsectionsarr->where('loc_name','footer-sec-2')->first())
+            <h4>{{Str::of($fsectionsarr->where('loc_name','footer-sec-2')->first()['tr_title'])->toHtmlString()}}</h4>
+            {{Str::of($fsectionsarr->where('loc_name','footer-sec-2')->first()['tr_content'])->toHtmlString()}} 
+            @endif
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
+            @if($fsectionsarr->where('loc_name','footer-sec-3')->first())
+            <h4>{{Str::of($fsectionsarr->where('loc_name','footer-sec-3')->first()['tr_title'])->toHtmlString()}}</h4>
+            {{Str::of($fsectionsarr->where('loc_name','footer-sec-3')->first()['tr_content'])->toHtmlString()}} 
+            @endif
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            <p></p>
+            @if($fsectionsarr->where('loc_name','footer-social-title')->first())
+            <h4>{{Str::of($fsectionsarr->where('loc_name','footer-social-title')->first()['tr_title'])->toHtmlString()}} </h4>
+            {{Str::of($fsectionsarr->where('loc_name','footer-social-title')->first()['tr_content'])->toHtmlString()}} 
+            @endif
             <div class="social-links mt-3">
               @foreach ($mainarr['f_social_list'] as $socialrow )  
               <a href="{{ $socialrow['link'] }}" class="{{ $socialrow['code'] }}"><i class="bx bxl-{{ $socialrow['code'] }}"></i></a>
@@ -57,16 +47,9 @@
     </div>
 
     <div class="container py-4">
-      <div class="copyright">
-        &copy; Copyright <strong><span>BizLand</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
+      @if($fsectionsarr->where('loc_name','footer-bottom')->first())
+      {{Str::of($fsectionsarr->where('loc_name','footer-bottom')->first()['tr_content'])->toHtmlString()}} 
+  @endif
     </div>
   </footer><!-- End Footer -->
 
