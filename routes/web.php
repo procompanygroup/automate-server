@@ -15,6 +15,8 @@ use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\Web\PostController;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\LangPostController;
+use  App\Http\Controllers\Web\MediaPostController;
+
 
 //site
 use App\Http\Controllers\HomeController;
@@ -118,6 +120,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::get('/getgallery/{id}', [MediaStoreController::class, 'getgallery']);
             Route::get('/getvideo/{id}', [MediaStoreController::class, 'getvideo']);
             
+            //category post
+            Route::get('/getcatgallery/{id}', [MediaStoreController::class, 'getcatgallery']);
+            Route::get('/getcatvideo/{id}', [MediaStoreController::class, 'getcatvideo']);
+            Route::get('/getpostgallery/{id}', [MediaStoreController::class, 'getpostgallery']);
+            Route::get('/getpostvideo/{id}', [MediaStoreController::class, 'getpostvideo']);
         });
 
         Route::prefix('setting')->group(function () {
@@ -157,8 +164,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             //footer section
             Route::get('/sections/{name}', [LocationController::class, 'getsectionsbyname'])->name('design.sections');
             Route::get('/editfooter/{id}', [PostController::class, 'editfooter']);
-
+            //main menu sec
+            Route::get('/editmenu/{id}', [CategoryController::class, 'editmenu']);
+            //submenu  
+            Route::get('/categorysub/{id}', [CategoryController::class, 'getcatbyparent']);
+      
         });
+
+
        // Route::resource('post', PostController::class, ['except' => ['update']]);
        //footer
         Route::prefix('post')->group(function () {
@@ -169,8 +182,27 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         });  
         Route::prefix('langpost')->group(function () {
             Route::post('/update/{id}', [LangPostController::class,'update'])->name('langpost.update');
+            Route::post('/updatecategory/{id}', [LangPostController::class,'updatelangcategory'])->name('langcategory.update');
             
         });
+
+//category menu
+Route::prefix('category')->group(function () {
+  //  Route::post('/update/{id}', [CategoryController::class, 'update'])->name('post.update');
+    Route::post('/updatemenu/{id}', [CategoryController::class, 'updatemenu'])->name('category.updatemenu');
+ 
+    
+}); 
+
+Route::prefix('mediapost')->group(function () {
+    Route::post('/store/{id}', [MediaPostController::class, 'storeimages'])->name('mediapost.store');
+    Route::post('/update/{id}', [MediaPostController::class, 'update'])->name('mediapost.update');
+    Route::post('/storevideo/{id}', [MediaPostController::class, 'storevideo'])->name('mediapost.storevideo');
+    Route::post('/updatevideo/{id}', [MediaPostController::class, 'updatevideo'])->name('mediapost.updatevideo');
+
+    
+});
+
     });
 
      

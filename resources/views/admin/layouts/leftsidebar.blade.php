@@ -224,6 +224,23 @@
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link ">
                   <i class="far fa fa-list-alt nav-icon"></i>
+                  <p> Main menu
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a  href="{{ url('/admin/design/sections','main-menu') }}" class="nav-link">
+                      <i class="far fa fa-list-alt nav-icon"></i>
+                      <p>View</p>
+                    </a>
+                  </li>
+                                  
+                </ul>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link ">
+                  <i class="far fa fa-list-alt nav-icon"></i>
                   <p> Header Social
                     <i class="right fas fa-angle-left"></i>
                   </p>
@@ -244,6 +261,8 @@
                   </li>                   
                 </ul>
               </li>
+
+           
 
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link ">

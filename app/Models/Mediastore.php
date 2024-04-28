@@ -24,26 +24,44 @@ class Mediastore extends Model
     public function getImagePathAttribute(){
         $conv="";
         $strgCtrlr = new StorageController(); 
-        if($this->type=='image'){
+      //  if($this->type=='image'){
             if(is_null($this->name) ){
-                $conv =$strgCtrlr->DefaultPath('image'); 
+              //  $conv =$strgCtrlr->DefaultPath('image'); 
+                $conv =''; 
             }else if($this->name==''){
-                $conv =$strgCtrlr->DefaultPath('image'); 
+                $conv =''; 
             } else {
                 if($this->local_path=='projects'){
                     $url = $strgCtrlr->ProjectPath($this->type);
                     $conv =  $url.$this->name;
-                }         
+                } else if($this->local_path=='categories'){
+                    $url = $strgCtrlr->CategoryPath($this->type);
+                    $conv =  $url.$this->name;
+                }else if($this->local_path=='posts'){
+                    $url = $strgCtrlr->PostPath($this->type);
+                    $conv =  $url.$this->name;
+                }
+           
             }   
-        }else{
-            //video
-            if(is_null($this->name) ){
-                $conv =''; 
-            }else {
-                $url = $strgCtrlr->ProjectPath($this->type);
-                $conv =  $url.$this->name;
-            }
-        }
+
+        // }else{
+        //     //video
+        //     if(is_null($this->name) ){
+        //         $conv =''; 
+        //     }else {
+        //         if($this->local_path=='projects'){
+        //             $url = $strgCtrlr->ProjectPath($this->type);
+        //             $conv =  $url.$this->name;
+        //         } else if($this->local_path=='categories'){
+        //             $url = $strgCtrlr->CategoryPath($this->type);
+        //             $conv =  $url.$this->name;
+        //         }else if($this->local_path=='posts'){
+        //             $url = $strgCtrlr->PostPath($this->type);
+        //             $conv =  $url.$this->name;
+        //         }
+            
+        //     }
+        // }
        
             return  $conv;
      }

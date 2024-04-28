@@ -46,6 +46,12 @@ class StorageController extends Controller
     $this->path['projects'] = 'images/projects';
     $this->vidpath['projects'] = 'images/projects/video';
     $this->path['site'] = 'images/site';
+
+    $this->path['categories'] = 'images/categories';
+    $this->vidpath['categories'] = 'images/categories/video';
+    $this->path['posts'] = 'images/posts';
+    $this->vidpath['posts'] = 'images/posts/video';
+   
     
     //value
  
@@ -156,6 +162,33 @@ class StorageController extends Controller
     }
     return $url;
 
+  }
+
+  public function PostPath($type)
+  { //image video
+    $url = "";
+    if ($type == "image") {
+    
+       $url =  $this->getlocalpath($this->path['posts']);      
+    } else {
+      //video
+ 
+       $url =  $this->getlocalpath($this->vidpath['posts']);
+    }
+    return $url;
+
+  }
+  public function CategoryPath($type)
+  { //image video
+    $url = "";
+    if ($type == "image") {
+    
+       $url =  $this->getlocalpath($this->path['categories']);      
+    } else {
+      //video 
+       $url =  $this->getlocalpath($this->vidpath['categories']);
+    }
+    return $url;
   }
   public function SitePath($type)
   {  

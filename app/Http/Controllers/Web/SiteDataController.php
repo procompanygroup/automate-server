@@ -186,6 +186,95 @@ if($locPost->post && $locPost->post->langposts->first()){
 
         return $List;
     }
+    //mainmenu
+    public function getmainmenu($lang_id)
+    {
+        $Dblist= LocationSetting::wherehas('location', function ($query)  {
+            $query->where('name','main-menu');
+          })->
+          wherehas('post', function ($query)  {
+            $query->where('status',1);
+          })
+          ->
+          orWhereHas('category', function ($query)  {
+            $query->where('status',1);
+          })
+          ->with(['location',
+            'post.langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           },
+            'category.langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           }])->  orderBy('sequence')->get();   
+
+    
+        $List = $Dblist->map(function ($locPost) use($lang_id){
+//if($locPost->post && $locPost->post->langposts->first()){
+    $tr_title='';
+    $tr_content ='';
+    $sons=[];
+    if($locPost->category_id>0 && $locPost->category->langposts->first()){
+        $tr_title=$locPost->category->langposts->first()->title_trans;
+      //  $tr_content =$locPost->category->langposts->first()->content_trans;
+   $sons=  $this->mapcategorylist($locPost->category->sons,$lang_id);
+    }else if($locPost->post_id>0 && $locPost->post->langposts->first()){
+        $tr_title=$locPost->post->langposts->first()->title_trans;
+    //    $tr_content =$locPost->post->langposts->first()->content_trans;
+    } 
+    return [
+        'id' => $locPost->id,
+        'category_id' => $locPost->category_id,
+        'post_id' => $locPost->post_id,
+        'loc_name' => $locPost->location->name,
+        'tr_title' => $tr_title,
+       // 'tr_content' => $locPost->post->langposts->first()->content_trans,                 
+        'sequence' => $locPost->sequence, 
+        'sons' =>$sons, 
+    ];
+//}
+
+// else{
+//     return [
+//         'id' => $locPost->id,
+//         'loc_name' => $locPost->location->name,
+//         'tr_title' => "",
+//         'tr_content' => "",                 
+//         'sequence' => $locPost->sequence, 
+//     ];
+// }
+        
+        });
+
+        return $List;
+    }
+    public function mapcategorylist($Dblist,$lang_id)
+    {
+        $List = $Dblist->map(function ($category) use($lang_id){
+         
+                $tr_title='';
+                $tr_content ='';
+                $transcat=$category->langposts->where('lang_id',$lang_id)->first();
+                if($transcat){
+                    $tr_title=$transcat->title_trans;
+                  //  $tr_content =$locPost->category->langposts->first()->content_trans;
+                } 
+                $sons=$this->mapcategorylist($category->sons,$lang_id);
+                return [
+                    'id' =>0,
+                    'category_id' => $category->id,
+                    'post_id' => 0,
+                    'loc_name' =>'',
+                    'tr_title' => $tr_title,
+                   // 'tr_content' => $locPost->post->langposts->first()->content_trans,                 
+                    'sequence' => 0, 
+                    'sons' => $sons, 
+                ];
+            
+                    
+                    });
+            
+                    return $List;
+    }
     /**
      * Show the form for creating a new resource.
      */

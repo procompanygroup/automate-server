@@ -282,7 +282,7 @@ if(formtype=='image'){
 		$('#btn_update_image').on('click', function (e) {
 			e.preventDefault();	 
 			var formid = $(this).attr("form");
-			updateimage('#'+formid,'video');
+			updateimage('#'+formid,'image');
 			});
 		function updateimage(formid,type) {
             startLoading();

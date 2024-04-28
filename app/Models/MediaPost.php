@@ -18,6 +18,16 @@ class MediaPost extends Model
         'status',
         'notes',         
     ];
+
+    protected $appends= ['media_type'];
+    public function getMediaTypeAttribute(){
+        $conv="";
+       if($this->mediastore){
+        $conv=$this->mediastore->type;
+       
+    }    
+            return  $conv;
+     }
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class,'category_id')->withDefault();

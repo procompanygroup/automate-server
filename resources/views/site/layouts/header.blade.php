@@ -1,4 +1,3 @@
-
 <body>
     <!-- ======Top Bar ======= -->
     <section id="topbar" class="d-flex align-items-center">
@@ -31,28 +30,25 @@
         <nav id="navbar" class="navbar">
           <ul>
             <li><a class="nav-link scrollto active" href="{{ url('lang',$transarr['langs']->first()->code)}}">Home</a></li>
-            <li><a class="nav-link scrollto" href="{{ url('/lang'.'/'.$transarr['langs']->first()->code.'/about') }}">Company</a></li>
-            <li><a class="nav-link scrollto" href="#services">Services</a></li>
-            
-            <li><a class="nav-link scrollto" href="#team">Team</a></li>
-            <li class="dropdown"><a href="#"><span>Drop Down {{ $defultlang->code }}</span> <i class="bi bi-chevron-down"></i></a>
+            @foreach ($menuarr as $item)
+            <li  @if(sizeof($item['sons'])) 
+              class="dropdown"  @endif >           
+              <a class="nav-link scrollto" href="{{ url('/lang'.'/'.$transarr['langs']->first()->code.'/about') }}">
+              <span>{{Str::of($item['tr_title'])->toHtmlString()}}</span>
+              @if(sizeof($item['sons']))             
+              <i class="bi bi-chevron-down"></i> @endif </a>
+              @if(sizeof($item['sons'])) 
+             
               <ul>
-                <li><a href="#">Drop Down 1</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                  <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
-                    <li><a href="#">Deep Drop Down 2</a></li>
-                    <li><a href="#">Deep Drop Down 3</a></li>
-                    <li><a href="#">Deep Drop Down 4</a></li>
-                    <li><a href="#">Deep Drop Down 5</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Drop Down 2</a></li>
-                <li><a href="#">Drop Down 3</a></li>
-                <li><a href="#">Drop Down 4</a></li>
+                @foreach ($item['sons'] as $subitem)
+                <li><a href="#">{{Str::of( $subitem['tr_title'])->toHtmlString()}}</a></li>
+                @endforeach
               </ul>
+              @endif
             </li>
-            <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          
+            @endforeach
+           
             <li class="dropdown"><a href="#"><img class="selected-lang-img"  width="25" height="20" src="{{$defultlang->image_path}}">
               <span>{{$defultlang->name }}</span><i class="bi bi-chevron-down"></i></a>
               <ul>

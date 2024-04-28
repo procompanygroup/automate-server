@@ -14,6 +14,7 @@
   
    $defultlang=$transarr['langs']->first();
    $fsectionsarr=$sitedataCtrlr->getfooterLocation($defultlang->id);  
+   $menuarr=$sitedataCtrlr->getmainmenu($defultlang->id);
     @endphp
   
   @include('site.layouts.head') 

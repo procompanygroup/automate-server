@@ -284,15 +284,13 @@ public function updatetreesequence($item, int $i)
          return view("admin.design.section.footer.show", [          
          "List"=>   $List,            
          ]);
-        }else if($name=='menu'){
+        }else if($name=='main-menu'){
 //temp
           $List = LocationSetting::wherehas('location', function ($query)  {
-            $query->where('name','footer-social-title')
-            ->orwhere('name','footer-bottom')
-            ->orWhere('name','Like', '%footer-sec-%');
-          })->with('location','posts')->get();       
-         // return  $ComboList;         
-         return view("admin.design.headersocial", [          
+            $query->where('name','main-menu');           
+          })->with('location','category.sons',)->get();       
+              
+         return view("admin.design.section.menu.show", [          
          "List"=>   $List,            
          ]);
         }else{
@@ -303,5 +301,7 @@ public function updatetreesequence($item, int $i)
 
         
     }
+
+    
 
 }

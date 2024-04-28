@@ -41,12 +41,12 @@ class Category extends Model
         return $this->hasMany(Post::class);
     }
 
-   public function createusers(): HasMany
+   public function sons(): HasMany
     {
         return $this->hasMany(Category::class,'parent_id');
     }
 
-    public function createruser(): BelongsTo
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class,'parent_id')->withDefault();
     }

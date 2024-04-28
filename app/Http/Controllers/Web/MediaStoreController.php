@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\MediaPost;
 use App\Models\MediaProject;
 use App\Models\Mediastore;
 use Illuminate\Http\Request;
@@ -56,12 +57,40 @@ return response()->json($item);
         return view('admin.media.showgallery', ['List' => $List]);
      //   return  $List;
     }
-    
+    public function getcatgallery($id)
+    {   
+        $List= MediaPost::with('mediastore')->where('category_id',$id)->get()  ;
+        $List= $List->where('media_type','image');
+        return view('admin.design.section.menu.media.showcatgallery', ['List' => $List]);
+     //   return  $List;
+    }
+    public function getpostgallery($id)
+    {
+        $List= MediaPost::with('mediastore')->where('post_id',$id)->get()  ;
+         $List= $List->where('media_type','image');
+        return view('admin.design.section.menu.media.showpostgallery', ['List' => $List]);
+     //   return  $List;
+    }
     public function getvideo($id)
     {
         $List= MediaProject::with('mediastore')->where('project_id',$id)->get()  ;
          $List= $List->where('media_type','video');
         return view('admin.media.showvideo', ['List' => $List]);
+     //   return  $List;
+    }
+    //category post video
+    public function getcatvideo($id)
+    {
+        $List= MediaPost::with('mediastore')->where('category_id',$id)->get()  ;
+       $List= $List->where('media_type','video');
+        return view('admin.design.section.menu.media.showcatvideo', ['List' => $List]);
+     //   return  $List;
+    }
+    public function getpostvideo($id)
+    {
+        $List= MediaPost::with('mediastore')->where('post_id',$id)->get()  ;
+      $List= $List->where('media_type','video');
+        return view('admin.design.section.menu.media.showpostvideo', ['List' => $List]);
      //   return  $List;
     }
     /**
@@ -76,20 +105,25 @@ return response()->json($item);
      * Remove the specified resource from storage.
      */
     public function destroyimage($id)
-    {             
+    {         
           $item = Mediastore::find($id);
+       $local_path=$item->local_path;
           if (!( $item  === null)) {
             $oldimagename =  $item ->name;
           $strgCtrlr = new StorageController();
           $path ='';
           if($item->type=='image'){
-            $path = $strgCtrlr->path['projects'];
+            $path = $strgCtrlr->path[$local_path];
           }else{
 //video
-            $path = $strgCtrlr->vidpath['projects'];
+            $path = $strgCtrlr->vidpath[$local_path];
           }        
-          Storage::delete("public/" .$path. '/' . $oldimagename);        
+          Storage::delete("public/" .$path. '/' . $oldimagename);  
+          if($local_path='projects'){
             MediaProject::where('media_id',$id)->delete();
+          }else{
+            MediaPost::where('media_id',$id)->delete();
+          }          
             Mediastore::find($id)->delete();         
           }        
          
