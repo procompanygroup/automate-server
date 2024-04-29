@@ -8,7 +8,7 @@ use App\Http\Controllers\Web\StorageController;
 use App\Models\Setting;
 use App\Models\LocationSetting;
 use App\Models\Language;
-
+use App\Models\Category;
 //use Illuminate\Support\Facades\View;
 class SiteDataController extends Controller
 {
@@ -212,13 +212,16 @@ if($locPost->post && $locPost->post->langposts->first()){
 //if($locPost->post && $locPost->post->langposts->first()){
     $tr_title='';
     $tr_content ='';
+    $slug ='';
     $sons=[];
     if($locPost->category_id>0 && $locPost->category->langposts->first()){
         $tr_title=$locPost->category->langposts->first()->title_trans;
+        $slug=$locPost->category->slug;
       //  $tr_content =$locPost->category->langposts->first()->content_trans;
    $sons=  $this->mapcategorylist($locPost->category->sons,$lang_id);
     }else if($locPost->post_id>0 && $locPost->post->langposts->first()){
         $tr_title=$locPost->post->langposts->first()->title_trans;
+        $slug=$locPost->post->slug;
     //    $tr_content =$locPost->post->langposts->first()->content_trans;
     } 
     return [
@@ -230,18 +233,10 @@ if($locPost->post && $locPost->post->langposts->first()){
        // 'tr_content' => $locPost->post->langposts->first()->content_trans,                 
         'sequence' => $locPost->sequence, 
         'sons' =>$sons, 
+        'slug' => $slug, 
+       
     ];
-//}
-
-// else{
-//     return [
-//         'id' => $locPost->id,
-//         'loc_name' => $locPost->location->name,
-//         'tr_title' => "",
-//         'tr_content' => "",                 
-//         'sequence' => $locPost->sequence, 
-//     ];
-// }
+ 
         
         });
 
@@ -258,6 +253,7 @@ if($locPost->post && $locPost->post->langposts->first()){
                     $tr_title=$transcat->title_trans;
                   //  $tr_content =$locPost->category->langposts->first()->content_trans;
                 } 
+                $slug=$category->slug;
                 $sons=$this->mapcategorylist($category->sons,$lang_id);
                 return [
                     'id' =>0,
@@ -268,12 +264,53 @@ if($locPost->post && $locPost->post->langposts->first()){
                    // 'tr_content' => $locPost->post->langposts->first()->content_trans,                 
                     'sequence' => 0, 
                     'sons' => $sons, 
+                    'slug' => $slug, 
                 ];
             
                     
                     });
             
                     return $List;
+    }
+    public function getcatinfo($lang_id,$category_id)
+    {
+        $Dbitem= Category::with([ 
+            'langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           },'sons'])->orderBy('sequence')->find($category_id);   
+
+           $item =$this->mapcategory($Dbitem,$lang_id);
+        //   return $item;
+     
+        return  $item;
+    }
+
+    public function mapcategory($category,$lang_id){
+        $tr_title='';
+$tr_content='';
+        if( $category->langposts->first()){
+            $tr_title= $category->langposts->first()->title_trans;
+            $tr_content= $category->langposts->first()->content_trans;
+        }
+ 
+$sons=$this->mapcategorylist($category->sons,$lang_id);
+        return [
+            'id' =>$category->id,
+            'title'=>$category->title,
+            'slug'=>$category->slug,
+            'desc'=>$category->desc,
+            'meta_key'=>$category->meta_key,
+            'parent_id'=>$category->parent_id,
+            'sequence'=>$category->sequence,
+            'status'=>$category->status,             
+            'notes'=>$category->notes,    
+            'code'=>$category->code,
+            'tr_title' => $tr_title,
+            'tr_content' =>$tr_content,                 
+           
+            'sons' => $sons, 
+           
+        ];
     }
     /**
      * Show the form for creating a new resource.

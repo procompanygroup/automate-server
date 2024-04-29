@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Web\SiteDataController;
+use App\Models\Language;
 class HomeController extends Controller
 {
     /**
@@ -67,6 +69,21 @@ class HomeController extends Controller
         $defultlang=$transarr['langs']->first();
         return view('site.company.about',['slidedata'=> $slidedata,'transarr'=>$transarr,'defultlang'=>$defultlang]);
        }
+      
+    }
+    public function getcontent( $lang,$slug)
+    {
+     //  $formdata=$request->all();
+     $langitem = Language::where('status',1)->where('code', $lang)->first();
+        $sitedctrlr=new SiteDataController();
+    //  $slidedata=  $sitedctrlr->getSlideData('home');
+      $category=Category::where('slug',$slug)->first();
+   $cat=   $sitedctrlr->getcatinfo( $langitem->id,$category->id);
+   //    if(isset($formdata["lang"])){
+        //$lang= $formdata["lang"];
+     //   $transarr=$sitedctrlr->FillTransData( $lang);
+       // $defultlang=$transarr['langs']->first();
+        return view('site.content.about',['category'=>$cat,'lang'=>$lang ]);       
       
     }
     public function changelang($lang)

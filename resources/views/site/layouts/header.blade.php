@@ -33,7 +33,7 @@
             @foreach ($menuarr as $item)
             <li  @if(sizeof($item['sons'])) 
               class="dropdown"  @endif >           
-              <a class="nav-link scrollto" href="{{ url('/lang'.'/'.$transarr['langs']->first()->code.'/about') }}">
+              <a class="nav-link scrollto" href="{{ url('/lang'.'/'.$transarr['langs']->first()->code.'/page'.'/'.$item['slug']) }}">
               <span>{{Str::of($item['tr_title'])->toHtmlString()}}</span>
               @if(sizeof($item['sons']))             
               <i class="bi bi-chevron-down"></i> @endif </a>
@@ -41,7 +41,8 @@
              
               <ul>
                 @foreach ($item['sons'] as $subitem)
-                <li><a href="#">{{Str::of( $subitem['tr_title'])->toHtmlString()}}</a></li>
+                <li><a href="{{ url('/lang'.'/'.$transarr['langs']->first()->code.'/page'.'/'.$subitem['slug']) }}">
+                  {{Str::of( $subitem['tr_title'])->toHtmlString()}}</a></li>
                 @endforeach
               </ul>
               @endif
@@ -54,8 +55,13 @@
               <ul>
                 @foreach ( $transarr['langs']->skip(1) as $langrow )
                 <li><a class="lang-menu" 
- 
-                  href="{{route(\Illuminate\Support\Facades\Route::currentRouteName(),['lang' => $langrow->code])}}">
+  @if(isset($category))
+    href="{{route(\Illuminate\Support\Facades\Route::currentRouteName(),['lang' => $langrow->code,'slug'=>$category['slug']])}}"
+    @else  
+    href="{{route(\Illuminate\Support\Facades\Route::currentRouteName(),['lang' => $langrow->code])}}"
+ @endif
+ >             
+                 
                   <img  width="25" height="20" src="{{$langrow->image_path}}"><span class="lang-menu-name">{{ $langrow->name }}</span></a></li>
                 @endforeach
              

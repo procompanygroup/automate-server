@@ -236,8 +236,8 @@ Route::middleware('auth')->group(function () {
 //Route::middleware(['localemiddle'])->
 Route::prefix('lang/{lang}')->group(function () {
     Route::get('/', [HomeController::class, 'index']);
-    Route::get('/about', [HomeController::class, 'about']);
- 
+   // Route::get('/about', [HomeController::class, 'about']);
+    Route::get('/page/{slug}', [HomeController::class, 'getcontent']);
     
 });
 require __DIR__ . '/auth.php';
