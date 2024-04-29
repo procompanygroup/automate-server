@@ -25,15 +25,21 @@
   
         {{-- <h1 class="logo"><a href="index.html">BizLand<span>.</span></a></h1> --}}
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html" class="logo"><img src="{{ $mainarr['logo']}}" alt=""></a>
+        <a  href="{{ url('lang',$transarr['langs']->first()->code)}}" class="logo"><img src="{{ $mainarr['logo']}}" alt=""></a>
   
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto active" href="{{ url('lang',$transarr['langs']->first()->code)}}">Home</a></li>
-            @foreach ($menuarr as $item)
+            <li><a class="nav-link scrollto active" href="{{ url('lang',$transarr['langs']->first()->code)}}"> <span>{{Str::of($menuarr->first()['tr_title'])->toHtmlString()}}</span></a></li>
+            @foreach ($menuarr->skip(1) as $item)
             <li  @if(sizeof($item['sons'])) 
               class="dropdown"  @endif >           
-              <a class="nav-link scrollto" href="{{ url('/lang'.'/'.$transarr['langs']->first()->code.'/page'.'/'.$item['slug']) }}">
+              <a class="nav-link scrollto"
+              @if(sizeof($item['sons'])&& $item['code']=='company')) 
+               href="#"
+               @else
+               href="{{ url('/lang'.'/'.$transarr['langs']->first()->code.'/page'.'/'.$item['slug']) }}"
+               @endif
+               >
               <span>{{Str::of($item['tr_title'])->toHtmlString()}}</span>
               @if(sizeof($item['sons']))             
               <i class="bi bi-chevron-down"></i> @endif </a>

@@ -23,15 +23,20 @@
       <div class="d-flex justify-content-between align-items-center">
         <h2>{{Str::of( $category['tr_title'])->toHtmlString()}}</h2>
         <ol>
-          <li><a href="index.html">Home</a></li>
-          <li>Inner Page</li>
+          @foreach ($current_path as $pathitem)
+            @if ($pathitem['is_link'])
+            <li><a href="{{ $pathitem['urlpath'] }}">{{ $pathitem['tr_title'] }}</a></li>
+              @else
+              <li>{{ $pathitem['tr_title'] }}</li>
+            @endif
+          @endforeach     
         </ol>
       </div>
 
     </div>
   </section><!-- End Breadcrumbs -->
 
-  <section class="inner-page">
+  <section class="inner-page inner-page-sec">
     <div class="container">
       {{Str::of( $category['tr_content'])->toHtmlString()}}      
     </div>

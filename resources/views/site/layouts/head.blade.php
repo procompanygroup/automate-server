@@ -24,6 +24,11 @@
     <link href="{{URL::asset('assets/site/assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
   
     <!-- Template Main CSS File -->
-    <link href="{{URL::asset('assets/site/assets/css/style.css')}}" rel="stylesheet">
+    @if( $defultlang->code=='ar')
+      <link href="{{URL::asset('assets/site/assets/css/style-rtl.css')}}" rel="stylesheet">
+    @else
+      <link href="{{URL::asset('assets/site/assets/css/style.css')}}" rel="stylesheet">
+    @endif
+  
     <link href="{{URL::asset('assets/site/assets/css/custom-style.css')}}" rel="stylesheet">
   </head>

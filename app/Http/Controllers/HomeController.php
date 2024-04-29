@@ -77,13 +77,15 @@ class HomeController extends Controller
      $langitem = Language::where('status',1)->where('code', $lang)->first();
         $sitedctrlr=new SiteDataController();
     //  $slidedata=  $sitedctrlr->getSlideData('home');
-      $category=Category::where('slug',$slug)->first();
-   $cat=   $sitedctrlr->getcatinfo( $langitem->id,$category->id);
+   //   $category=Category::where('slug',$slug)->first();
+   $cat=   $sitedctrlr->getcatinfo( $langitem->id,$slug);
+   $current_path=$sitedctrlr->getpath( $lang,$slug);
    //    if(isset($formdata["lang"])){
         //$lang= $formdata["lang"];
      //   $transarr=$sitedctrlr->FillTransData( $lang);
        // $defultlang=$transarr['langs']->first();
-        return view('site.content.about',['category'=>$cat,'lang'=>$lang ]);       
+      
+        return view('site.content.about',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);       
       
     }
     public function changelang($lang)

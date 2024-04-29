@@ -288,7 +288,7 @@ public function updatetreesequence($item, int $i)
 //temp
           $List = LocationSetting::wherehas('location', function ($query)  {
             $query->where('name','main-menu');           
-          })->with('location','category.sons',)->get();       
+          })->with('location','category.sons',)->orderBy('sequence')->get();       
               
          return view("admin.design.section.menu.show", [          
          "List"=>   $List,            
