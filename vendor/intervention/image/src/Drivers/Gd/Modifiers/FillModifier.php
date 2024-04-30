@@ -1,18 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Drivers\DriverSpecializedModifier;
 use Intervention\Image\Drivers\Gd\Frame;
+use Intervention\Image\Exceptions\RuntimeException;
 use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Geometry\Point;
+use Intervention\Image\Interfaces\SpecializedInterface;
+use Intervention\Image\Modifiers\FillModifier as GenericFillModifier;
 
-/**
- * @method bool hasPosition()
- * @property mixed $color
- * @property null|Point $position
- */
-class FillModifier extends DriverSpecializedModifier
+class FillModifier extends GenericFillModifier implements SpecializedInterface
 {
     public function apply(ImageInterface $image): ImageInterface
     {
@@ -29,6 +27,9 @@ class FillModifier extends DriverSpecializedModifier
         return $image;
     }
 
+    /**
+     * @throws RuntimeException
+     */
     private function color(ImageInterface $image): int
     {
         return $this->driver()->colorProcessor($image->colorspace())->colorToNative(

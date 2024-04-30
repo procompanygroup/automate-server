@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Image\Colors\Cmyk;
 
 use Intervention\Image\Colors\Rgb\Color as RgbColor;
@@ -7,6 +9,7 @@ use Intervention\Image\Colors\Cmyk\Color as CmykColor;
 use Intervention\Image\Colors\Hsv\Color as HsvColor;
 use Intervention\Image\Colors\Hsl\Color as HslColor;
 use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
+use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\ColorspaceInterface;
 
@@ -34,13 +37,13 @@ class Colorspace implements ColorspaceInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @see ColorspaceInterface::importColor()
+     * @param ColorInterface $color
+     * @return ColorInterface
+     * @throws ColorException
      */
     public function importColor(ColorInterface $color): ColorInterface
     {
-        return match (get_class($color)) {
+        return match ($color::class) {
             RgbColor::class => $this->importRgbColor($color),
             HsvColor::class => $this->importRgbColor($color->convertTo(RgbColorspace::class)),
             HslColor::class => $this->importRgbColor($color->convertTo(RgbColorspace::class)),
@@ -48,8 +51,17 @@ class Colorspace implements ColorspaceInterface
         };
     }
 
-    protected function importRgbColor(RgbColor $color): CmykColor
+    /**
+     * @param ColorInterface $color
+     * @return Color
+     * @throws ColorException
+     */
+    protected function importRgbColor(ColorInterface $color): CmykColor
     {
+        if (!($color instanceof RgbColor)) {
+            throw new ColorException('Unabled to import color of type ' . $color::class . '.');
+        }
+
         $c = (255 - $color->red()->value()) / 255.0 * 100;
         $m = (255 - $color->green()->value()) / 255.0 * 100;
         $y = (255 - $color->blue()->value()) / 255.0 * 100;

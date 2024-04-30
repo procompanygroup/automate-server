@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Image\Interfaces;
 
-use Traversable;
+use Intervention\Image\Exceptions\AnimationException;
 
-interface CoreInterface extends Traversable
+interface CoreInterface extends CollectionInterface
 {
     /**
      * return driver's representation of the image core.
      *
+     * @throws AnimationException
      * @return mixed
      */
     public function native(): mixed;
@@ -19,7 +22,7 @@ interface CoreInterface extends Traversable
      * @param mixed $native
      * @return CoreInterface
      */
-    public function setNative(mixed $native): CoreInterface;
+    public function setNative(mixed $native): self;
 
     /**
      * Count number of frames of animated image core
@@ -32,6 +35,7 @@ interface CoreInterface extends Traversable
      * Return frame of given position in an animated image
      *
      * @param int $position
+     * @throws AnimationException
      * @return FrameInterface
      */
     public function frame(int $position): FrameInterface;
@@ -42,7 +46,7 @@ interface CoreInterface extends Traversable
      * @param FrameInterface $frame
      * @return CoreInterface
      */
-    public function add(FrameInterface $frame): CoreInterface;
+    public function add(FrameInterface $frame): self;
 
     /**
      * Return number of repetitions of an animated image
@@ -58,7 +62,21 @@ interface CoreInterface extends Traversable
      * @param int $loops
      * @return CoreInterface
      */
-    public function setLoops(int $loops): CoreInterface;
+    public function setLoops(int $loops): self;
 
+    /**
+     * Get first frame in core
+     *
+     * @throws AnimationException
+     * @return FrameInterface
+     */
     public function first(): FrameInterface;
+
+    /**
+     * Get last frame in core
+     *
+     * @throws AnimationException
+     * @return FrameInterface
+     */
+    public function last(): FrameInterface;
 }
