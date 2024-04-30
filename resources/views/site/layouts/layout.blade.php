@@ -3,7 +3,7 @@
   @php
   
  
-     $sitedataCtrlr=new App\Http\Controllers\Web\SiteDataController();
+     $sitedataCtrlr=new App\Http\Controllers\Web\SiteDataController();  
     $mainarr=$sitedataCtrlr->FillStaticData();
      
   if(isset($lang)){

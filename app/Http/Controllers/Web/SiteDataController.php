@@ -55,6 +55,10 @@ class SiteDataController extends Controller
         $favicon = ($favicon == '' ? $strgCtrlr->DefaultPath('image') : $favicon);
         $logo = $strgCtrlr->getPath($logorow->value2, $path);
         $logo = ($logo == '' ? $strgCtrlr->DefaultPath('image') : $logo);
+        $whatsrow = $List->where('category', 'site-info')->where('dep', 'whatsapp')->first();
+        $whatsApp = $whatsrow->value1;
+        $whatsApp = \Str::replace('+','',$whatsApp);
+        $whatsApp=\Str::replace(' ','',$whatsApp);
         //header  info
         $phonerow = $List->where('category', 'header-info')->where('dep', 'phone')->first();
 
@@ -76,7 +80,8 @@ class SiteDataController extends Controller
 
             "h_social_list" => $h_social_list,
             "f_social_list" => $f_social_list,
-
+            "whatsapp" => $whatsApp,
+           
         ];
 
         //View::share('sitetitle', $title);
@@ -384,6 +389,39 @@ $is_link=1;
            'is_link'=>$is_link,
            
         ];
+    }
+
+    public function Fillfordash()    {
+        $strgCtrlr = new StorageController();
+        $path = $strgCtrlr->SitePath('image');
+        $List = Setting::select(
+            'id',
+            'name1',
+            'value1',
+            'name2',
+            'value2',
+            'name3',
+            'value3',
+            'category',
+            'dep',            
+            'section',
+            'location',
+            'is_active',
+        )->where('category', 'site-info')->get();
+        $titlerow = $List->where('category', 'site-info')->where('dep', 'title')->first();
+        $title = $titlerow->value1;       
+        $logorow = $List->where('category', 'site-info')->where('dep', 'logo')->first();
+        $favicon = $strgCtrlr->getPath($logorow->value1, $path);
+        $favicon = ($favicon == '' ? $strgCtrlr->DefaultPath('image') : $favicon);
+        $logo = $strgCtrlr->getPath($logorow->value2, $path);
+        $logo = ($logo == '' ? $strgCtrlr->DefaultPath('image') : $logo);
+        $mainarr = [
+            "title" => $title,            
+            "favicon" => $favicon,
+            "logo" => $logo,          
+        ];       
+        return $mainarr;
+
     }
     /**
      * Show the form for creating a new resource.

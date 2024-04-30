@@ -18,6 +18,7 @@ use App\Http\Requests\Setting\UpdateSocialRequest;
 use App\Http\Requests\Setting\UpdateEmailRequest;
 use App\Http\Requests\Setting\UpdatePhoneRequest;
 use App\Models\LocationSetting;
+use  App\Http\Requests\Setting\UpdateWhatsRequest;
 
 class SettingController extends Controller
 {
@@ -56,12 +57,15 @@ $favicon=  $strgCtrlr->getPath($logorow->value1, $path);
 $favicon=($favicon==''?$strgCtrlr->DefaultPath('image'):$favicon);
 $logo=$strgCtrlr->getPath($logorow->value2, $path);
 $logo=($logo==''?$strgCtrlr->DefaultPath('image'):$logo);
+$whatsrow= $List->where('dep','whatsapp')->first();
+$whats=$whatsrow->value1;
         return view("admin.setting.basic", [          
         "title"=>$title,
         "desc"=>$desc,
         "meta"=>$meta,
         "favicon"=>$favicon,
-        "logo"=>$logo,    
+        "logo"=>$logo, 
+        "whats"=>$whats,   
         ]);
     }
 
@@ -131,7 +135,26 @@ $logo=($logo==''?$strgCtrlr->DefaultPath('image'):$logo);
           return response()->json("ok");
         }
     }
-
+    public function updatewhats(UpdateWhatsRequest $request)
+    {
+        $formdata = $request->all();
+    $validator = Validator::make(
+      $formdata,
+      $request->rules(),
+      $request->messages()
+    );
+    if ($validator->fails()) {
+      return response()->json($validator);
+    } else { 
+        $item = Setting::where('category','site-info')->where('dep','whatsapp')->first();
+      Setting::find( $item->id)->update([      
+        'value1'=> $formdata['whatsapp'],       
+        
+      ]);  
+      return response()->json("ok");
+    }
+    }
+    
     //social
     
     public function getsocial()

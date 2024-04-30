@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
   
-    <title>{{ $mainarr['title']}} | @yield('page-title')</title>
+    <title>{{ $mainarr['title']}} @yield('page-title')</title>
     <meta content="{{ $mainarr['desc']}}" name="description">
     <meta content="{{ $mainarr['meta']}}" name="keywords">
   

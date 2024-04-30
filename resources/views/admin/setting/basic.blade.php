@@ -79,6 +79,38 @@
                 </div>
              
             </div>
+            <div class="card card-info">
+               
+                <!-- whatsapp start -->
+                <div class="card-body  row">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal" name="whatsapp_form" method="POST" action="{{url('admin/setting/updatewhats')}}" 
+                            enctype="multipart/form-data" id="whatsapp_form">
+                            @csrf
+                            <div class="form-group row">
+                                <label for="whatsapp" class="col-sm-2 col-form-label">Whatsapp Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="whatsapp" id="whatsapp"
+                                        placeholder="+905011291958" value="{{$whats}}">
+
+                                    <span id="whatsapp-error" class="error invalid-feedback"></span>
+
+                                </div>
+                            </div>                        
+                            <div class="form-group row">
+                                <div class="col-sm-2 col-form-label"></div>
+                                <div class="col-sm-10">
+                                    <button type="submit" type="submit" name="btn_update_whatsapp" id="btn_update_whatsapp"
+                                        class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+             
+            </div>
             <!-- Head icon -->
             <div class="card card-info"> 
                 <!-- Head icon -->

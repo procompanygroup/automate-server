@@ -2,8 +2,15 @@
   <!-- ======= Footer ======= -->
   <footer id="footer">
 
- 
-
+   <!-- whatsapp -->
+     <a href="https://api.whatsapp.com/send?phone={{$mainarr['whatsapp']}}&text" class="float" target="_blank">
+   <i class="bx bxl-whatsapp my-float"></i>
+   </a>
+     <!-- whatsapp end -->
+  <!-- whatsapp tmp-->
+{{-- <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-745a2c76-2630-4ad7-8727-2a564e63ce59" data-elfsight-app-lazy></div> --}}
+  <!-- whatsapp end -->
     <div class="footer-top">
       <div class="container">
         <div class="row">
@@ -51,11 +58,12 @@
       {{Str::of($fsectionsarr->where('loc_name','footer-bottom')->first()['tr_content'])->toHtmlString()}} 
   @endif
     </div>
+ 
   </footer><!-- End Footer -->
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
+ 
   <!-- Vendor JS Files -->
   <script src="{{URL::asset('assets/site/assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
   <script src="{{URL::asset('assets/site/assets/vendor/aos/aos.js')}}"></script>
@@ -69,6 +77,7 @@
   <!-- Template Main JS File -->
   <script src="{{URL::asset('assets/site/assets/js/main.js')}}"></script>
 
+ 
 </body>
 
  
