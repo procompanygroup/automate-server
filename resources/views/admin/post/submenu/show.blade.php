@@ -82,13 +82,6 @@
                               </i>
                              Sub menu
                           </a>
-                            @endif
-                            @if($item->code=='projects'||$item->code=='references')
-                            <a class="btn btn-info btn-sm" href="{{url('admin/post/showbycatid', $item->id)}}">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                            Show
-                          </a>
                             @endif</td>              
                 </tr>
 @endforeach

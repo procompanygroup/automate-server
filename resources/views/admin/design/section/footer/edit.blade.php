@@ -524,15 +524,20 @@
         
         $(function() {
         $('.textarea').summernote();
-/*
-       
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-      event.preventDefault();
-      $(this).ekkoLightbox({
-        alwaysShowClose: true
-      });
-    }); 
-*/
+//delete image
+$('.delete').on('click', function (e) {
+	e.preventDefault();	 
+	imgId=$(this).attr("id");
+	imgId=imgId.replace("del-","");
+	delType='image';
+	});	
+// delete video
+$('.delete-video').on('click', function (e) {
+	e.preventDefault();	   
+	imgId=$(this).attr("id");
+	imgId=imgId.replace("del-","");
+	delType='video';
+	});
         });
     </script>
 @endsection

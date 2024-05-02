@@ -1,5 +1,9 @@
 @extends('admin.layouts.layout')
+@section('page-title')
+{{ __('general.sections',[],'en') }}
+@endsection
 @section('content')
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -7,13 +11,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Posts</h1>
+            <h1></h1>
+           
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ url('/cpanel') }}">Home</a></li>
-              <li class="breadcrumb-item active">Post</li>
-              <li class="breadcrumb-item active">Posts</li>
+              <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
+              <li class="breadcrumb-item active">{{ __('general.sections',[],'en') }}-Sub Menu</li>
             </ol>
           </div>
         </div>
@@ -26,60 +30,56 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Show Posts</h3>
+          <h3 class="card-title">{{ __('general.sections',[],'en') }}/ {{ $category->title }}</h3>
 
           <div class="card-tools">
-          <a class="btn btn-info btn-sm" href="{{ url('/cpanel/post/add') }}">
-                              <i class="fas fa-plus">
-                              </i>
-                             New
-                          </a>
+          <a class="btn btn-info btn-sm" href="{{url('admin/post/createbycatid',$category->id)}}">
+                              <i class="fas fa-plus"></i>New</a> 
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fas fa-minus"></i></button>
              
           </div>
         </div>
-        <div class="card-body" id="post-content">
+        <div class="card-body">
         <table id="example1" class="table table-bordered table-striped table-hover">
       
                 <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Slug</th>
-                  <th>Category</th>
+                  <th>Name</th>
+                  {{-- <th>Slug</th> --}}
                   <th>Status</th>
-                  <th></th>                   
+                   
+                
+                  <th>Action</th> 
+                                     
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($posts as $post)
-            
+                @foreach ($list as $item)
                 <tr>
-                  <td>{{ $post->title }}</td>
-                  <td>{{ $post->slug }}</td>
-                  <td>{{ $post->category->title }}</td>
-                  <td>@if($post->status==1)Published @else Draft @endif</td>
-                  <td>    <a class="btn btn-info btn-sm" href="{{url('/cpanel/post/edit',[$post->id]) }}">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm"  href="{{url('/cpanel/post/delete',[$post->id]) }}">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>  </td>                
+                  <td>{{ $item->title }}</td>
+                  {{-- <td>{{ $item->slug }}</td> --}}
+                  <td>{{ $item->status_conv }}</td>                   
+                  <td>    <a class="btn btn-info btn-sm" href="{{url('admin/post/editpost', $item->id)}}">
+                              <i class="fas fa-pencil-alt"></i>Edit</a>
+
+                           <form action="{{url('admin/post/destroy', $item->id)}}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" id="del-{{$item->id}}" class="btn btn-danger btn-sm delete"  data-toggle="modal" data-target="#modal-delete"   title="Delete">   <i class="fas fa-trash">
+                            </i>Delete</button>
+</form> 
+                           </td>  
+                                        
                 </tr>
 @endforeach
            
                 </tbody>            
               </table>
-               {!! $posts->links() !!}   
         </div>
-     
         <!-- /.card-body -->
         <div class="card-footer">
-          Footer
+       
         </div>
         <!-- /.card-footer-->
       </div>
@@ -89,67 +89,51 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+	 
 
+    <div class="modal fade" id="modal-delete">
+    <div class="modal-dialog  modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center" style="padding-bottom: 5px;	padding-top: 30px;">
+          <h4 class="modal-title">{{ __('general.Are you sure',[],'en') }}</h4>
+             </div>
+        <div class="modal-footer justify-content-between" style="border-top: 0px solid  ">
+          <button class="btn ripple btn-secondary"  id="btn-cancel-modal"  data-dismiss="modal" type="button">{{ __('general.cancel',[],'en') }}</button>
+      
+          <button class="btn ripple btn-danger " id="btn-modal-del" type="button">{{ __('general.delete',[],'en') }}</button>
+           </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>  
+  <!-- /.modal -->
 @endsection
 
-@section('footerscript')
+@section('js')
  <!-- DataTables -->
-<script src="{{url('admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{url('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{url('admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{url('admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
- 
+<script src="{{ URL::asset('assets/admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ URL::asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ URL::asset('assets/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{ URL::asset('assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+ <script src="{{URL::asset('assets/admin/js/custom/delete.js')}}"></script>  
 <!-- page script -->
 <script>
   $(function () {
     $("#example1").DataTable({
-      "paging": false,
+      "paging": true,
       "responsive": true,     
       "info": true,
       "autoWidth": false,
+      "ordering": false,
     });
     $('#example2').DataTable({
-      "paging": false,
-      "lengthChange": false,
-    
+      "paging": true,
+      "lengthChange": false,    
       "ordering": true,
       "info": true,
       "autoWidth": false,
       "responsive": true,
-    });
-    $('#btn_search').on('click', function(e) {//edit_image
-    e.preventDefault();
-    if($('#text_search').val()==''){
-      window.location.href = '{{url("cpanel/post/view")}}'; 
-    }else{
-      var txt= $('#text_search').val();
-var urlget='{{url("cpanel/post/search")}}';
-        $.ajax({
-          //  url: "{{url('cpanel/category/updatesort/',["+parentid+"])}}",   
-          url: urlget,              
-          type: "Get",         
-          data:"text="+ txt,          
-            success: function(data){
-              $('#post-content').html(data);
-          
-               /* if(data.length==0){
-                $('#errormsg').html('No Data');
-               }else{
-               
-                $('#title_edit').attr('value', data.title);
-                
-               } */
-        
-             // $('.alert').html(result.success);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-             alert(jqXHR.responseText);
-              // $('#errormsg').html(jqXHR.responseText);
-              $('#errormsg').html("Error");
-            }        
-        });
-    }   
-
     });
   });
 </script>

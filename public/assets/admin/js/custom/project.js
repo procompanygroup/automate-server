@@ -347,23 +347,23 @@ $('#btn_update_video').on('click', function (e) {
 
 // delete image
 
-$('.delete').on('click', function (e) {
-	e.preventDefault();	 
-	imgId=$(this).attr("id");
-	imgId=imgId.replace("del-","");
-	delType='image';
+// $('.delete').on('click', function (e) {
+// 	e.preventDefault();	 
+// 	imgId=$(this).attr("id");
+// 	imgId=imgId.replace("del-","");
+// 	delType='image';
 	 
 
-	});
+// 	});
 	
 // delete video
 
-$('.delete-video').on('click', function (e) {
-	e.preventDefault();	 
-	imgId=$(this).attr("id");
-	imgId=imgId.replace("del-","");
-	delType='video';
-	});
+// $('.delete-video').on('click', function (e) {
+// 	e.preventDefault();	 
+// 	imgId=$(this).attr("id");
+// 	imgId=imgId.replace("del-","");
+// 	delType='video';
+// 	});
 
 $('#btn-modal-del').on('click', function (e) {
 	e.preventDefault();	 

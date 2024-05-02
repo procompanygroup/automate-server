@@ -429,13 +429,9 @@
            </div>
            <div class="col-sm-6">
             <video controls id="vidshow"
-            class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0" alt=""  ><source src="" > </video>
-            
+            class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0" alt=""  ><source src="" > </video>            
 
-           </div>
-           
-       
-        
+           </div>       
             </div>
           </div>
           <div class="modal-footer justify-content-between">
@@ -517,15 +513,20 @@
         
         $(function() {
         $('.textarea').summernote();
-/*
-       
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-      event.preventDefault();
-      $(this).ekkoLightbox({
-        alwaysShowClose: true
-      });
-    }); 
-*/
+//delete image
+$('.delete').on('click', function (e) {
+	e.preventDefault();	 
+	imgId=$(this).attr("id");
+	imgId=imgId.replace("del-","");
+	delType='image';
+	});	
+// delete video
+$('.delete-video').on('click', function (e) {
+	e.preventDefault();	   
+	imgId=$(this).attr("id");
+	imgId=imgId.replace("del-","");
+	delType='video';
+	});
         });
     </script>
 @endsection

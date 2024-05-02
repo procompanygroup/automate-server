@@ -178,8 +178,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         Route::prefix('post')->group(function () {
             Route::post('/update/{id}', [PostController::class, 'update'])->name('post.update');
             Route::post('/updatefooter/{id}', [PostController::class, 'updatefooter'])->name('post.updatefooter');
+            Route::get('/showbycatid/{id}', [PostController::class, 'showbycatid']);
+            Route::get('/createbycatid/{id}', [PostController::class, 'createwithcatid']);
+            Route::post('/storepost', [PostController::class, 'storepost']);
+            Route::post('/updatepost/{id}', [PostController::class, 'updatepost']);
+            Route::delete('/destroy/{id}', [PostController::class, 'destroy']);
+            Route::get('/editpost/{id}', [PostController::class, 'editpost']);
          
-            
         });  
         Route::prefix('langpost')->group(function () {
             Route::post('/update/{id}', [LangPostController::class,'update'])->name('langpost.update');
