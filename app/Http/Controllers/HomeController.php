@@ -44,11 +44,13 @@ class HomeController extends Controller
       //  $lang= $formdata["lang"];
       $transarr=$sitedctrlr->FillTransData($lang);
       $defultlang=$transarr['langs']->first();
-        return view('site.home',['slidedata'=> $slidedata,'lang'=>$lang, 'transarr'=>$transarr,'defultlang'=>$defultlang]);
+      $homearr= $sitedctrlr->gethomedata( $defultlang->id);
+        return view('site.home',['slidedata'=> $slidedata,'lang'=>$lang, 'transarr'=>$transarr,'defultlang'=>$defultlang,'homearr'=> $homearr]);
        }else{
         $transarr=$sitedctrlr->FillTransData();
         $defultlang=$transarr['langs']->first();
-        return view('site.home',['slidedata'=> $slidedata,'transarr'=>$transarr,'defultlang'=>$defultlang]);
+        $homearr= $sitedctrlr->gethomedata( $defultlang->id);
+        return view('site.home',['slidedata'=> $slidedata,'transarr'=>$transarr,'defultlang'=>$defultlang,'homearr'=> $homearr]);
        }
       
     }

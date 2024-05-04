@@ -295,6 +295,7 @@ if($locPost->post && $locPost->post->langposts->first()){
      
         return  $item;
     }
+
     public function getcatwithposts($lang_id,$slug)
     {        //projects and refs
         $Dbitem= Category::with([ 
@@ -528,6 +529,18 @@ $is_link=1;
         ];       
         return $mainarr;
 
+    }
+
+    public function gethomedata($lang_id)
+    {        //projects and refs
+        $ref= Category::where('code','references')->where('status',1)->first(); 
+        if( $ref){
+            $ref=$this->getcatwithposts($lang_id, $ref->slug);
+        }
+        $homearr = [
+            "references" => $ref,
+        ];
+        return  $homearr ;
     }
     /**
      * Show the form for creating a new resource.

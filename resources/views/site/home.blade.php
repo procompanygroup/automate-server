@@ -15,7 +15,16 @@
 @section('content')
 
   <main id="main">
- 
+    @if($homearr['references'])
+      @foreach ($homearr['references']['posts'] as $post)
+  {{ Str::of($post['tr_title'])->toHtmlString() }}-
+@endforeach
+    @endif
+   
+
+
+
+
     <!-- ======= Featured Services Section ======= -->
     <section id="featured-services" class="featured-services">
       <div class="container" data-aos="fade-up">

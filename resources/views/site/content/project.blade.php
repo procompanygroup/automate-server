@@ -1,52 +1,83 @@
 @extends('site.layouts.layout')
-{{-- @section('mainslide')
-   <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center">
-      <div class="container" data-aos="zoom-out" data-aos-delay="100">
-        <h1><span> {{ $slidedata['title'] }}</span></h1>
-        <h2> {{ $slidedata['desc'] }}</h2> 
-        <div class="d-flex">
 
-          <a href="#about" class="btn-get-started scrollto">Get Started</a>
-           </div>
-      </div>
-    </section><!-- End Hero -->
-    @endsection --}}
 @section('content')
+    <main id="main" data-aos="fade-up">
 
-<main id="main" data-aos="fade-up">
+        <!-- ======= Breadcrumbs ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
 
-  <!-- ======= Breadcrumbs ======= -->
-  <section class="breadcrumbs">
-    <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>{{ Str::of($category['tr_title'])->toHtmlString() }}</h2>
+                    <ol>
+                        @foreach ($current_path as $pathitem)
+                            @if ($pathitem['is_link'])
+                                <li><a href="{{ $pathitem['urlpath'] }}">{{ $pathitem['tr_title'] }}</a></li>
+                            @else
+                                <li>{{ $pathitem['tr_title'] }}</li>
+                            @endif
+                        @endforeach
+                    </ol>
+                </div>
 
-      <div class="d-flex justify-content-between align-items-center">
-        <h2>{{Str::of( $category['tr_title'])->toHtmlString()}}</h2>
-        <ol>
-          @foreach ($current_path as $pathitem)
-            @if ($pathitem['is_link'])
-            <li><a href="{{ $pathitem['urlpath'] }}">{{ $pathitem['tr_title'] }}</a></li>
-              @else
-              <li>{{ $pathitem['tr_title'] }}</li>
-            @endif
-          @endforeach     
-        </ol>
-      </div>
+            </div>
+        </section><!-- End Breadcrumbs -->
 
-    </div>
-  </section><!-- End Breadcrumbs -->
+        <section class="inner-page inner-page-sec">
+            <div class="container">
 
-  <section class="inner-page inner-page-sec">
-    <div class="container">
+                <!-- ======= Projects Section ======= -->
+                <section id="team" class="team">
+
+                    <div class="container" data-aos="fade-up">
+
+                        <header class="section-header">
+                            {{ Str::of($category['tr_content'])->toHtmlString() }}
+                        </header>
+
+                        <div class="row gy-4">
+                            @foreach ($category['posts'] as $post)
+                                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
+                                    data-aos-delay="100">
+                                    <div class="member">
+                                        <div class="member-img">
+                                            @if ($post['mediastore']->where('type', 'video')->first())
+                                                <video controls controlsList="nodownload" oncontextmenu="return false"
+                                                    class="img-fluid">
+                                                    <source
+                                                        src="{{ $post['mediastore']->where('type', 'video')->first()['image_path'] }}"
+                                                        type="video/mp4">
+                                                </video>
+                                            @else
+                                                <img src="@if ($post['mediastore']->first()) {{ $post['mediastore']->first()['image_path'] }}@else assets/img/team/team-2.jpg @endif"
+                                                    class="img-fluid" alt="">
+                                            @endif
+
+                                        </div>
+                                        <div class="member-info">
+                                            <h4>{{ Str::of($post['tr_title'])->toHtmlString() }}</h4>
+                                            @if ($post['tr_content'] == '')
+                                                <span></span>
+                                                <p></p>
+                                            @else
+                                                {{ Str::of($post['tr_content'])->toHtmlString() }}
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+
+                </section><!-- End Team Section -->
 
 
-      
-      @foreach ( $category['posts'] as $post )
-      {{Str::of( $post['tr_content'])->toHtmlString()}}  -
-      @endforeach
-       
-    </div>
-  </section>
 
-</main><!-- End #main -->
+
+
+            </div>
+        </section>
+
+    </main><!-- End #main -->
 @endsection
