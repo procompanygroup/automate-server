@@ -105,7 +105,8 @@ return response()->json($item);
      * Remove the specified resource from storage.
      */
     public function destroyimage($id)
-    {         
+    {     
+
           $item = Mediastore::find($id);
        $local_path=$item->local_path;
           if (!( $item  === null)) {
@@ -119,14 +120,14 @@ return response()->json($item);
             $path = $strgCtrlr->vidpath[$local_path];
           }        
           Storage::delete("public/" .$path. '/' . $oldimagename);  
-          if($local_path='projects'){
+          if($local_path=='projects'){
             MediaProject::where('media_id',$id)->delete();
           }else{
-            MediaPost::where('media_id',$id)->delete();
+         $res=MediaPost::where('media_id',$id)->delete();
           }          
             Mediastore::find($id)->delete();         
           }        
-         
+       
           return response()->json("ok");  
       
     }

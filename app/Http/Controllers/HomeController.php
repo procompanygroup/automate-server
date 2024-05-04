@@ -74,18 +74,20 @@ class HomeController extends Controller
     public function getcontent( $lang,$slug)
     {
      //  $formdata=$request->all();
+     $sitedctrlr=new SiteDataController();    
      $langitem = Language::where('status',1)->where('code', $lang)->first();
-        $sitedctrlr=new SiteDataController();
-    //  $slidedata=  $sitedctrlr->getSlideData('home');
-   //   $category=Category::where('slug',$slug)->first();
-   $cat=   $sitedctrlr->getcatinfo( $langitem->id,$slug);
-   $current_path=$sitedctrlr->getpath( $lang,$slug);
-   //    if(isset($formdata["lang"])){
-        //$lang= $formdata["lang"];
-     //   $transarr=$sitedctrlr->FillTransData( $lang);
-       // $defultlang=$transarr['langs']->first();
-      
-        return view('site.content.about',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);       
+     $catmodel= Category::where('slug',$slug)->select('id','code')->first();
+     $current_path=$sitedctrlr->getpath( $lang,$slug); 
+if($catmodel->code=='projects'){
+   $cat= $sitedctrlr->getcatwithposts( $langitem->id,$slug);
+   return view('site.content.project',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
+}else{
+  
+   $cat= $sitedctrlr->getcatinfo( $langitem->id,$slug);
+    
+        return view('site.content.about',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
+}
+     
       
     }
     public function changelang($lang)

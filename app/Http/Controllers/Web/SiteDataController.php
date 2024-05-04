@@ -284,6 +284,7 @@ if($locPost->post && $locPost->post->langposts->first()){
     }
     public function getcatinfo($lang_id,$slug)
     {
+
         $Dbitem= Category::with([ 
             'langposts' => function ($q) use ($lang_id) {
                $q->where('lang_id', $lang_id) ;
@@ -294,7 +295,33 @@ if($locPost->post && $locPost->post->langposts->first()){
      
         return  $item;
     }
+    public function getcatwithposts($lang_id,$slug)
+    {        //projects and refs
+        $Dbitem= Category::with([ 
+            'langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           }, 'posts' => function ($q) use ($lang_id) {
+            $q->where('status',1)
+            ->with([ 'langposts' => function ($q) use ($lang_id) {
+                $q->where('lang_id', $lang_id) ;
+            } , 'mediaposts' => function ($q) {
+                $q->with('mediastore');
+            }
 
+            ])->orderBy('sequence') ;
+        } ])->orderBy('sequence')->where('slug',$slug)->first();   
+/*
+[
+            'mediaposts' => function ($q) use ($id) {
+                $q->with('mediastore');
+            }
+        ]
+*/
+        $item =$this->mapcatwithpost($Dbitem,$lang_id);
+        //   return $item;
+     
+        return     $item ;
+    }
     public function mapcategory($category,$lang_id){
         $tr_title='';
 $tr_content='';
@@ -321,6 +348,85 @@ $sons=$this->mapcategorylist($category->sons,$lang_id);
             'sons' => $sons, 
            
         ];
+    }
+
+    public function mapcatwithpost($category,$lang_id){
+         
+            $tr_title='';
+             $tr_content='';
+            if( $category->langposts->first()){
+                $tr_title= $category->langposts->first()->title_trans;
+                $tr_content= $category->langposts->first()->content_trans;
+            }
+     
+    $posts=$this->mappostlist($category->posts );
+   
+            return [
+                'id' =>$category->id,
+                'title'=>$category->title,
+                'slug'=>$category->slug,
+                'desc'=>$category->desc,
+                'meta_key'=>$category->meta_key,
+                'parent_id'=>$category->parent_id,
+                'sequence'=>$category->sequence,
+                'status'=>$category->status,             
+                'notes'=>$category->notes,    
+                'code'=>$category->code,
+                'tr_title' => $tr_title,
+                'tr_content' =>$tr_content,                 
+               
+                'posts' =>  $posts, 
+             
+               
+            ];
+       
+    }
+    public function mappostlist($post ){
+        $List = $post->map(function ($postmodel)  {
+            $tr_title='';
+
+            $tr_content='';
+                    if( $postmodel->langposts->first()){
+                        $tr_title= $postmodel->langposts->first()->title_trans;
+                        $tr_content= $postmodel->langposts->first()->content_trans;
+                    }
+                    $mediastorelist=$this->mapmedia($postmodel->mediaposts);
+             
+                    return [
+                        'id' =>$postmodel->id,
+                        'title'=>$postmodel->title,
+                        'slug'=>$postmodel->slug,
+                        'desc'=>$postmodel->desc,
+                     //   'meta_key'=>$category->meta_key,
+                        
+                        'sequence'=>$postmodel->sequence,
+                        'status'=>$postmodel->status,             
+                        'notes'=>$postmodel->notes,    
+                        'code'=>$postmodel->code,
+                        'tr_title' => $tr_title,
+                        'tr_content' =>$tr_content,  
+                        'mediastore'=> $mediastorelist
+                           ];
+        });
+       return $List;
+       
+    }
+    public function mapmedia($mediaposts)
+    {
+    $List = $mediaposts->map(function ($mediapmodel)  {
+
+        return [
+            'id'=>$mediapmodel->mediastore->id,
+            'name'=>$mediapmodel->mediastore->name,
+            'caption'=>$mediapmodel->mediastore->caption,
+            'title'=>$mediapmodel->mediastore->title,
+            'local_path'=>$mediapmodel->mediastore->local_path,
+            'type'=>$mediapmodel->mediastore->type,
+            'sequence'=>$mediapmodel->sequence,
+    'image_path'=>$mediapmodel->mediastore->image_path
+        ];       
+    });
+    return $List ;
     }
 public $mainpathArr =[];
     //getpath
