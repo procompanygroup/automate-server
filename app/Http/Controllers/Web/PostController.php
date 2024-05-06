@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\LangPost;
+use App\Models\MediaPost;
+use App\Models\Mediastore;
 use App\Models\Post;
 use App\Models\Language;
 use Illuminate\Http\Request;
 use App\Http\Requests\Post\UpdateFooterRequest;
 use App\Http\Requests\Post\StorePostRequest;
-
+use App\Http\Controllers\Web\MediaStoreController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 class PostController extends Controller
@@ -257,16 +260,18 @@ class PostController extends Controller
      */
     public function destroy( $id)
     {
-         //delete user
-      $item = Post::find($id);
-      //delete image
-      /*
-      $oldimagename =  $item ->image;
-      $strgCtrlr = new StorageController();
-      $path = $strgCtrlr->path['projects'];
-      Storage::delete("public/" .$path. '/' . $oldimagename);
-      */
+     $item = Post::find($id);
       if (!( $item  === null)) {
+        //delete image
+        $medstor=new MediaStoreController();
+        $list=MediaPost::where('post_id',$id)->get();
+        foreach( $list  as $mediapost ){
+          $medstor->deleteimage($mediapost->media_id);         
+        }
+
+        //delete   MediaPost records
+        MediaPost::where('post_id',$id)->delete();
+        LangPost::where('post_id',$id)->delete();
         Post::find($id)->delete();
       }
       return redirect()->back();

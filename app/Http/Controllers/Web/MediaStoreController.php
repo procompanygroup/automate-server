@@ -106,10 +106,18 @@ return response()->json($item);
      */
     public function destroyimage($id)
     {     
+        $this->deleteimage($id);        
+          return response()->json("ok");  
+      
+    }
+    public function deleteimage($id)
+    {     
 
           $item = Mediastore::find($id);
-       $local_path=$item->local_path;
+
+  
           if (!( $item  === null)) {
+            $local_path=$item->local_path;
             $oldimagename =  $item ->name;
           $strgCtrlr = new StorageController();
           $path ='';
@@ -128,7 +136,7 @@ return response()->json($item);
             Mediastore::find($id)->delete();         
           }        
        
-          return response()->json("ok");  
+          return 1;  
       
     }
 }
