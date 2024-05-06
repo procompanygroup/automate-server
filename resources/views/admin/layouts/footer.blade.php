@@ -49,6 +49,7 @@
 {{-- <script src="{{URL::asset('assets/admin/dist/js/demo.js')}}"></script> --}}
 
 <script src="{{URL::asset('assets/admin/js/custom/main.js')}}"></script>
+<script src="{{URL::asset('assets/admin/js/custom/resumable.min.js')}}"></script>
 <script src="{{ URL::asset('assets/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <!-- Toastr -->
 <script src="{{ URL::asset('assets/admin/plugins/toastr/toastr.min.js') }}"></script>

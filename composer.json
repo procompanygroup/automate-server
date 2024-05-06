@@ -14,9 +14,8 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.3",
         "pbmedia/laravel-ffmpeg": "*",
-        "tymon/jwt-auth": "*"        
-     
-      
+        "pion/laravel-chunk-upload": "*",
+        "tymon/jwt-auth": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

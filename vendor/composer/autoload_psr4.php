@@ -62,6 +62,7 @@ return array(
     'Psr\\Clock\\' => array($vendorDir . '/psr/clock/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
     'ProtoneMedia\\LaravelFFMpeg\\' => array($vendorDir . '/pbmedia/laravel-ffmpeg/src'),
+    'Pion\\Laravel\\ChunkUpload\\' => array($vendorDir . '/pion/laravel-chunk-upload/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src/PhpOption'),
     'NunoMaduro\\Collision\\' => array($vendorDir . '/nunomaduro/collision/src'),

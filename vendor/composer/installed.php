@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '8da75e7f8b44276383aee2ea7d8be119ff01e27a',
+        'reference' => '95201c71ce3fb2123df297ea9c2af172c82a34f0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -427,7 +427,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8da75e7f8b44276383aee2ea7d8be119ff01e27a',
+            'reference' => '95201c71ce3fb2123df297ea9c2af172c82a34f0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -745,6 +745,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'pion/laravel-chunk-upload' => array(
+            'pretty_version' => 'v1.5.4',
+            'version' => '1.5.4.0',
+            'reference' => 'cfbc4292ddcace51308a4f2f446d310aa04e6133',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pion/laravel-chunk-upload',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'psr/cache' => array(
             'pretty_version' => '3.0.0',
             'version' => '3.0.0.0',
@@ -862,8 +871,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '3.0.0',
+                0 => '3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(
