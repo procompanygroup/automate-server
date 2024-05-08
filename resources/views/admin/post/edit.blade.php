@@ -35,7 +35,8 @@
                 <div class="card-body  row">
                     <div class="col-lg-12 form-separate" >
                         <form class="form-horizontal" name="create_form" method="POST" action="{{url('admin/post/updatepost', $item->id)}}" 
-                            enctype="multipart/form-data" id="create_form">
+                            enctype="multipart/form-data" 
+                            id="create_form">
                             @csrf
 
                             <div class="form-group row">
@@ -88,7 +89,7 @@
                             </div>
                         </form>
                     </div>
-                  
+               
                    <!--translation && media -->
                    <div class="col-12 col-sm-12">
                     <div class="card card-primary card-tabs">
@@ -285,7 +286,8 @@
            <div class="col-sm-6">
             <div class="form-group row">
               <form class="form-horizontal col-sm-12" name="create_image_form" method="POST" action="{{route('mediapost.store', $item->id)}}" 
-                enctype="multipart/form-data" id="create_image_form">
+                {{-- enctype="multipart/form-data"  --}}
+                id="create_image_form">
                 @csrf
               <div class="col-sm-12">
                 <textarea   name="caption" style="width: 100%" id="caption" rows="2"  placeholder="Description" ></textarea>
@@ -295,11 +297,15 @@
           </div>
             <div class="custom-file">
               <input type="file" class="custom-file-input" name="images[]"
-              multiple  accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg,image/webp"   id="images">
-              <label class="custom-file-label" id="image_label" for="images">Choose file</label>
+              multiple 
+                accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg,image/webp" 
+                  id="images">
+              <label class="custom-file-label" id="image_label"  >Choose file</label>
 
               <span id="images-error" class="error invalid-feedback"></span>
-
+              <div  style="display: none" class="progress mt-3" style="height: 25px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
+            </div>
           </div>
         </form>
            </div>
@@ -341,7 +347,8 @@
            <div class="col-sm-6">
             <div class="form-group row">
               <form class="form-horizontal col-sm-12" name="update_image_form" method="POST" action="{{route('mediapost.update','item_Id')}}" 
-                enctype="multipart/form-data" id="update_image_form">
+                {{-- enctype="multipart/form-data" --}}
+                 id="update_image_form">
                 @csrf
               <div class="col-sm-12">
                 <textarea   name="caption-edit" style="width: 100%" id="caption-edit" rows="2"  placeholder="Description" ></textarea>
@@ -355,7 +362,9 @@
               <label class="custom-file-label" id="image_label" for="images">Choose file</label>
 
               <span id="images-error" class="error invalid-feedback"></span>
-
+              <div  style="display: none" class="progress mt-3" style="height: 25px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
+            </div>
           </div>
         </form>
            </div>
@@ -417,7 +426,8 @@
            <div class="col-sm-6">
             <div class="form-group row">
               <form class="form-horizontal col-sm-12" name="create_video_form" method="POST" action="{{route('mediapost.storevideo', $item->id)}}" 
-                enctype="multipart/form-data" id="create_video_form">
+                {{-- enctype="multipart/form-data"  --}}
+                id="create_video_form">
                 @csrf
               <div class="col-sm-12">
                 <textarea   name="caption" style="width: 100%" id="caption" rows="2"  placeholder="Description" ></textarea>
@@ -431,7 +441,9 @@
               <label class="custom-file-label" id="video_label" for="image-video">Choose file</label>
 
               <span id="image-error" class="error invalid-feedback"></span>
-
+              <div  style="display: none" class="progress mt-3" style="height: 25px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
+            </div>
           </div>
         </form>
            </div>
@@ -470,7 +482,8 @@
            <div class="col-sm-6">
             <div class="form-group row">
               <form class="form-horizontal col-sm-12" name="update_video_form" method="POST" action="{{route('mediapost.updatevideo','item_Id')}}" 
-                enctype="multipart/form-data" id="update_video_form">
+                {{-- enctype="multipart/form-data"  --}}
+                id="update_video_form">
                 @csrf
               <div class="col-sm-12">
                 <textarea   name="caption-edit" style="width:100%" id="caption-edit-video" rows="2"  placeholder="Description" ></textarea>
@@ -480,11 +493,13 @@
           </div>
             <div class="custom-file">
               <input type="file" class="custom-file-input" name="image"
-                 accept="video/mp4,video/mkv, video/x-m4v,video/*" id="image-video-edit">
+                 accept="video/mp4,video/mkv,video/x-m4v,video/*" id="image-video-edit">
               <label class="custom-file-label" id="image_label-video-edit" for="image-video-edit">Choose file</label>
 
               <span id="image-error" class="error invalid-feedback"></span>
-
+              <div  style="display: none" class="progress mt-3" style="height: 25px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
+            </div>
           </div>
         </form>
            </div>
@@ -511,6 +526,10 @@
 @section('js')
 
     <script src="{{ URL::asset('assets/admin/js/custom/validate.js') }}"></script>
+    <script>
+    var uploadimg="{{ route('files.upload.large') }}";
+    var csrtoken="{{ csrf_token() }}";
+  </script>
     @once 
 <script src="{{ URL::asset('assets/admin/js/custom/project.js') }}"></script>
  @endonce
@@ -524,7 +543,7 @@
         var delimgurl = "{{url('admin/mediastore/destroyimage','ItemId')}}"; 
         var galimgurl = "{{url('admin/mediastore/getpostgallery',$item->id)}}"; 
         var vidurl = "{{url('admin/mediastore/getpostvideo',$item->id)}}"; 
-       
+      
         $(function() {
         $('.textarea').summernote();
 //delete image
@@ -552,6 +571,7 @@ $('.delete-video').on('click', function (e) {
 */
         });
     </script>
+
 @endsection
 @section('css')
 <link href="{{URL::asset('assets/admin/css/custom/content.css')}}" rel="stylesheet">
