@@ -299,9 +299,10 @@
               <input type="file" class="custom-file-input" name="images[]"
               multiple  accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg,image/webp"   id="images">
               <label class="custom-file-label" id="image_label" for="images">Choose file</label>
-
               <span id="images-error" class="error invalid-feedback"></span>
-
+              <div  style="display: none" class="progress mt-3" style="height: 25px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
+            </div>
           </div>
         </form>
            </div>
@@ -355,9 +356,10 @@
               <input type="file" class="custom-file-input" name="image"
                 accept="image/x-png,image/gif,image/jpeg,image/jpg,image/svg,image/webp" id="image">
               <label class="custom-file-label" id="image_label" for="images">Choose file</label>
-
               <span id="images-error" class="error invalid-feedback"></span>
-
+              <div  style="display: none" class="progress mt-3" style="height: 25px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
+            </div>
           </div>
         </form>
            </div>
@@ -431,21 +433,18 @@
               <input type="file" class="custom-file-input" name="image"
                 accept="video/mp4,video/mkv,video/x-m4v,video/*"   id="image-video">
               <label class="custom-file-label" id="video_label" for="image-video">Choose file</label>
-
               <span id="image-error" class="error invalid-feedback"></span>
-
+              <div  style="display: none" class="progress mt-3" style="height: 25px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
+            </div>
           </div>
         </form>
            </div>
            <div class="col-sm-6">
             <video controls id="vidshow"
             class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0" alt=""  ><source src="" > </video>
-            
-
-           </div>
-           
-       
-        
+          
+           </div>    
             </div>
           </div>
           <div class="modal-footer justify-content-between">
@@ -484,17 +483,16 @@
               <input type="file" class="custom-file-input" name="image"
                  accept="video/mp4,video/mkv, video/x-m4v,video/*" id="image-video-edit">
               <label class="custom-file-label" id="image_label-video-edit" for="image-video-edit">Choose file</label>
-
-              <span id="image-error" class="error invalid-feedback"></span>
-
+            <span id="image-error" class="error invalid-feedback"></span>
+            <div  style="display: none" class="progress mt-3" style="height: 25px">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
+          </div>
           </div>
         </form>
            </div>
            <div class="col-sm-6">
             <video controls id="vidshow-edit"
             class="rounded img-thumbnail wd-100p float-sm-right  mg-t-10 mg-sm-t-0" alt=""  ><source src="" > </video>
-            
-
            </div>
             </div>
           </div>
@@ -513,6 +511,9 @@
 @section('js')
 
     <script src="{{ URL::asset('assets/admin/js/custom/validate.js') }}"></script>
+    <script>  
+      var csrtoken="{{ csrf_token() }}";
+    </script>
     @once 
 <script src="{{ URL::asset('assets/admin/js/custom/project.js') }}"></script>
  @endonce

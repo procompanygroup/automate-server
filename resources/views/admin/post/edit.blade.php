@@ -526,8 +526,7 @@
 @section('js')
 
     <script src="{{ URL::asset('assets/admin/js/custom/validate.js') }}"></script>
-    <script>
-    var uploadimg="{{ route('files.upload.large') }}";
+    <script>  
     var csrtoken="{{ csrf_token() }}";
   </script>
     @once 

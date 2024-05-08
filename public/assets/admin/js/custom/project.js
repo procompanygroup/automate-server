@@ -805,7 +805,6 @@ $(document).ready(function () {
 		//target:uploadimg,
 		//query:{_token:csrtoken} ,// CSRF token
 		query: { _token: csrtoken, fdata: gformData },// CSRF token
-
 		fileType: ['mp4', 'mkv', 'm4v', 'mov', 'avi'],
 		chunkSize: 1 * 1024 * 1024, // default is 1*1024*1024, this should be less than your maximum limit in php.ini
 		headers: {
