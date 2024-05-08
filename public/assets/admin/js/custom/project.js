@@ -2,31 +2,22 @@ var result = '';
 var cancelBtnId = '';
 var gformData = "";
 $(document).ready(function () {
-
-
 	$('#btn_cancel').on('click', function (e) {
-
-
 		resetForm();
 		ClearErrors();
 	});
-
 	$('#btn_reset').on('click', function (e) {
 		e.preventDefault();
 		resetForm();
 		ClearErrors();
 	});
-
 	$('#btn_save').on('click', function (e) {
 		e.preventDefault();
 		startLoading();
 		ClearErrors();
-
 		var form = $('#create_form')[0];
 		var formData = new FormData(form);
 		urlval = $('#create_form').attr("action");
-
-
 		$.ajax({
 			url: urlval,
 			type: "POST",
@@ -37,7 +28,6 @@ $(document).ready(function () {
 			success: function (data) {
 				//	alert(data);
 				endLoading();
-
 				//$('#errormsg').html('');
 				//$('#sortbody').html('');
 				if (data.length == 0) {
@@ -61,16 +51,9 @@ $(document).ready(function () {
 
 			}, finally: function () {
 				endLoading();
-
 			}
-
-
 		});
-
-
-
 	});
-
 	$('#btn_update_user').on('click', function (e) {
 		e.preventDefault();
 		startLoading();
@@ -125,7 +108,6 @@ $(document).ready(function () {
 
 
 	});
-
 	$('.btn_update_trans').on('click', function (e) {
 		e.preventDefault();
 		var formid = $(this).closest('form').attr("id");
@@ -135,10 +117,7 @@ $(document).ready(function () {
 
 	$('#btn-new-img').on('click', function (e) {
 		e.preventDefault();
-
 		resetForm('#create_image_form');
-
-
 	});
 	//open new video
 	$('#btn-new-vid').on('click', function (e) {
@@ -162,12 +141,9 @@ $(document).ready(function () {
 		rvideo.opts.target = $(formid).attr("action");
 		rvideo.assignBrowse(Filevid[0]);
 		showProgress();
-
 		rvideo.upload();
-
 		startLoading();
 		ClearErrors();
-
 		//sendform('#'+formid,'video'); 
 	});
 	//get image to edit
@@ -177,7 +153,6 @@ $(document).ready(function () {
 		imgId = imgId.replace("edit-", "");
 		resetForm('#update_image_form');
 		loadImageInfo(imgId, 'image');
-
 	});
 	//get video to edit
 	$('.update-video').on('click', function (e) {
@@ -186,9 +161,15 @@ $(document).ready(function () {
 		imgId = imgId.replace("edit-", "");
 		resetForm('#update_video_form');
 		loadImageInfo(imgId, 'video');
-
 	});
-
+//pdf
+$('.update-pdf').on('click', function (e) {
+	e.preventDefault();
+	imgId = $(this).attr("id");
+	imgId = imgId.replace("edit-", "");
+	resetForm('#update_pdf_form');
+	loadImageInfo(imgId, 'pdf');
+});
 	function loadImageInfo(imageId, type) {
 		startLoading();
 		ClearErrors();
@@ -213,16 +194,15 @@ $(document).ready(function () {
 						$('#imgshow-edit').attr('src', data.image_path);
 						$('#caption-edit').html(data.caption);
 						//	$("#btn-cancel-modal").trigger("click");
+					}else if(type == 'pdf'){
+						$('#pdfshow').attr('href', data.image_path);
+						$('#caption-pdf-edit').html(data.caption);
 					} else {
 						$('#vidshow-edit').attr('src', data.image_path);
 						$('#caption-edit-video').html(data.caption);
 						//$("#btn-cancel-modal").trigger("click");
 					}
-
-					//	noteSuccess();
-
-					//	ClearErrors();
-				}
+ }
 
 			}, error: function (errorresult) {
 				endLoading();
@@ -234,10 +214,6 @@ $(document).ready(function () {
 			}
 		});
 	}
-
-	//
-
-
 	$('#btn_create_image').on('click', function (e) {
 		e.preventDefault();
 		var formid = $(this).attr("form");
@@ -257,6 +233,47 @@ $(document).ready(function () {
 		startLoading();
 		ClearErrors();
 		//	sendformimg('#'+formid,'image');
+	});
+//PDF
+$('#btn_create_pdf').on('click', function (e) {
+	e.preventDefault();
+	var formid = $(this).attr("form");
+	formid = '#' + formid;
+	cancelBtnId = "#btn-cancel-modal-pdf";
+	var formData = $(formid).serialize();
+	gformData = formData;
+
+	rpdf.opts.query.fdata = gformData;
+	rpdf.opts.target = $(formid).attr("action");
+	rpdf.assignBrowse(Filepdf[0]);
+	showProgress();
+	//resumable.query({_token:csrtoken,fdata:gformData});
+	//	resumable('query',{_token:csrtoken,fdata:gformData} );
+	rpdf.upload();
+
+	startLoading();
+	ClearErrors();
+	//	sendformimg('#'+formid,'image');
+});
+	//update
+	$('#btn_update_pdf').on('click', function (e) {
+		e.preventDefault();
+		var formid = $(this).attr("form");
+		formid = '#' + formid;
+		cancelBtnId = "#btn-cancel-pdf-edit";
+		 
+		urlact = $(formid).attr("action");
+		var urlval = urlact.replace("item_Id", imgId);
+		var formData = $(formid).serialize();
+		gformData = formData;
+		rpdf.assignBrowse(FilepdfEdit[0]);
+	 
+		rpdf.opts.query.fdata = gformData;
+		rpdf.opts.target = urlval;
+		showProgress(); 
+		rpdf.upload();
+		startLoading();
+		ClearErrors();
 	});
 
 	function sendformimg(formid, formtype) {
@@ -384,9 +401,6 @@ $(document).ready(function () {
 	$('#btn_update_image').on('click', function (e) {
 		e.preventDefault();
 		var formid = $(this).attr("form");
-
-
-
 		formid = '#' + formid;
 		cancelBtnId = "#btn-cancel-modal-edit";
 		//browseFile = $('#image');
@@ -494,15 +508,7 @@ $(document).ready(function () {
 
 
 	// 	});
-
-	// delete video
-
-	// $('.delete-video').on('click', function (e) {
-	// 	e.preventDefault();	 
-	// 	imgId=$(this).attr("id");
-	// 	imgId=imgId.replace("del-","");
-	// 	delType='video';
-	// 	});
+ 
 
 	$('#btn-modal-del').on('click', function (e) {
 		e.preventDefault();
@@ -563,7 +569,9 @@ $(document).ready(function () {
 		urlval = '';
 		if (type == 'image') {
 			urlval = galimgurl;
-		} else {
+		} else if(type == 'pdf'){
+			urlval = pdfurl;
+		}else {
 			urlval = vidurl;
 		}
 
@@ -585,7 +593,10 @@ $(document).ready(function () {
 				} else {
 					if (type == 'image') {
 						$('#image-gallery-content').html(data);
-					} else {
+					}else if(type == 'pdf'){
+						$('#pdf-gallery-content').html(data);		
+					}	
+					else {
 						$('#video-gallery-content').html(data);
 					}
 
@@ -647,6 +658,16 @@ $(document).ready(function () {
 		rvideo.cancel();
 		videoChangeForm("image-video-edit", "image_label-video-edit", "vidshow-edit");
 	});
+	//pdf
+	$("#pdf-file").on("change", function () {
+		rpdf.cancel();
+		//videoChangeForm("image-video", "video_label", "vidshow");
+	});
+	$("#pdf-edit").on("change", function () {
+		rpdf.cancel();
+		//videoChangeForm("image-video-edit", "image_label-video-edit", "vidshow-edit");
+	});
+
 	function imageChangeForm(btn_id, upload_label, imageId) {
 		/* Current this object refer to input element */
 		var $input = $(btn_id);
@@ -797,11 +818,11 @@ $(document).ready(function () {
 
 	//////////
 	//video resume
-
 	var Filevid = $('#image-video');
 	var FilevidEdit = $('#image-video-edit');
 	var rvideo = new Resumable({
 		simultaneousUploads: 1,
+		maxFiles:1,
 		//target:uploadimg,
 		//query:{_token:csrtoken} ,// CSRF token
 		query: { _token: csrtoken, fdata: gformData },// CSRF token
@@ -817,7 +838,6 @@ $(document).ready(function () {
 	rvideo.assignBrowse(Filevid[0]);
 	rvideo.assignBrowse(FilevidEdit[0]);
 	rvideo.on('fileAdded', function (file) { // trigger when file picked
-
 	});
 
 	rvideo.on('fileProgress', function (file) { // trigger when file progress update
@@ -826,13 +846,11 @@ $(document).ready(function () {
 
 	rvideo.on('fileSuccess', function (file, response) { // trigger when file upload complete
 		fcount++;
-		response = JSON.parse(response);
-		 
+		response = JSON.parse(response);		 
 		//result = response.id;
 		endLoading();
 		if (fcount >= rvideo.files.length) {
-			fcount = 0;
-			
+			fcount = 0;			
 			noteSuccess();			
 			loadgallery('video');
 			$(cancelBtnId).trigger("click");
@@ -847,6 +865,60 @@ $(document).ready(function () {
 		hideProgress();
 		ClearErrors();
 		loadgallery('video');
+		$(cancelBtnId).trigger("click");
+	});
+/// PDF resume
+	//////////
+		var Filepdf = $('#pdf-file');
+	var FilepdfEdit = $('#pdf-edit');
+	var rpdf = new Resumable({
+		simultaneousUploads: 1,
+		maxFiles:1,
+		//target:uploadimg,
+		//query:{_token:csrtoken} ,// CSRF token
+		query: { _token: csrtoken, fdata: gformData },// CSRF token
+		fileType: ['pdf'],
+		chunkSize: 1 * 1024 * 1024, // default is 1*1024*1024, this should be less than your maximum limit in php.ini
+		headers: {
+			'Accept': 'application/json'
+		},
+		testChunks: false,
+		throttleProgressCallbacks: 1,
+	});
+
+	rpdf.assignBrowse(Filepdf[0]);
+	rpdf.assignBrowse(FilepdfEdit[0]);
+	rpdf.on('fileAdded', function (file) { // trigger when file picked
+
+	});
+
+	rpdf.on('fileProgress', function (file) { // trigger when file progress update
+		updateProgress(Math.floor(file.progress() * 100));
+	});
+
+	rpdf.on('fileSuccess', function (file, response) { // trigger when file upload complete
+		fcount++;
+		response = JSON.parse(response);
+		 
+		//result = response.id;
+		endLoading();
+		if (fcount >= rpdf.files.length) {
+			fcount = 0;
+			
+			noteSuccess();			
+			loadgallery('pdf');
+			$(cancelBtnId).trigger("click");
+			hideProgress();
+		}
+
+	});
+
+	rpdf.on('fileError', function (file, response) { // trigger when there is any error
+		endLoading();
+		noteError();
+		hideProgress();
+		ClearErrors();
+		loadgallery('pdf');
 		$(cancelBtnId).trigger("click");
 	});
 

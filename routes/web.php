@@ -119,12 +119,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::delete('/destroyimage/{id}', [MediaStoreController::class, 'destroyimage']);
             Route::get('/getgallery/{id}', [MediaStoreController::class, 'getgallery']);
             Route::get('/getvideo/{id}', [MediaStoreController::class, 'getvideo']);
-            
+           
             //category post
             Route::get('/getcatgallery/{id}', [MediaStoreController::class, 'getcatgallery']);
             Route::get('/getcatvideo/{id}', [MediaStoreController::class, 'getcatvideo']);
             Route::get('/getpostgallery/{id}', [MediaStoreController::class, 'getpostgallery']);
             Route::get('/getpostvideo/{id}', [MediaStoreController::class, 'getpostvideo']);
+            Route::get('/getcatpdf/{id}', [MediaStoreController::class, 'getcatpdf']);
         });
 
         Route::prefix('setting')->group(function () {

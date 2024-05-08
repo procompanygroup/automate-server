@@ -159,6 +159,8 @@ class MediaPostController extends Controller
                 parse_str($formdata,$DataArr);
                 
                 $caption = isset($DataArr['caption']) ? $DataArr['caption'] : '';
+                $file_type = isset($DataArr['file_type']) ? $DataArr['file_type'] : 'image';
+                 
                             $tablename =$DataArr["dep_name"];
                             $local_path = '';
                             if ($tablename == 'category') {
@@ -171,10 +173,10 @@ class MediaPostController extends Controller
                                             $newObj->caption = $caption;
                                             $newObj->title = '';
                                             $newObj->local_path = $local_path;
-                                            $newObj->type = 'image';
+                                            $newObj->type = $file_type;
                             
                                             $newObj->save();
-                                            $res = $this->storeImage($file, $newObj->id, 'image', $tablename);
+                                            $res = $this->storeImage($file, $newObj->id, $file_type, $tablename);
                                             $mediaproj = new MediaPost();
                                             if ($tablename == 'category') {
                                                 $mediaproj->category_id = $id;
@@ -272,14 +274,11 @@ class MediaPostController extends Controller
 
             return response()->json($validator);
 
-        } else {
-             
-            $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
-  
+        } else {             
+            $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));  
             if (!$receiver->isUploaded()) {
                 // file not uploaded
-            }
-        
+            }        
             $fileReceived = $receiver->receive(); // receive file
             if ($fileReceived->isFinished()) { 
 
@@ -288,9 +287,9 @@ class MediaPostController extends Controller
                 $file = $fileReceived->getFile(); // get file
                 //convert to array
                 $DataArr = [];
-                parse_str($formdata,$DataArr);
-                
+                parse_str($formdata,$DataArr);                
                 $caption = isset($DataArr['caption-edit']) ? $DataArr['caption-edit'] : '';
+                $file_type = isset($DataArr['file_type']) ? $DataArr['file_type'] : 'image';
                             $tablename =$DataArr["dep_name"];
                             $local_path = '';
                             if ($tablename == 'category') {
@@ -304,10 +303,10 @@ class MediaPostController extends Controller
             $MediaObj->caption = $caption;
             // $MediaObj->title='';
             $MediaObj->local_path = $local_path;
-            $MediaObj->type = 'image';
+            $MediaObj->type =  $file_type;
 
             $MediaObj->save();
-            $res = $this->storeImage($file, $MediaObj->id, 'image', $tablename);
+            $res = $this->storeImage($file, $MediaObj->id,  $file_type, $tablename);
 
                 // delete chunked file
               unlink($file->getPathname());
@@ -414,7 +413,6 @@ class MediaPostController extends Controller
         $oldimage = $imagemodel->name;
         $oldimagename = basename($oldimage);
         $strgCtrlr = new StorageController();
-
         $ext = $file->getClientOriginalExtension();
         if ($type == 'image') {
             //get path
@@ -453,7 +451,26 @@ class MediaPostController extends Controller
                     Storage::delete("public/" . $path . '/' . $oldimagename);
                 }
             }
-        } else {
+
+        } else if($type=='pdf'){
+            $path = '';
+            if ($tablename == 'category') {
+                $path = $strgCtrlr->pdfpath['categories'];
+            } else {
+                $path = $strgCtrlr->pdfpath['posts'];
+            }
+
+            if ($file !== null) {
+                $ext = $file->getClientOriginalExtension();
+                $filename = rand(10000, 99999) . $id . '.' . $ext;
+                Storage::delete("public/" . $path . '/' . $oldimagename);
+                $path = $file->storeAs($path, $filename, 'public');
+                Mediastore::find($id)->update([
+                    "name" => $filename
+                ]);
+            }
+        }        
+        else {
             //vedio
             $path = '';
             if ($tablename == 'category') {

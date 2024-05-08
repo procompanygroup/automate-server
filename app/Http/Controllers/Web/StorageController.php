@@ -23,6 +23,7 @@ class StorageController extends Controller
   public $iconpath = [];
   public $recordpath = [];
   public $vidpath = [];
+  public $pdfpath = [];
   private $defaultimage = "default.png";
   private $defaultsvg = "default.svg";
   public function __construct()
@@ -51,7 +52,9 @@ class StorageController extends Controller
     $this->vidpath['categories'] = 'images/categories/video';
     $this->path['posts'] = 'images/posts';
     $this->vidpath['posts'] = 'images/posts/video';
-   
+
+    $this->pdfpath['categories'] = 'images/categories/pdf';
+    $this->pdfpath['posts'] = 'images/posts/pdf';
     
     //value
  
@@ -170,6 +173,8 @@ class StorageController extends Controller
     if ($type == "image") {
     
        $url =  $this->getlocalpath($this->path['posts']);      
+    }else if($type == "pdf"){
+      $url =  $this->getlocalpath($this->pdfpath['posts']);   
     } else {
       //video
  
@@ -184,7 +189,10 @@ class StorageController extends Controller
     if ($type == "image") {
     
        $url =  $this->getlocalpath($this->path['categories']);      
-    } else {
+    } else if($type == "pdf"){
+      $url =  $this->getlocalpath($this->pdfpath['categories']);   
+    }
+    else {
       //video 
        $url =  $this->getlocalpath($this->vidpath['categories']);
     }

@@ -14,6 +14,7 @@
 	e.preventDefault();	 
 	imgId=$(this).attr("id");
 	imgId=imgId.replace("del-","");
+	delType = 'image';
 	});
   $('.update').on('click', function (e) {
 			e.preventDefault();	 

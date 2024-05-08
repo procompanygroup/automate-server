@@ -15,6 +15,7 @@
 	imgId=imgId.replace("del-","");
 	delType='video';
 	});
+ 
 //get video to edit
 $('.update-video').on('click', function (e) {
 	e.preventDefault();	 
