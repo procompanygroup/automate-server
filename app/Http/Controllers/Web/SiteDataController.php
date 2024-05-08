@@ -323,6 +323,47 @@ if($locPost->post && $locPost->post->langposts->first()){
      
         return     $item ;
     }
+
+    public function getcatwithmedia($lang_id,$code)
+    {        //projects and refs
+        $Dbitem= Category::with([ 
+            'langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           } ,'mediaposts' => function ($q) {
+            $q->with('mediastore');
+        }])->orderBy('sequence')->where('code',$code)->first();    
+    $item =$this->mapcatwithmedia($Dbitem,$lang_id) ;
+        //   return $item;     
+        return  $item ;
+    }
+
+    public function mapcatwithmedia($category,$lang_id){
+        $tr_title='';
+$tr_content='';
+        if( $category->langposts->first()){
+            $tr_title= $category->langposts->first()->title_trans;
+            $tr_content= $category->langposts->first()->content_trans;
+        }
+ 
+$medialist=$this->mapmedia($category->mediaposts) ;
+        return [
+            'id' =>$category->id,
+            'title'=>$category->title,
+            'slug'=>$category->slug,
+            'desc'=>$category->desc,
+            'meta_key'=>$category->meta_key,
+            'parent_id'=>$category->parent_id,
+            'sequence'=>$category->sequence,
+            'status'=>$category->status,             
+            'notes'=>$category->notes,    
+            'code'=>$category->code,
+            'tr_title' => $tr_title,
+            'tr_content' =>$tr_content,           
+            'mediastore' => $medialist, 
+           
+        ];
+    }
+
     public function mapcategory($category,$lang_id){
         $tr_title='';
 $tr_content='';
@@ -541,6 +582,15 @@ $is_link=1;
             "references" => $ref,
         ];
         return  $homearr ;
+    }
+    public function getcatalog($lang_id)
+    {        //projects and refs
+        $catalog= Category::where('code','catalog')->where('status',1)->first(); 
+        if($catalog){
+            $catalog=$this->getcatwithmedia($lang_id, $catalog->slug);
+        }
+       
+        return  $catalog;
     }
     /**
      * Show the form for creating a new resource.
