@@ -26,7 +26,7 @@ class UpdateImageRequest extends FormRequest
    
         return[
           
-            'image'=>'required|file|mimes:jpg,bmp,png,jpeg,gif,svg,webp',
+           // 'image'=>'required|file|mimes:jpg,bmp,png,jpeg,gif,svg,webp',
         ];   
      
      }

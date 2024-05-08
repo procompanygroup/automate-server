@@ -25,9 +25,9 @@ class StoreImagesRequest extends FormRequest
      {
    
         return[
-            'images' => ['required', 'array'],
+       //     'images' => ['required', 'array'],
       //  'images'=>'required|file|mimes:jpg,bmp,png,jpeg,gif,svg',
-        'images.*'=>'required|file|mimes:jpg,bmp,png,jpeg,gif,svg,webp',
+      //  'images.*'=>'required|file|mimes:jpg,bmp,png,jpeg,gif,svg,webp',
         ];   
      
      }
