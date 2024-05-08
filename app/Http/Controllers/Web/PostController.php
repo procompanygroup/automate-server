@@ -15,6 +15,20 @@ use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Controllers\Web\MediaStoreController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+
+//use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\JsonResponse;
+use Pion\Laravel\ChunkUpload\Exceptions\UploadFailedException;
+use Storage;
+
+use Illuminate\Http\UploadedFile;
+use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
+use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
+use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
+use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+
+use  App\Http\Controllers\Web\StorageController;
+
 class PostController extends Controller
 {
     /**
@@ -342,4 +356,54 @@ $category=Category::find($id);
 
         
     }
+
+    public function uploadLargeFiles(Request $request) {
+      $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+  
+      if (!$receiver->isUploaded()) {
+          // file not uploaded
+      }
+  
+      $fileReceived = $receiver->receive(); // receive file
+      if ($fileReceived->isFinished()) { 
+        $formdata=$request->fdata;
+        // file uploading is complete / all chunks are uploaded
+          $file = $fileReceived->getFile(); // get file
+           $strgCtrlr=new  StorageController();
+
+          $ext = $file->getClientOriginalExtension();
+          $filename = rand(10000, 99999) . '.' . $ext;
+          $path = $strgCtrlr->path['posts'];
+          $path = $file->storeAs($path, $filename, 'public');
+          $cap="";
+          if(isset( $formdata->caption)){
+            $cap=$formdata->caption;
+   
+          } 
+          $DataArr = [];
+          parse_str($formdata,$DataArr);
+          // $filename = str_replace('.'.$ext, '', $file->getClientOriginalName()); //file name without extenstion
+          // $filename .= '_' . md5(time()) . '.' . $ext; // a unique file name
+  
+          // $disk = Storage::disk(config('filesystems.default'));
+          // $path = $disk->putFileAs('videos', $file, $filename);
+  
+          // delete chunked file
+        unlink($file->getPathname());
+          return [
+              'path' => asset('storage/' . $path),
+              'filename' => $filename,
+              'descdata'=> $formdata,
+              'caption'=>  $DataArr['caption'],
+          ];
+      }
+  
+      // otherwise return percentage information
+      $handler = $fileReceived->handler();
+      return [
+          'done' => $handler->getPercentageDone(),
+          'status' => true
+      ];
+  }
+
 }

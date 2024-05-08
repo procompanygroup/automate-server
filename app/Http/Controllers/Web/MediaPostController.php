@@ -17,6 +17,15 @@ use App\Http\Requests\MediaPost\UpdateVideoRequest;
 use App\Models\Mediastore;
 use App\Models\MediaPost;
 
+use Illuminate\Http\JsonResponse;
+use Pion\Laravel\ChunkUpload\Exceptions\UploadFailedException;
+ 
+
+use Illuminate\Http\UploadedFile;
+use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
+use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
+use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
+use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 class MediaPostController extends Controller
 {
     /**
@@ -68,6 +77,57 @@ class MediaPostController extends Controller
     {
         //
     }
+//     public function storeimages(StoreImagesRequest $request, $id)//StoreImagesRequest
+//     {
+//         $formdata = $request->all();
+//         //return (dd( $formdata));
+//         $validator = Validator::make(
+//             $formdata,
+//             $request->rules(),
+//             $request->messages()
+//         );
+//         if ($validator->fails()) {
+
+//             return response()->json($validator);
+
+//         } else {
+            
+//             $caption = isset($formdata["caption"]) ? $formdata["caption"] : '';
+//             $tablename = $request["dep_name"];
+//             $local_path = '';
+//             if ($tablename == 'category') {
+//                 $local_path = 'categories';
+//             } else {
+//                 $local_path = 'posts';
+//             }
+// /*
+//             foreach ($request->file('images') as $imagefile) {
+
+//                 $newObj = new Mediastore;
+//                 // $newObj->name='';
+//                 $newObj->caption = $caption;
+//                 $newObj->title = '';
+//                 $newObj->local_path = $local_path;
+//                 $newObj->type = 'image';
+
+//                 $newObj->save();
+//                 $res = $this->storeImage($imagefile, $newObj->id, 'image', $tablename);
+//                 $mediaproj = new MediaPost();
+//                 if ($tablename == 'category') {
+//                     $mediaproj->category_id = $id;
+//                 } else {
+//                     $mediaproj->post_id = $id;
+//                 }
+
+//                 $mediaproj->media_id = $newObj->id;
+//                 $mediaproj->status = 1;
+//                 $mediaproj->save();
+//             }
+//             */
+//             return response()->json("ok");
+//         }
+//     }
+
     public function storeimages(StoreImagesRequest $request, $id)//StoreImagesRequest
     {
         $formdata = $request->all();
@@ -82,38 +142,119 @@ class MediaPostController extends Controller
             return response()->json($validator);
 
         } else {
-            
-            $caption = isset($formdata["caption"]) ? $formdata["caption"] : '';
-            $tablename = $formdata["dep_name"];
-            $local_path = '';
-            if ($tablename == 'category') {
-                $local_path = 'categories';
-            } else {
-                $local_path = 'posts';
+            $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+  
+            if (!$receiver->isUploaded()) {
+                // file not uploaded
             }
-            foreach ($request->file('images') as $imagefile) {
+        
+            $fileReceived = $receiver->receive(); // receive file
+            if ($fileReceived->isFinished()) { 
 
-                $newObj = new Mediastore;
-                // $newObj->name='';
-                $newObj->caption = $caption;
-                $newObj->title = '';
-                $newObj->local_path = $local_path;
-                $newObj->type = 'image';
+              $formdata=$request->fdata;
+              // file uploading is complete / all chunks are uploaded
+                $file = $fileReceived->getFile(); // get file
+                //convert to array
+                $DataArr = [];
+                parse_str($formdata,$DataArr);
+                
+                $caption = isset($DataArr['caption']) ? $DataArr['caption'] : '';
+                            $tablename =$DataArr["dep_name"];
+                            $local_path = '';
+                            if ($tablename == 'category') {
+                                $local_path = 'categories';
+                            } else {
+                                $local_path = 'posts';
+                            }
+                                           $newObj = new Mediastore;
+                                            // $newObj->name='';
+                                            $newObj->caption = $caption;
+                                            $newObj->title = '';
+                                            $newObj->local_path = $local_path;
+                                            $newObj->type = 'image';
+                            
+                                            $newObj->save();
+                                            $res = $this->storeImage($file, $newObj->id, 'image', $tablename);
+                                            $mediaproj = new MediaPost();
+                                            if ($tablename == 'category') {
+                                                $mediaproj->category_id = $id;
+                                            } else {
+                                                $mediaproj->post_id = $id;
+                                            }                            
+                                            $mediaproj->media_id = $newObj->id;
+                                            $mediaproj->status = 1;
+                                            $mediaproj->save();
 
-                $newObj->save();
-                $res = $this->storeImage($imagefile, $newObj->id, 'image', $tablename);
-                $mediaproj = new MediaPost();
-                if ($tablename == 'category') {
-                    $mediaproj->category_id = $id;
-                } else {
-                    $mediaproj->post_id = $id;
-                }
-
-                $mediaproj->media_id = $newObj->id;
-                $mediaproj->status = 1;
-                $mediaproj->save();
+                            //delete aftercheck
+                //  $strgCtrlr=new  StorageController();
+      
+                // $ext = $file->getClientOriginalExtension();
+                // $filename = rand(10000, 99999) . '.' . $ext;
+                // $path = $strgCtrlr->path['posts'];
+                // $path = $file->storeAs($path, $filename, 'public');
+                // $cap="";
+                // if(isset( $formdata->caption)){
+                //   $cap=$formdata->caption;
+         
+                // } 
+              
+               // end delete aftercheck
+                // delete chunked file
+              unlink($file->getPathname());
+                return [
+                    //'path' => asset('storage/' . $path),
+                    // 'filename' => $filename,
+                    // 'descdata'=> $formdata,
+                    // 'caption'=>  $DataArr['caption'],
+                    'id'=>$id,
+                ];
             }
-            return response()->json("ok");
+        
+            // otherwise return percentage information
+            $handler = $fileReceived->handler();
+            return [
+                'done' => $handler->getPercentageDone(),
+                'status' => true
+            ];
+
+
+///////////////////////////////////////
+
+
+//             $caption = isset($formdata["caption"]) ? $formdata["caption"] : '';
+//             $tablename = $request["dep_name"];
+//             $local_path = '';
+//             if ($tablename == 'category') {
+//                 $local_path = 'categories';
+//             } else {
+//                 $local_path = 'posts';
+//             }
+// /*
+//             foreach ($request->file('images') as $imagefile) {
+
+//                 $newObj = new Mediastore;
+//                 // $newObj->name='';
+//                 $newObj->caption = $caption;
+//                 $newObj->title = '';
+//                 $newObj->local_path = $local_path;
+//                 $newObj->type = 'image';
+
+//                 $newObj->save();
+//                 $res = $this->storeImage($imagefile, $newObj->id, 'image', $tablename);
+//                 $mediaproj = new MediaPost();
+//                 if ($tablename == 'category') {
+//                     $mediaproj->category_id = $id;
+//                 } else {
+//                     $mediaproj->post_id = $id;
+//                 }
+
+//                 $mediaproj->media_id = $newObj->id;
+//                 $mediaproj->status = 1;
+//                 $mediaproj->save();
+//             }
+//             */
+//             return response()->json("ok");
+
         }
     }
 
@@ -133,16 +274,31 @@ class MediaPostController extends Controller
 
         } else {
              
-
-            $caption = isset($formdata["caption-edit"]) ? $formdata["caption-edit"] : '';
-            $tablename = $formdata["dep_name"];
-            $local_path = '';
-            if ($tablename == 'category') {
-                $local_path = 'categories';
-            } else {
-                $local_path = 'posts';
+            $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+  
+            if (!$receiver->isUploaded()) {
+                // file not uploaded
             }
-            $file = $request->file('image');
+        
+            $fileReceived = $receiver->receive(); // receive file
+            if ($fileReceived->isFinished()) { 
+
+              $formdata=$request->fdata;
+              // file uploading is complete / all chunks are uploaded
+                $file = $fileReceived->getFile(); // get file
+                //convert to array
+                $DataArr = [];
+                parse_str($formdata,$DataArr);
+                
+                $caption = isset($DataArr['caption-edit']) ? $DataArr['caption-edit'] : '';
+                            $tablename =$DataArr["dep_name"];
+                            $local_path = '';
+                            if ($tablename == 'category') {
+                                $local_path = 'categories';
+                            } else {
+                                $local_path = 'posts';
+                            }
+//$file = $request->file('image');
             $MediaObj = Mediastore::find($id);
             // $newObj->name='';
             $MediaObj->caption = $caption;
@@ -153,8 +309,40 @@ class MediaPostController extends Controller
             $MediaObj->save();
             $res = $this->storeImage($file, $MediaObj->id, 'image', $tablename);
 
+                // delete chunked file
+              unlink($file->getPathname());
+                return [                    
+                    'id'=>$id,
+                ];
+            }
+        
+            // otherwise return percentage information
+            $handler = $fileReceived->handler();
+            return [
+                'done' => $handler->getPercentageDone(),
+                'status' => true
+            ];
+            // $caption = isset($formdata["caption-edit"]) ? $formdata["caption-edit"] : '';
+            // $tablename = $formdata["dep_name"];
+            // $local_path = '';
+            // if ($tablename == 'category') {
+            //     $local_path = 'categories';
+            // } else {
+            //     $local_path = 'posts';
+            // }
+            // $file = $request->file('image');
+            // $MediaObj = Mediastore::find($id);
+            // // $newObj->name='';
+            // $MediaObj->caption = $caption;
+            // // $MediaObj->title='';
+            // $MediaObj->local_path = $local_path;
+            // $MediaObj->type = 'image';
 
-            return response()->json("ok");
+            // $MediaObj->save();
+            // $res = $this->storeImage($file, $MediaObj->id, 'image', $tablename);
+
+
+            // return response()->json("ok");
         }
     }
 
@@ -171,28 +359,49 @@ class MediaPostController extends Controller
         if ($validator->fails()) {
             return response()->json($validator);
         } else {
-           
-            $caption = isset($formdata["caption-edit"]) ? $formdata["caption-edit"] : '';
-            $tablename = $formdata["dep_name"];
-            $local_path = '';
-            if ($tablename == 'category') {
-                $local_path = 'categories';
-            } else {
-                $local_path = 'posts';
+            $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+  
+            if (!$receiver->isUploaded()) {
+                // file not uploaded
             }
-            $file = $request->file('image');
-            $MediaObj = Mediastore::find($id);
+        
+            $fileReceived = $receiver->receive(); // receive file
+            if ($fileReceived->isFinished()) { 
+
+              $formdata=$request->fdata;
+              // file uploading is complete / all chunks are uploaded
+                $file = $fileReceived->getFile(); // get file
+                //convert to array
+                $DataArr = [];
+                parse_str($formdata,$DataArr);
+                $caption = isset($DataArr['caption-edit']) ? $DataArr['caption-edit'] : '';
+                            $tablename =$DataArr["dep_name"];
+                            $local_path = '';
+                            if ($tablename == 'category') {
+                                $local_path = 'categories';
+                            } else {
+                                $local_path = 'posts';
+                            }
+             $MediaObj = Mediastore::find($id);
             // $newObj->name='';
             $MediaObj->caption = $caption;
             // $MediaObj->title='';
             $MediaObj->local_path = $local_path;
             //  $MediaObj->type='image';
-
             $MediaObj->save();
             $res = $this->storeImage($file, $MediaObj->id, 'video', $tablename);
-
-
-            return response()->json("ok");
+                // delete chunked file
+              unlink($file->getPathname());
+                return [                    
+                    'id'=>$id,
+                ];
+            }        
+            // otherwise return percentage information
+            $handler = $fileReceived->handler();
+            return [
+                'done' => $handler->getPercentageDone(),
+                'status' => true
+            ];
         }
     }
     /**
@@ -282,18 +491,33 @@ class MediaPostController extends Controller
             return response()->json($validator);
 
         } else {
-          
-            $caption = isset($formdata["caption"]) ? $formdata["caption"] : '';
-            $tablename = $formdata["dep_name"];
-            $local_path = '';
-            if ($tablename == 'category') {
-                $local_path = 'categories';
-            } else {
-                $local_path = 'posts';
-            }
 
-            $file = $request->file('image');
-            $newObj = new Mediastore;
+            $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+  
+            if (!$receiver->isUploaded()) {
+                // file not uploaded
+            }
+        
+            $fileReceived = $receiver->receive(); // receive file
+            if ($fileReceived->isFinished()) { 
+
+              $formdata=$request->fdata;
+              // file uploading is complete / all chunks are uploaded
+                $file = $fileReceived->getFile(); // get file
+                //convert to array
+                $DataArr = [];
+                parse_str($formdata,$DataArr);
+                
+                $caption = isset($DataArr['caption']) ? $DataArr['caption'] : '';
+                            $tablename =$DataArr["dep_name"];
+                            $local_path = '';
+                            if ($tablename == 'category') {
+                                $local_path = 'categories';
+                            } else {
+                                $local_path = 'posts';
+                            }
+
+                             $newObj = new Mediastore;
             // $newObj->name='';
             $newObj->caption = $caption;
             $newObj->title = '';
@@ -310,9 +534,21 @@ class MediaPostController extends Controller
             }
             $mediaproj->media_id = $newObj->id;
             $mediaproj->status = 1;
-            $mediaproj->save();
-
-            return response()->json("ok");
+            $mediaproj->save(); 
+                    
+              unlink($file->getPathname());
+                return [
+                    
+                    'id'=>$id,
+                ];
+            }        
+            // otherwise return percentage information
+            $handler = $fileReceived->handler();
+            return [
+                'done' => $handler->getPercentageDone(),
+                'status' => true
+            ];
+ 
         }
     }
 
