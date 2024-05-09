@@ -1940,3 +1940,93 @@ border-top-right-radius: 4px;
     padding: 2px 0;
   }
 }
+
+/*--------------------------------------------------------------
+#Catalog
+--------------------------------------------------------------*/
+/**
+* Desktop Navigation 
+*/
+.nav-menu-side {
+  padding: 0;
+  display: block;
+}
+
+.nav-menu-side * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-menu-side>ul>li {
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-menu-side a,
+.nav-menu-side a:focus {
+  display: flex;
+  align-items: center;
+  color: #45505b;
+  padding: 10px 18px;
+  margin-bottom: 8px;
+  transition: 0.3s;
+  font-size: 15px;
+  border-radius: 50px;
+  background: #f2f3f5;
+  height: 56px;
+  width: 100%;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.nav-menu-side a i,
+.nav-menu-side a:focus i {
+  font-size: 20px;
+}
+
+.nav-menu-side a span,
+.nav-menu-side a:focus span {
+  padding: 0 5px 0 7px;
+  color: #45505b;
+}
+
+/* @media (min-width: 992px) { */
+
+  .nav-menu-side a,
+  .nav-menu-side a:focus {
+    width: 56px;
+  }
+
+  .nav-menu-side a span,
+  .nav-menu-side a:focus span {
+    display: none;
+    color: #fff;
+  }
+/* } */
+
+.nav-menu-side a:hover,
+.nav-menu-side .active,
+.nav-menu-side .active:focus,
+.nav-menu-side li:hover>a {
+  color: #fff;
+  background: #0563bb;
+}
+
+.nav-menu-side a:hover span,
+.nav-menu-side .active span,
+.nav-menu-side .active:focus span,
+.nav-menu-side li:hover>a span {
+  color: #fff;
+}
+
+.nav-menu-side a:hover,
+.nav-menu-side li:hover>a {
+  width: 100%;
+  color: #fff;
+}
+
+.nav-menu-side a:hover span,
+.nav-menu-side li:hover>a span {
+  display: block;
+}
