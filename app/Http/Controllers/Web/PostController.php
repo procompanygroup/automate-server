@@ -366,7 +366,7 @@ $category=Category::find($id);
   
       $fileReceived = $receiver->receive(); // receive file
       if ($fileReceived->isFinished()) { 
-        $formdata=$request->fdata;
+       // $formdata=$request->fdata;
         // file uploading is complete / all chunks are uploaded
           $file = $fileReceived->getFile(); // get file
            $strgCtrlr=new  StorageController();
@@ -376,12 +376,12 @@ $category=Category::find($id);
           $path = $strgCtrlr->path['posts'];
           $path = $file->storeAs($path, $filename, 'public');
           $cap="";
-          if(isset( $formdata->caption)){
-            $cap=$formdata->caption;
+          // if(isset( $formdata->caption)){
+          //   $cap=$formdata->caption;
    
-          } 
+          // } 
           $DataArr = [];
-          parse_str($formdata,$DataArr);
+      //    parse_str($formdata,$DataArr);
           // $filename = str_replace('.'.$ext, '', $file->getClientOriginalName()); //file name without extenstion
           // $filename .= '_' . md5(time()) . '.' . $ext; // a unique file name
   
@@ -393,8 +393,8 @@ $category=Category::find($id);
           return [
               'path' => asset('storage/' . $path),
               'filename' => $filename,
-              'descdata'=> $formdata,
-              'caption'=>  $DataArr['caption'],
+             // 'descdata'=> $formdata,
+              //'caption'=>  $DataArr['caption'],
           ];
       }
   

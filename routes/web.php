@@ -185,6 +185,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::post('/updatepost/{id}', [PostController::class, 'updatepost']);
             Route::delete('/destroy/{id}', [PostController::class, 'destroy']);
             Route::get('/editpost/{id}', [PostController::class, 'editpost']);
+            Route::post('/upload', [PostController::class, 'uploadLargeFiles'])->name('post.upload');;
          
         });  
         Route::prefix('langpost')->group(function () {
