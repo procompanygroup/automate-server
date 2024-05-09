@@ -1,4 +1,4 @@
-<body>
+<body>  
     <!-- ======Top Bar ======= -->
     <section id="topbar" class="d-flex align-items-center">
       <div class="container d-flex justify-content-center justify-content-md-between">
@@ -21,6 +21,8 @@
   
     <!-- ======= Header ======= -->
     <header id="header" class="d-flex align-items-center">
+     
+      
       <div class="container d-flex align-items-center justify-content-between">
   
         {{-- <h1 class="logo"><a href="index.html">BizLand<span>.</span></a></h1> --}}
@@ -79,6 +81,17 @@
   
       </div>
     </header><!-- End Header -->
+
+    @if ($catalog)
+    @if ($catalog['mediastore']->first())
+    <div class="icon-bar  nav-menu-side" >
+      {{-- <a href="#" class="catlog">face<i class="fa"></i></a>  --}}
+      <ul>
+        <li><a href="{{ $catalog['mediastore']->first()['image_path'] }}" target="_blank" class="nav-link  active"><i class="bx bx-file-blank"></i><span>{{ $catalog['tr_title'] }}</span></a></li>
+        </ul>
+    </div>
+ @endif
+ @endif
   
     
   

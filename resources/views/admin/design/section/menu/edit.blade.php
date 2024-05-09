@@ -739,7 +739,7 @@
                             </form>
                         </div>
                         <div class="col-sm-6">
-                          <a alt="" id="pdfshow"  class="rounded " target=”_blank”
+                          <a alt="" id="pdfshow"  class="rounded " target="_blank"
                            href="{{ URL::asset('assets/admin/img/default/1.jpg') }}">Download</a>
                         </div>
                     </div>
