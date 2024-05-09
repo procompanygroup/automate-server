@@ -90,7 +90,7 @@
                         </form>
                     </div>
                       <!--Upload res-->
-                      <div class="container pt-4">
+                      {{-- <div class="container pt-4">
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="card">
@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                        <!-- End Upload res-->
            
                    <!--translation && media -->
@@ -556,7 +556,7 @@
     var csrtoken="{{ csrf_token() }}";
   </script>
     @once 
-{{-- <script src="{{ URL::asset('assets/admin/js/custom/project.js') }}"></script> --}}
+<script src="{{ URL::asset('assets/admin/js/custom/project.js') }}"></script>
  @endonce
      
  
@@ -596,7 +596,7 @@ $('.delete-video').on('click', function (e) {
 */
         });
     </script>
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
       let browseFile = $('#browseFile');
       let resumable = new Resumable({
           target: '{{ route("post.upload") }}',
@@ -648,7 +648,7 @@ $('.delete-video').on('click', function (e) {
       function hideProgress() {
           progress.hide();
       }
-  </script>
+  </script> --}}
 
 @endsection
 @section('css')
