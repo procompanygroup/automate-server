@@ -547,6 +547,119 @@
       <!-- /.modal-dialog -->
     </div>
 
+    <!-- /.add pdf modal -->
+    <div class="modal fade" id="modal-newpdf">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">Add PDF</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-sm-6">
+                          <div class="form-group row">
+                              <form class="form-horizontal col-sm-12" name="create_pdf_form" method="POST"
+                                  action="{{ route('mediapost.store', $item->id) }}" {{-- enctype="multipart/form-data" --}}
+                                  id="create_pdf_form">
+                                  @csrf
+                                  <div class="col-sm-12">
+                                      <textarea name="caption" style="width: 100%" id="caption" rows="2" placeholder="Description"></textarea>
+
+                                  </div>
+                                  <input type="hidden" value="category" name="dep_name">
+                                  <input type="hidden" value="pdf" name="file_type">
+                          </div>
+                          <div class="custom-file">
+                              <input type="file" class="custom-file-input" name="pdf-file" accept="document/pdf"
+                                  id="pdf-file">
+                              <label class="custom-file-label" id="pdf-file_label" for="pdf-file">Choose file</label>
+                              <span id="pdf-file-error" class="error invalid-feedback"></span>
+                              <div style="display: none" class="progress mt-3" style="height: 25px">
+                                  <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                      role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                      style="width: 75%; height: 100%">75%</div>
+                              </div>
+                          </div>
+                          </form>
+                      </div>
+                      <div class="col-sm-6">
+                         
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                  <button type="button" id="btn-cancel-modal-pdf" class="btn btn-default"
+                      data-dismiss="modal">Cancel</button>
+                  <button type="submit" name="btn_create_pdf" id="btn_create_pdf" class="btn btn-primary"
+                      form="create_pdf_form">Save</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+
+  <!-- /.end add pdf modal -->
+
+  <!-- /.edit pdf modal -->
+  <div class="modal fade" id="modal-editpdf">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">Edit PDF</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-sm-6">
+                          <div class="form-group row">
+                              <form class="form-horizontal col-sm-12" name="update_pdf_form" method="POST"
+                                  action="{{ route('mediapost.update', 'item_Id') }}" {{-- enctype="multipart/form-data"  --}}
+                                  id="update_pdf_form">
+                                  @csrf
+                                  <div class="col-sm-12">
+                                      <textarea name="caption-edit" style="width: 100%" id="caption-pdf-edit" rows="2" placeholder="Description"></textarea>
+
+                                  </div>
+                                  <input type="hidden" value="category" name="dep_name">
+                                  <input type="hidden" value="pdf" name="file_type">
+                          </div>
+                          <div class="custom-file">
+                              <input type="file" class="custom-file-input" name="pdf" accept="pdf"
+                                  id="pdf-edit">
+                              <label class="custom-file-label" id="pdf_label" for="pdf-edit">Choose file</label>
+                              <span id="pdf-error" class="error invalid-feedback"></span>
+                              <div style="display: none" class="progress mt-3" style="height: 25px">
+                                  <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                      role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                      style="width: 75%; height: 100%">75%</div>
+                              </div>
+                          </div>
+                          </form>
+                      </div>
+                      <div class="col-sm-6">
+                        <a alt="" id="pdfshow"  class="rounded " target=”_blank”
+                         href="{{ URL::asset('assets/admin/img/default/1.jpg') }}">Download</a>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                  <button type="button" id="btn-cancel-pdf-edit" class="btn btn-default"
+                      data-dismiss="modal">Cancel</button>
+                  <button type="submit" name="btn_update_pdf" id="btn_update_pdf" class="btn btn-primary"
+                      form="update_pdf_form">Save</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+  <!-- /.end edit  pdf modal -->
 @endsection
 
 @section('js')
