@@ -83,6 +83,10 @@ class HomeController extends Controller
 if($catmodel->code=='projects'){
    $cat= $sitedctrlr->getcatwithposts( $langitem->id,$slug);
    return view('site.content.project',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
+}else if($catmodel->code=='contacts'){
+ 
+   $cat= $sitedctrlr->getcatinfo( $langitem->id,$slug);
+   return view('site.content.contact',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
 }else{
   
    $cat= $sitedctrlr->getcatinfo( $langitem->id,$slug);

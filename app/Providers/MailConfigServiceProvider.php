@@ -20,12 +20,12 @@ class MailConfigServiceProvider extends ServiceProvider
            
         $config = array(
             'driver'     => 'smtp',
-            'host'       => 'mail.oras.orasweb.com',
+            'host'       => 'mail.prevalentautomation.com',
             'port'       => '587',
-            'from'       => array('address' =>'support@oras.orasweb.com', 'name' => 'rouh-app'),
+            'from'       => array('address' =>'info@prevalentautomation.com', 'name' => 'prevalentautomation'),
             'encryption' => '',
-            'username'   => 'support@oras.orasweb.com',
-            'password'   => '[vOxZJbSHfwB',
+            'username'   => 'info@prevalentautomation.com',
+            'password'   => '7o()8khK_YIU',
             'sendmail'   => '/usr/sbin/sendmail -bs',
             'pretend'    => false,
             'timeout' => null,

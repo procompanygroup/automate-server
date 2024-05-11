@@ -1978,6 +1978,8 @@ border-top-right-radius: 4px;
   width: 100%;
   overflow: hidden;
   transition: 0.3s;
+  /* border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px; */
 }
 
 .nav-menu-side a i,

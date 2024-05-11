@@ -59,7 +59,8 @@
       if( response.ok ) {
         return response.text();
       } else {
-        throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
+       // throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
+       return 'Form submission failed';
       }
     })
     .then(data => {
@@ -78,7 +79,7 @@
 
   function displayError(thisForm, error) {
     thisForm.querySelector('.loading').classList.remove('d-block');
-    thisForm.querySelector('.error-message').innerHTML = error;
+    thisForm.querySelector('.error-message').innerHTML = 'Form submission failed';
     thisForm.querySelector('.error-message').classList.add('d-block');
   }
 

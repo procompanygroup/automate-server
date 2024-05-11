@@ -9,16 +9,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class VerifyEmail extends Mailable
+class ContactEmail extends Mailable
 {
     use Queueable, SerializesModels;
-
+public $data=[];
     /**
      * Create a new message instance.
      */
-    public function __construct(  )
+    public function __construct( $data )
     {
-       // $this->data = $data;
+         $this->data = $data;
       //  $this->switchMailSettings();
     }
 
@@ -28,7 +28,7 @@ class VerifyEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verify Email',
+            subject: 'Contact Email',
         );
     }
 
@@ -37,11 +37,11 @@ class VerifyEmail extends Mailable
      */
     public function content(): Content
     {
-        $code= rand(100000, 999999);
-
+        
+$this->data['name'];
         return new Content(
-            view: 'Mail.verify-template',
-            with:['code'=>$code]
+            view: 'site.mail.contact-template',
+            with:['data'=>$this->data]
         );
     }
 

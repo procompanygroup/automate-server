@@ -16,7 +16,7 @@ use App\Http\Controllers\Web\PostController;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\LangPostController;
 use  App\Http\Controllers\Web\MediaPostController;
-
+use  App\Http\Controllers\Web\MailController;
 
 //site
 use App\Http\Controllers\HomeController;
@@ -49,6 +49,8 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/clear', function() {
     $exitCode = Artisan::call('route:cache');
+    $exitCode = Artisan::call('optimize');
+     
       return 'ok';
  });
  Route::get('/storagelink', function() {
@@ -248,4 +250,5 @@ Route::prefix('lang/{lang}')->group(function () {
     Route::get('/page/{slug}', [HomeController::class, 'getcontent']);
     
 });
+Route::post('/sendmail', [MailController::class, 'store']);
 require __DIR__ . '/auth.php';

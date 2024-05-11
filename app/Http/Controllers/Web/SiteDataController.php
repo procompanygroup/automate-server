@@ -88,6 +88,32 @@ class SiteDataController extends Controller
         return $mainarr;
 
     }
+    public function getCompanyData()
+    {    
+        $List= Setting::select(
+            'id',
+            'name1',
+            'value1',
+            'name2',
+            'value2',
+            'name3',
+            'value3',
+            'category',
+            'dep',
+            'sequence',
+            'section',
+            'location',
+            'is_active',
+        )->where('category', 'header-info')->orWhere('category', 'site-info')->get();
+        $titlerow = $List->where('category', 'site-info')->where('dep', 'title')->first();
+        $emailrow = $List->where('category', 'header-info')->where('dep', 'email')->first();
+   $arraydata=[
+'com_email'=>$emailrow->value1,
+'com_title'=> $titlerow->value1,
+   ];
+        
+        return  $arraydata;
+    } 
     public function FillTransData($lang=null){
 $langs=$this->getlangs($lang);
 $transarr=[
