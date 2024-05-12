@@ -109,6 +109,38 @@
                     </div>
 
                 </div>
+
+            </div>
+            <div class="card card-info">
+                     <!-- Location link start -->
+                     <div class="card-body  row">
+                        <div class="col-lg-12">
+                            <form class="form-horizontal" name="location_form" method="POST" action="{{url('admin/setting/updatelocation')}}" 
+                                enctype="multipart/form-data" id="location_form">
+                                @csrf
+                                <div class="form-group row">
+                                    <label for="location" class="col-sm-2 col-form-label">Location URL</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="location" id="location"
+                                            placeholder=" " value="{{$location}}">
+    
+                                        <span id="location-error" class="error invalid-feedback"></span>
+    
+                                    </div>
+                                </div>                        
+                                <div class="form-group row">
+                                    <div class="col-sm-2 col-form-label"></div>
+                                    <div class="col-sm-10">
+                                        <button type="submit" type="submit" name="btn_update_location" id="btn_update_location"
+                                            class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+    
+                        </div>
+    
+                    </div>
+                        <!-- Location link end -->
              
             </div>
             <!-- Head icon -->

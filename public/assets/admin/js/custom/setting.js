@@ -11,6 +11,13 @@ $(document).ready(function () {
 			var formid = $(this).closest('form').attr("id");
 			sendform('#'+formid,'');
 			});
+	//	#location
+	$('#btn_update_location').on('click', function (e) {
+		e.preventDefault();	 
+		var formid = $(this).closest('form').attr("id");
+		sendform('#'+formid,'');
+		});
+			
 //favicon
 $('#btn_update_favicon').on('click', function (e) {
 	e.preventDefault();	 

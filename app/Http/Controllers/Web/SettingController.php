@@ -19,6 +19,8 @@ use App\Http\Requests\Setting\UpdateEmailRequest;
 use App\Http\Requests\Setting\UpdatePhoneRequest;
 use App\Models\LocationSetting;
 use  App\Http\Requests\Setting\UpdateWhatsRequest;
+use  App\Http\Requests\Setting\UpdateLocationRequest;
+
 
 class SettingController extends Controller
 {
@@ -59,6 +61,8 @@ $logo=$strgCtrlr->getPath($logorow->value2, $path);
 $logo=($logo==''?$strgCtrlr->DefaultPath('image'):$logo);
 $whatsrow= $List->where('dep','whatsapp')->first();
 $whats=$whatsrow->value1;
+$locationrow= $List->where('dep','location')->first();
+$location=$locationrow->value1;
         return view("admin.setting.basic", [          
         "title"=>$title,
         "desc"=>$desc,
@@ -66,6 +70,7 @@ $whats=$whatsrow->value1;
         "favicon"=>$favicon,
         "logo"=>$logo, 
         "whats"=>$whats,   
+        "location"=>$location,
         ]);
     }
 
@@ -154,7 +159,27 @@ $whats=$whatsrow->value1;
       return response()->json("ok");
     }
     }
-    
+    //location
+    public function updatelocation(UpdateLocationRequest $request)
+    {
+        $formdata = $request->all();
+    $validator = Validator::make(
+      $formdata,
+      $request->rules(),
+      $request->messages()
+    );
+    if ($validator->fails()) {
+      return response()->json($validator);
+    } else { 
+        $item = Setting::where('category','site-info')->where('dep','location')->first();
+      Setting::find( $item->id)->update([      
+        'value1'=> $formdata['location'],       
+        
+      ]);  
+      return response()->json("ok");
+    }
+    }
+
     //social
     
     public function getsocial()

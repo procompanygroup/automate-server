@@ -326,6 +326,9 @@ if($locPost->post && $locPost->post->langposts->first()){
 
         $category=$this->getcatwithposts($lang_id,$slug);
         $categorymap=$this->mapcontactwithform($category);
+        $locationrow = Setting::where('category', 'site-info')->where('dep', 'location')->first();
+        $location = $locationrow->value1;
+        $categorymap['location']=$location;
         return $categorymap;
 
     }
