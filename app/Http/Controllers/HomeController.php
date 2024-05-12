@@ -79,13 +79,14 @@ class HomeController extends Controller
      $sitedctrlr=new SiteDataController();    
      $langitem = Language::where('status',1)->where('code', $lang)->first();
      $catmodel= Category::where('slug',$slug)->select('id','code')->first();
-     $current_path=$sitedctrlr->getpath( $lang,$slug); 
+     $current_path=$sitedctrlr->getpath($lang,$slug); 
 if($catmodel->code=='projects'){
    $cat= $sitedctrlr->getcatwithposts( $langitem->id,$slug);
    return view('site.content.project',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
 }else if($catmodel->code=='contacts'){
  
-   $cat= $sitedctrlr->getcatinfo( $langitem->id,$slug);
+   $cat= $sitedctrlr->getcontactinfo( $langitem->id,$slug);
+
    return view('site.content.contact',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
 }else{
   

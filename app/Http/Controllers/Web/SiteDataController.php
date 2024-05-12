@@ -321,7 +321,33 @@ if($locPost->post && $locPost->post->langposts->first()){
      
         return  $item;
     }
+    public function getcontactinfo($lang_id,$slug)
+    {
 
+        $category=$this->getcatwithposts($lang_id,$slug);
+        $categorymap=$this->mapcontactwithform($category);
+        return $categorymap;
+
+    }
+    public function mapcontactwithform($category){
+        $form=$this->mapformlist($category['posts']);
+ 
+       return [
+           'id' =>$category['id'],
+           'title'=>$category['title'],
+           'slug'=>$category['slug'],
+           'desc'=>$category['desc'],
+           'meta_key'=>$category['meta_key'],
+           'parent_id'=>$category['parent_id'],
+           'sequence'=>$category['sequence'],
+           'status'=>$category['status'],             
+          // 'notes'=>$category['notes'],    
+           'code'=>$category['code'],
+           'tr_title' => $category['tr_title'],
+           'tr_content' =>$category['tr_content'],          
+           'form' => $form,          
+       ];    
+    }
     public function getcatwithposts($lang_id,$slug)
     {        //projects and refs
         $Dbitem= Category::with([ 
@@ -478,6 +504,27 @@ $sons=$this->mapcategorylist($category->sons,$lang_id);
         });
        return $List;
        
+    }
+    //contact
+      public function mapformlist($post ){       
+     
+        $contact_name=$post->where('code','contact_name')->first()['tr_title'];
+        $contact_email=$post->where('code','contact_email')->first()['tr_title'];
+        $contact_subject=$post->where('code','contact_subject')->first()['tr_title'];
+        $contact_message=$post->where('code','contact_message')->first()['tr_title'];
+        $contact_send=$post->where('code','contact_send')->first()['tr_title'];
+        $contact_success=$post->where('code','contact_success')->first()['tr_title'];
+        $contact_error=$post->where('code','contact_error')->first()['tr_title'];
+         
+         return [
+'contact_name'=>$contact_name,
+'contact_email'=>$contact_email,
+'contact_subject'=>$contact_subject,
+'contact_message'=>$contact_message,
+'contact_send'=>$contact_send,
+'contact_success'=>$contact_success,
+'contact_error'=>$contact_error, 
+        ];       
     }
     public function mapmedia($mediaposts)
     {

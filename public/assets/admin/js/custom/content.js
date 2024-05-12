@@ -834,47 +834,7 @@ $("input[name=is_active]").prop("value",0);
 
 ///////////////////////////////////////////////////////
 
-$("#count").focusout(function (e) {
-	if (!validatempty($(this))) {
-		return false;
-	} else {
 
-		return true;
-	}
-});
-$("#price").focusout(function (e) {
-	if (!validatempty($(this))) {
-		return false;
-	} else {
-
-		return true;
-	}
-});
-//input
-$("#field_name").focusout(function (e) {
-	if (!validatempty($(this))) {
-		return false;
-	} else {
-
-		return true;
-	}
-});
-$("#field_tooltipe").focusout(function (e) {
-	if (!validatempty($(this))) {
-		return false;
-	} else {
-
-		return true;
-	}
-});
-$("#field_type").focusout(function (e) {
-	if (!validatempty($(this))) {
-		return false;
-	} else {
-
-		return true;
-	}
-});
 function noteSuccess() {
 	toastr.success("Sucsess");
 	 

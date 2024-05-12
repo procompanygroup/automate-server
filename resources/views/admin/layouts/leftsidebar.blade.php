@@ -87,6 +87,7 @@
              
             </ul>
           </li>
+{{--           
           <li class="nav-item has-treeview ">
             <a href="#" class="nav-link ">
                
@@ -154,8 +155,9 @@
                 </ul>
               </li>
             </ul>
-          </li>
-          <li class="nav-item has-treeview ">
+          </li> --}}
+
+          {{-- <li class="nav-item has-treeview ">
             <a href="#" class="nav-link ">
                
               <i class="nav-icon far fa-image" aria-hidden="true"  ></i>
@@ -179,7 +181,7 @@
               </li>
              
             </ul>
-          </li>
+          </li> --}}
           <li class="nav-item has-treeview ">
             <a href="#" class="nav-link ">
                

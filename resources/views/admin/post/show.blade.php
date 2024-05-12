@@ -17,7 +17,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
-              <li class="breadcrumb-item active">{{ __('general.sections',[],'en') }}-Sub Menu</li>
+              <li class="breadcrumb-item active"><a href=" {{ url('/admin/design/sections','main-menu') }}">Main Menu</a></li>
             </ol>
           </div>
         </div>
@@ -62,13 +62,14 @@
                   <td>{{ $item->status_conv }}</td>                   
                   <td>    <a class="btn btn-info btn-sm" href="{{url('admin/post/editpost', $item->id)}}">
                               <i class="fas fa-pencil-alt"></i>Edit</a>
-
+@if($category->code!='contacts')
                            <form action="{{url('admin/post/destroy', $item->id)}}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button type="button" id="del-{{$item->id}}" class="btn btn-danger btn-sm delete"  data-toggle="modal" data-target="#modal-delete"   title="Delete">   <i class="fas fa-trash">
                             </i>Delete</button>
-</form> 
+                          </form> 
+@endif
                            </td>  
                                         
                 </tr>

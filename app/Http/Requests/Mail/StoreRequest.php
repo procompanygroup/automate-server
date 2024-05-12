@@ -9,6 +9,9 @@ class StoreRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
+    protected $alphaAtexpr='/^[\pL\s\_\-\@\.\0-9]+$/u';
+    protected $maxlength=200;
+    protected $maxlengthmsg=1000;
     public function authorize(): bool
     {
         return true;
@@ -18,11 +21,12 @@ class StoreRequest extends FormRequest
     {
   
        return[
-     //  'code'=>'required|regex:/^[a-zA-Z0-9\s]+$/u|unique:languages,code',   
  
-    //   'name'=>'required',   
-        
-       //  'image'=>'file|mimes:jpg,bmp,png,jpeg,gif,svg',
+       'name'=>'required|max:'. $this->maxlength.'|regex:'.$this->alphaAtexpr ,   
+       'email'=>'required|email|max:'.$this->maxlength,  
+       'subject'=>'required|max:'. $this->maxlength.'|regex:'.$this->alphaAtexpr ,   
+       'message'=>'required|max:'. $this->maxlengthmsg,  
+      
        ];   
     
     }
@@ -37,12 +41,12 @@ public function messages(): array
 //    $minMobileLength=10;
 //    $maxMobileLength=15;
    return[
-     'code.required'=>'The Code is required',
+     
     // 'title.alpha_num'=>'The title format must be alphabet',
-     'code.regex'=>'The Code format must be alphabet',
-     'code.unique'=>'The Code is already exist',
+     'name.regex'=>'The name format must be alphabet',
+      
      'name.required'=>'The Name is required',
-     'image'=>__('messages.file must be image',[],'en') ,
+     
     ];
     
 }

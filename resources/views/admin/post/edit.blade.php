@@ -43,6 +43,9 @@
                                 <label for="title"  class="col-sm-2 col-form-label">Title</label>
                                 <div class="col-sm-10">
                                     <input type="text"  class="form-control" name="title" id="title"
+                                    @if( $item->category->code=='contacts')
+                                    @readonly(true) 
+                                    @endif
                                         placeholder="* Title" value="{{ $item->title }}">
 
                                     <span id="title-error" class="error invalid-feedback"></span>
@@ -66,6 +69,7 @@
                                     <span id="metakey-error" class="error invalid-feedback"></span>
                                 </div>
                             </div>   --}}
+                            @if( $item->category->code!='contacts')                        
                             <div class="form-group row">
                                 <label for="status" class="col-sm-2 col-form-label">Status</label>
                                 <div class="col-sm-10 custom-control custom-switch ">
@@ -87,6 +91,7 @@
                                   
                                 </div>
                             </div>
+                            @endif
                         </form>
                     </div>
                       <!--Upload res-->
@@ -124,10 +129,11 @@
                           <li class="nav-item">
                             <a class="nav-link active" id="custom-tabs-one-trans-tab" data-toggle="pill" href="#custom-tabs-one-trans" role="tab" aria-controls="custom-tabs-one-trans" aria-selected="true">Translation</a>
                           </li>
+                          @if( $item->category->code!='contacts')      
                             <li class="nav-item">
                             <a class="nav-link" id="custom-tabs-one-media-tab" data-toggle="pill" href="#custom-tabs-one-media" role="tab" aria-controls="custom-tabs-one-media" aria-selected="false">Media</a>
                           </li>  
-                          
+                          @endif
                         </ul>
                       </div>
                       <div class="card-body">

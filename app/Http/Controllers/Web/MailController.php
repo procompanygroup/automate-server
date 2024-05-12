@@ -52,9 +52,7 @@ class MailController extends Controller
     }
     public function store(StoreRequest $request)
     {
-        $formdata = $request->all();
-   // return  $formdata;
-    // return redirect()->back()->with('success_message', $formdata);
+        $formdata = $request->all();  
     $validator = Validator::make(
       $formdata,
       $request->rules(),
@@ -62,11 +60,7 @@ class MailController extends Controller
     );
 
     if ($validator->fails()) {
-      /*
-                           return  redirect()->back()->withErrors($validator)
-                           ->withInput();
-                           */
-      // return response()->withErrors($validator)->json();
+       
       return response()->json($validator);
 
     } else {
@@ -94,39 +88,17 @@ class MailController extends Controller
         'local_domain' => env('MAIL_EHLO_DOMAIN'),
         'verify_peer' => false, // <== This is needed here
     );
-    Config::set('mail', $config); 
-
-     // $app->register('App\Providers\MailConfigServiceProvider');
-  //   $bcc="info@prevalentautomation.com";
+    Config::set('mail', $config);
+     // $app->register('App\Providers\MailConfigServiceProvider'); 
      $data=[
         'name'=>$name,
         'client_mail'=>$clientmail,
         'subject'=>$subject,
         'message'=>$message,
       'com_title'=>$comdata['com_title']
-     ];
-     
-  //  Mail::to( $mailTo)->bcc($bcc)->send(new ContactEmail( $data));
-   Mail::to( $mailTo)->send(new ContactEmail( $data));
-//       $newObj = new Language;
-//            //reset all to 0
-//   $isdefault=0;
-//   if(isset ($formdata["is_default"])){
-//     $isdefault=1;
-//     Language::query()->update([       
-//         'is_default' =>0,
-//       ]);
-//   }
-//       $newObj->code = $formdata['code'];
-//       $newObj->name = $formdata['name'];    
-//       $newObj->status = isset ($formdata["status"]) ? 1 : 0;
-//       $newObj->is_default =$isdefault;
-//       $newObj->save();
-
-//       if ($request->hasFile('image')) {
-//         $file = $request->file('image');
-//         $this->storeImage($file, $newObj->id);    
-//       }
+     ];     
+  // // Mail::to( $mailTo)->bcc($bcc)->send(new ContactEmail( $data));
+  Mail::to( $mailTo)->send(new ContactEmail( $data)); 
 return "OK";
      // return response()->json("ok");
     }

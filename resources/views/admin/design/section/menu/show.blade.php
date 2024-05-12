@@ -79,17 +79,23 @@
                            <td>@if($item->category->sons->first())
                             <a class="btn btn-info btn-sm" href="{{url('admin/design/categorysub', $item->category->id)}}">
                               <i class="fas fa-pencil-alt">
-                              </i>
-                             Sub menu
+                              </i>                        
+                          Sub menu                          
                           </a>
                             @endif
                             
                             @if($item->category->code=='projects'||$item->category->code=='references')
                             <a class="btn btn-info btn-sm" href="{{url('admin/post/showbycatid', $item->category->id)}}">
                               <i class="fas fa-pencil-alt">
-                              </i>
-                            Show
+                              </i>                              
+                                Show                           
                           </a>
+                          @elseif ($item->category->code=='contacts')
+                          <a class="btn btn-info btn-sm" href="{{url('admin/post/showbycatid', $item->category->id)}}">
+                            <i class="fas fa-pencil-alt">
+                            </i>                              
+                            Form Translate                             
+                        </a>
                             @endif</td>              
                 </tr>
 @endforeach
