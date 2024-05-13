@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 09, 2024 at 02:13 PM
+-- Generation Time: May 13, 2024 at 09:55 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.2.0
 
@@ -140,14 +140,14 @@ CREATE TABLE IF NOT EXISTS `lang_posts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `lang_posts`
 --
 
 INSERT INTO `lang_posts` (`id`, `lang_id`, `category_id`, `post_id`, `main_table`, `title_trans`, `content_trans`, `name`, `notes`, `created_at`, `updated_at`) VALUES
-(1, 8, NULL, 1, NULL, 'Prevalent Automation', '<p>\r\n              A108 Adam Street <br>\r\n              New York, NY 535022<br>\r\n              United States <br><br>\r\n              <strong>Phone:</strong> +1 5589 55488 55<br>\r\n              <strong>Email:</strong> info@example.com<br>\r\n            </p>', NULL, NULL, '2024-04-27 12:27:01', '2024-04-27 13:47:55'),
+(1, 8, NULL, 1, NULL, 'Prevalent Automation', '<p>\r\n              A108 Adam Street <br>\r\n              New York, NY 535022<br>\r\n              United States <br><br>\r\n              <strong>Phone:</strong> +905011291958<br>\r\n              <strong>Email:</strong> info@prevalentautomation.com<br>\r\n            </p>', NULL, NULL, '2024-04-27 12:27:01', '2024-05-12 19:55:12'),
 (2, 7, NULL, 1, NULL, 'Prevalent Automation', '<p><font color=\"#777777\" face=\"Roboto, sans-serif\"><span style=\"font-size: 14px;\">-</span></font><br style=\"color: rgb(119, 119, 119); font-family: Roboto, sans-serif; font-size: 14px;\"><span style=\"color: rgb(119, 119, 119); font-family: Roboto, sans-serif; font-size: 14px;\">تركيا</span><br style=\"color: rgb(119, 119, 119); font-family: Roboto, sans-serif; font-size: 14px;\"><br style=\"color: rgb(119, 119, 119); font-family: Roboto, sans-serif; font-size: 14px;\"><span style=\"font-weight: bolder; color: rgb(119, 119, 119); font-family: Roboto, sans-serif; font-size: 14px;\">Phone:</span><span style=\"color: rgb(119, 119, 119); font-family: Roboto, sans-serif; font-size: 14px;\">&nbsp;+1 5589 55488 55</span><br style=\"color: rgb(119, 119, 119); font-family: Roboto, sans-serif; font-size: 14px;\"><span style=\"font-weight: bolder; color: rgb(119, 119, 119); font-family: Roboto, sans-serif; font-size: 14px;\">Email:</span><span style=\"color: rgb(119, 119, 119); font-family: Roboto, sans-serif; font-size: 14px;\">&nbsp;info@example.com</span><br></p>', NULL, NULL, '2024-04-27 12:28:23', '2024-04-27 14:41:26'),
 (3, 8, NULL, 2, NULL, 'Useful Links', '<ul>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">Home</a></li>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">About us</a></li>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">Services</a></li>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">Terms of service</a></li>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">Privacy policy</a></li>\r\n            </ul>', NULL, NULL, '2024-04-27 12:49:51', '2024-05-08 08:28:43'),
 (4, 8, NULL, 3, NULL, 'Our Services', '<ul>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">Web Design</a></li>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">Web Development</a></li>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">Product Management</a></li>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">Marketing</a></li>\r\n              <li><i class=\"bx bx-chevron-right\"></i> <a href=\"#\">Graphic Design</a></li>\r\n            </ul>', NULL, NULL, '2024-04-27 12:53:23', '2024-04-27 12:53:23'),
@@ -163,8 +163,8 @@ INSERT INTO `lang_posts` (`id`, `lang_id`, `category_id`, `post_id`, `main_table
 (14, 8, 5, NULL, NULL, 'Products', NULL, NULL, NULL, '2024-04-28 09:37:04', '2024-04-28 09:37:04'),
 (15, 8, 6, NULL, NULL, 'Services', NULL, NULL, NULL, '2024-04-28 09:37:31', '2024-04-28 09:37:31'),
 (16, 7, 6, NULL, NULL, 'خدماتنا', NULL, NULL, NULL, '2024-04-28 09:38:00', '2024-04-28 09:38:00'),
-(17, 8, 7, NULL, NULL, 'Contacts', NULL, NULL, NULL, '2024-04-28 09:38:38', '2024-04-28 09:38:38'),
-(18, 7, 7, NULL, NULL, 'اتصل بنا', NULL, NULL, NULL, '2024-04-28 09:38:51', '2024-04-28 09:38:51'),
+(17, 8, 7, NULL, NULL, 'Contacts', '<div class=\"section-title\">\r\n          <h2>Contact</h2>\r\n          <h3><span>Contact Us</span></h3>\r\n          <p>possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>\r\n        </div>\r\n\r\n        <div class=\"row\" data-aos=\"fade-up\" data-aos-delay=\"100\">\r\n          <div class=\"col-lg-6\">\r\n            <div class=\"info-box mb-4\">\r\n              <i class=\"bx bx-map\"></i>\r\n              <h3>Our Address</h3>\r\n              <p>A108 Adam Street, New York, NY 535022</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 col-md-6\">\r\n            <div class=\"info-box  mb-4\">\r\n              <i class=\"bx bx-envelope\"></i>\r\n              <h3>Email Us</h3>\r\n              <p>info@prevalentautomation.com</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 col-md-6\">\r\n            <div class=\"info-box  mb-4\">\r\n              <i class=\"bx bx-phone-call\"></i>\r\n              <h3>Call Us</h3>\r\n              <p>+905011291958</p>\r\n            </div>\r\n          </div>\r\n\r\n        </div>', NULL, NULL, '2024-04-28 09:38:38', '2024-05-12 19:51:45'),
+(18, 7, 7, NULL, NULL, 'اتصل بنا', '<div class=\"section-title\">\r\n          <h2>Contact</h2>\r\n          <h3><span>Contact Us</span></h3>\r\n          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>\r\n        </div>\r\n\r\n        <div class=\"row\" data-aos=\"fade-up\" data-aos-delay=\"100\">\r\n          <div class=\"col-lg-6\">\r\n            <div class=\"info-box mb-4\">\r\n              <i class=\"bx bx-map\"></i>\r\n              <h3>Our Address</h3>\r\n              <p>A108 Adam Street, New York, NY 535022</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 col-md-6\">\r\n            <div class=\"info-box  mb-4\">\r\n              <i class=\"bx bx-envelope\"></i>\r\n              <h3>Email Us</h3>\r\n              <p>contact@example.com</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 col-md-6\">\r\n            <div class=\"info-box  mb-4\">\r\n              <i class=\"bx bx-phone-call\"></i>\r\n              <h3>Call Us</h3>\r\n              <p>+1 5589 55488 55</p>\r\n            </div>\r\n          </div>\r\n\r\n        </div>', NULL, NULL, '2024-04-28 09:38:51', '2024-05-12 09:40:56'),
 (19, 8, 8, NULL, NULL, 'Career', NULL, NULL, NULL, '2024-04-28 09:40:43', '2024-04-28 09:40:43'),
 (20, 7, 8, NULL, NULL, 'الوظائف', NULL, NULL, NULL, '2024-04-28 09:40:53', '2024-04-28 09:40:53'),
 (21, 8, 9, NULL, NULL, 'About Us', '<!-- ======= Services Section ======= -->\r\n    <section id=\"services\" class=\"services about-content\">\r\n      <div class=\"container\" data-aos=\"fade-up\">\r\n\r\n        <div class=\"section-title\">\r\n           \r\n         \r\n           </div>\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch\" data-aos=\"zoom-in\" data-aos-delay=\"100\">\r\n            <div class=\"icon-box\">\r\n              <div class=\"icon\"><i class=\"bx bxl-dribbble\"></i></div>\r\n              <h4><a href=\"\">About Us</a></h4>\r\n              <p>The Co-founder of PreValent was based on the ideas of a group of experienced Electrical-Electronic Engineer in 2008. PreValent which was established on this basis was incorporated in 2018. It provides service in Industrial Automation to many sectors especially in Cement,chemecals ,Pharmaceutical , Plastics , and water treament manufacturing.</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0\" data-aos=\"zoom-in\" data-aos-delay=\"200\">\r\n            <div class=\"icon-box\">\r\n              <div class=\"icon\"><i class=\"bx bx-file\"></i></div>\r\n              <h4><a href=\"\">Our Mission</a></h4>\r\n              <p>PreValent Automation has undertaken the mission of contributing to our country\'s industrialization and international expansion with the services it provides and performs in the market. Strong capital and know-how, experienced and competent manpower, flexible organizational structure, high quality and diverse service portfolio are our biggest sources of power supporting our mission.</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0\" data-aos=\"zoom-in\" data-aos-delay=\"300\">\r\n            <div class=\"icon-box\">\r\n              <div class=\"icon\"><i class=\"bx bx-tachometer\"></i></div>\r\n              <h4><a href=\"\">Our Vision</a></h4>\r\n              <p>In constantly developing/changing Turkey and the world economy, to contribute the environment and country\'s economy with a high level of service.\r\n\r\nUnderstanding of efficient and determined work, timely and complete fulfillment of the responsibilities undertaken, absolute customer satisfaction, prioritizing human relations, demonstrating maximum diligence in every job, big or small, never compromising on quality, maintaining a peaceful business life with our employees.</p>\r\n            </div>\r\n          </div>\r\n\r\n         \r\n        </div>\r\n\r\n      </div>\r\n    </section><!-- End Services Section -->', NULL, NULL, '2024-04-28 14:50:22', '2024-04-29 17:08:54'),
@@ -191,8 +191,8 @@ INSERT INTO `lang_posts` (`id`, `lang_id`, `category_id`, `post_id`, `main_table
 (42, 11, 5, NULL, NULL, 'Ürünler', NULL, NULL, NULL, '2024-04-29 17:30:36', '2024-04-29 17:30:36'),
 (43, 11, 6, NULL, NULL, 'Hizmetler', NULL, NULL, NULL, '2024-04-29 17:31:29', '2024-04-29 17:31:29'),
 (44, 12, 6, NULL, NULL, 'Diensten', NULL, NULL, NULL, '2024-04-29 17:32:14', '2024-04-29 17:32:14'),
-(45, 12, 7, NULL, NULL, 'Contacten', NULL, NULL, NULL, '2024-04-29 17:32:55', '2024-04-29 17:32:55'),
-(46, 11, 7, NULL, NULL, 'Kişiler', NULL, NULL, NULL, '2024-04-29 17:33:10', '2024-04-29 17:33:10'),
+(45, 12, 7, NULL, NULL, 'Contacten', '<div class=\"section-title\">\r\n          <h2>Contact</h2>\r\n          <h3><span>Contact Us</span></h3>\r\n          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>\r\n        </div>\r\n\r\n        <div class=\"row\" data-aos=\"fade-up\" data-aos-delay=\"100\">\r\n          <div class=\"col-lg-6\">\r\n            <div class=\"info-box mb-4\">\r\n              <i class=\"bx bx-map\"></i>\r\n              <h3>Our Address</h3>\r\n              <p>A108 Adam Street, New York, NY 535022</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 col-md-6\">\r\n            <div class=\"info-box  mb-4\">\r\n              <i class=\"bx bx-envelope\"></i>\r\n              <h3>Email Us</h3>\r\n              <p>contact@example.com</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 col-md-6\">\r\n            <div class=\"info-box  mb-4\">\r\n              <i class=\"bx bx-phone-call\"></i>\r\n              <h3>Call Us</h3>\r\n              <p>+1 5589 55488 55</p>\r\n            </div>\r\n          </div>\r\n\r\n        </div>', NULL, NULL, '2024-04-29 17:32:55', '2024-05-12 09:41:16'),
+(46, 11, 7, NULL, NULL, 'Kişiler', '<div class=\"section-title\">\r\n          <h2>Contact</h2>\r\n          <h3><span>Contact Us</span></h3>\r\n          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>\r\n        </div>\r\n\r\n        <div class=\"row\" data-aos=\"fade-up\" data-aos-delay=\"100\">\r\n          <div class=\"col-lg-6\">\r\n            <div class=\"info-box mb-4\">\r\n              <i class=\"bx bx-map\"></i>\r\n              <h3>Our Address</h3>\r\n              <p>A108 Adam Street, New York, NY 535022</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 col-md-6\">\r\n            <div class=\"info-box  mb-4\">\r\n              <i class=\"bx bx-envelope\"></i>\r\n              <h3>Email Us</h3>\r\n              <p>contact@example.com</p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 col-md-6\">\r\n            <div class=\"info-box  mb-4\">\r\n              <i class=\"bx bx-phone-call\"></i>\r\n              <h3>Call Us</h3>\r\n              <p>+1 5589 55488 55</p>\r\n            </div>\r\n          </div>\r\n\r\n        </div>', NULL, NULL, '2024-04-29 17:33:10', '2024-05-12 09:41:07'),
 (47, 11, 8, NULL, NULL, 'Kariyer', NULL, NULL, NULL, '2024-04-29 17:33:48', '2024-04-29 17:33:48'),
 (48, 12, 8, NULL, NULL, 'Carrière', NULL, NULL, NULL, '2024-04-29 17:34:04', '2024-04-29 17:34:04'),
 (49, 12, 9, NULL, NULL, 'Over ons', NULL, NULL, NULL, '2024-04-29 17:35:25', '2024-04-29 17:35:25'),
@@ -223,7 +223,35 @@ INSERT INTO `lang_posts` (`id`, `lang_id`, `category_id`, `post_id`, `main_table
 (77, 8, NULL, 24, NULL, 'FORD OTOSAN - Turnkey Robotic BIW (Body in-White) Greenfield', '<p>FORD OTOSAN - Turnkey Robotic BIW (Body in-White) Greenfield</p><p>FORD OTOSAN - Turnkey Robotic BIW (Body in-White) Greenfield</p><p>FORD OTOSAN - Turnkey Robotic BIW (Body in-White) Greenfield</p><p>FORD OTOSAN - Turnkey Robotic BIW (Body in-White) Greenfield<br></p>', NULL, NULL, '2024-05-06 09:06:19', '2024-05-06 09:06:19'),
 (78, 8, 17, NULL, NULL, 'Catalog', NULL, NULL, NULL, '2024-05-08 11:03:47', '2024-05-08 11:03:47'),
 (79, 7, 17, NULL, NULL, 'الكاتالوج', NULL, NULL, NULL, '2024-05-08 11:04:04', '2024-05-08 11:04:04'),
-(80, 11, 17, NULL, NULL, 'Katalog', NULL, NULL, NULL, '2024-05-09 12:05:27', '2024-05-09 12:05:27');
+(80, 11, 17, NULL, NULL, 'Katalog', NULL, NULL, NULL, '2024-05-09 12:05:27', '2024-05-09 12:05:27'),
+(81, 8, NULL, 26, NULL, 'Your Name', NULL, NULL, NULL, '2024-05-12 09:19:07', '2024-05-12 09:19:07'),
+(82, 7, NULL, 26, NULL, 'الاسم', NULL, NULL, NULL, '2024-05-12 09:19:33', '2024-05-12 09:19:33'),
+(83, 7, NULL, 27, NULL, 'البريد الالكتروني', NULL, NULL, NULL, '2024-05-12 09:21:04', '2024-05-12 09:21:04'),
+(84, 8, NULL, 28, NULL, 'Subject', NULL, NULL, NULL, '2024-05-12 09:22:49', '2024-05-12 09:22:49'),
+(85, 7, NULL, 28, NULL, 'الموضوع', NULL, NULL, NULL, '2024-05-12 09:23:19', '2024-05-12 09:23:19'),
+(86, 8, NULL, 29, NULL, 'Message', NULL, NULL, NULL, '2024-05-12 09:23:46', '2024-05-12 09:23:46'),
+(87, 7, NULL, 29, NULL, 'نص الرسالة', NULL, NULL, NULL, '2024-05-12 09:23:55', '2024-05-12 09:23:55'),
+(88, 8, NULL, 30, NULL, 'Send Message', NULL, NULL, NULL, '2024-05-12 09:24:43', '2024-05-12 09:24:43'),
+(89, 7, NULL, 30, NULL, 'ارسال', NULL, NULL, NULL, '2024-05-12 09:24:50', '2024-05-12 09:24:50'),
+(90, 7, NULL, 32, NULL, 'فشل في ارسال الرسالة', NULL, NULL, NULL, '2024-05-12 09:27:11', '2024-05-13 07:45:13'),
+(91, 8, NULL, 32, NULL, 'Failed to send message!', NULL, NULL, NULL, '2024-05-12 09:27:15', '2024-05-13 07:41:50'),
+(92, 8, NULL, 31, NULL, 'Your message has been sent. Thank you!', NULL, NULL, NULL, '2024-05-12 09:33:24', '2024-05-12 09:33:24'),
+(93, 7, NULL, 31, NULL, 'تم الارسال بنجاح. شكرا لك!', '<p><br></p>', NULL, NULL, '2024-05-12 09:34:39', '2024-05-12 09:34:39'),
+(94, 8, NULL, 27, NULL, 'Your Email', NULL, NULL, NULL, '2024-05-12 13:17:10', '2024-05-12 13:17:10'),
+(95, 11, NULL, 26, NULL, 'Adınız', NULL, NULL, NULL, '2024-05-13 07:24:05', '2024-05-13 07:24:05'),
+(96, 12, NULL, 26, NULL, 'Uw naam', NULL, NULL, NULL, '2024-05-13 07:24:31', '2024-05-13 07:24:47'),
+(97, 12, NULL, 27, NULL, 'Jouw email', NULL, NULL, NULL, '2024-05-13 07:26:00', '2024-05-13 07:26:00'),
+(98, 11, NULL, 27, NULL, 'E-posta adresiniz', NULL, NULL, NULL, '2024-05-13 07:26:13', '2024-05-13 07:26:13'),
+(99, 11, NULL, 28, NULL, 'Ders', NULL, NULL, NULL, '2024-05-13 07:27:07', '2024-05-13 07:27:07'),
+(100, 12, NULL, 28, NULL, 'Onderwerp', NULL, NULL, NULL, '2024-05-13 07:27:23', '2024-05-13 07:27:23'),
+(101, 12, NULL, 29, NULL, 'Bericht', NULL, NULL, NULL, '2024-05-13 07:28:59', '2024-05-13 07:28:59'),
+(102, 11, NULL, 29, NULL, 'İleti', NULL, NULL, NULL, '2024-05-13 07:29:54', '2024-05-13 07:29:54'),
+(103, 11, NULL, 30, NULL, 'Göndermek', NULL, NULL, NULL, '2024-05-13 07:32:34', '2024-05-13 07:32:34'),
+(104, 12, NULL, 30, NULL, 'versturen', NULL, NULL, NULL, '2024-05-13 07:32:59', '2024-05-13 07:32:59'),
+(105, 12, NULL, 31, NULL, 'Je bericht is verzonden. Bedankt!', NULL, NULL, NULL, '2024-05-13 07:34:26', '2024-05-13 07:34:26'),
+(106, 11, NULL, 31, NULL, 'Mesajınız gönderildi. Teşekkür ederim!', NULL, NULL, NULL, '2024-05-13 07:34:38', '2024-05-13 07:34:38'),
+(107, 11, NULL, 32, NULL, 'Mesaj gönderilemedi!', NULL, NULL, NULL, '2024-05-13 07:43:35', '2024-05-13 07:43:35'),
+(108, 12, NULL, 32, NULL, 'Kan bericht niet verzenden!', NULL, NULL, NULL, '2024-05-13 07:43:56', '2024-05-13 07:43:56');
 
 -- --------------------------------------------------------
 
@@ -565,7 +593,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `code` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `posts`
@@ -585,7 +613,14 @@ INSERT INTO `posts` (`id`, `title`, `slug`, `meta_key`, `content`, `category_id`
 (22, 'TOGG - Turnkey Robotic BIW (Body in-White) Greenfield', 'togg-turnkey-robotic-biw-body-in-white-greenfield', NULL, NULL, 16, 0, 1, NULL, NULL, NULL, '2024-05-06 09:03:29', '2024-05-06 09:03:29', NULL),
 (23, 'FORD EUROPE - Turnkey Robotic BIW (Body in-White) Greenfield / Brownfield', 'ford-europe-turnkey-robotic-biw-body-in-white-greenfield-brownfield', NULL, NULL, 16, 0, 1, NULL, NULL, NULL, '2024-05-06 09:03:39', '2024-05-06 09:03:39', NULL),
 (24, 'FORD OTOSAN - Turnkey Robotic BIW (Body in-White) Greenfield', 'ford-otosan-turnkey-robotic-biw-body-in-white-greenfield', NULL, NULL, 16, 0, 1, NULL, NULL, NULL, '2024-05-06 09:04:26', '2024-05-06 09:04:26', NULL),
-(25, 'FORD OTOSAN - Turnkey Paint Shop Robotic PVC NVH UBS and Cosmetic Sealing', 'ford-otosan-turnkey-paint-shop-robotic-pvc-nvh-ubs-and-cosmetic-sealing', NULL, NULL, 16, 0, 1, NULL, NULL, NULL, '2024-05-06 09:04:58', '2024-05-06 09:04:58', NULL);
+(25, 'FORD OTOSAN - Turnkey Paint Shop Robotic PVC NVH UBS and Cosmetic Sealing', 'ford-otosan-turnkey-paint-shop-robotic-pvc-nvh-ubs-and-cosmetic-sealing', NULL, NULL, 16, 0, 1, NULL, NULL, NULL, '2024-05-06 09:04:58', '2024-05-06 09:04:58', NULL),
+(26, 'Name', NULL, NULL, NULL, 7, 0, 1, NULL, NULL, NULL, NULL, '2024-04-27 14:23:07', 'contact_name'),
+(27, 'Email', NULL, NULL, NULL, 7, 0, 1, NULL, NULL, NULL, NULL, '2024-04-27 14:23:07', 'contact_email'),
+(28, 'Subject', NULL, NULL, NULL, 7, 0, 1, NULL, NULL, NULL, NULL, '2024-04-27 14:23:07', 'contact_subject'),
+(29, 'Message', NULL, NULL, NULL, 7, 0, 1, NULL, NULL, NULL, NULL, '2024-04-27 14:23:07', 'contact_message'),
+(30, 'Send button', NULL, NULL, NULL, 7, 0, 1, NULL, NULL, NULL, NULL, '2024-04-27 14:23:07', 'contact_send'),
+(31, 'Success message', NULL, NULL, NULL, 7, 0, 1, NULL, NULL, NULL, NULL, '2024-04-27 14:23:07', 'contact_success'),
+(32, 'Error message', NULL, NULL, NULL, 7, 0, 1, NULL, NULL, NULL, NULL, '2024-04-27 14:23:07', 'contact_error');
 
 -- --------------------------------------------------------
 
@@ -640,7 +675,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `settings`
@@ -656,7 +691,8 @@ INSERT INTO `settings` (`id`, `name1`, `value1`, `name2`, `value2`, `name3`, `va
 (16, 'Name', 'instagram', 'Code', 'instagram', 'Link', 'https://instagram.com', 'social', '', 0, '', '', 1, '2024-04-22 17:02:03', '2024-04-22 17:02:03'),
 (17, 'Name', 'twitter', 'Code', 'twitter', 'Link', 'https://twitter.com', 'social', '', 0, '', '', 1, '2024-04-22 17:02:28', '2024-04-24 14:55:26'),
 (18, 'Name', 'linkedin', 'Code', 'linkedin', 'Link', 'https://www.linkedin.com/', 'social', '', 0, '', '', 1, '2024-04-24 14:57:07', '2024-04-24 14:57:07'),
-(19, 'whatsapp', '+905011291958', NULL, NULL, NULL, NULL, 'site-info', 'whatsapp', 0, NULL, 'whatsapp', 1, NULL, '2024-04-30 16:30:46');
+(19, 'whatsapp', '+905011291958', NULL, NULL, NULL, NULL, 'site-info', 'whatsapp', 0, NULL, 'whatsapp', 1, NULL, '2024-04-30 16:30:46'),
+(20, 'Location', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621', NULL, NULL, NULL, NULL, 'site-info', 'location', 0, NULL, 'location', 1, NULL, '2024-05-12 18:41:28');
 
 -- --------------------------------------------------------
 
