@@ -22,9 +22,8 @@
                 <section id="testimonials" class="testimonials">
                     <div class="container" data-aos="zoom-in">
                         <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-                          <header class="section-header">
-                            <h2>{{ Str::of($homearr['references']['tr_title'])->toHtmlString() }}</h2>
-                            <p>{{ Str::of($homearr['references']['tr_content'])->toHtmlString() }}</p>
+                          <header class="section-header">                            
+                            {{ Str::of($homearr['references']['tr_content'])->toHtmlString() }} 
                           </header>
                             <div class="swiper-wrapper">
                                 @if ($homearr['references'])
