@@ -148,7 +148,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::get('/headinfo', [SettingController::class, 'getheadinfo']);
             Route::post('/updatephone', [SettingController::class, 'updatephone']);
             Route::post('/updateemail', [SettingController::class, 'updateemail']);
-
+            Route::get('/translate', [PostController::class, 'translate']);
 
         });
 
