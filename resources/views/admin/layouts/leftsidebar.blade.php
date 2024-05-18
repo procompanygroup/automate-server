@@ -337,7 +337,12 @@
                   <p>Header Info</p>
                 </a>
               </li>
-              
+              <li class="nav-item">
+                <a href="{{url('admin/setting/translate') }}" class="nav-link ">
+                  <i class="far fa fa-list-alt nav-icon"></i>
+                  <p>Translate</p>
+                </a>
+              </li>
                
             </ul>
           </li>

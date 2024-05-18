@@ -132,7 +132,7 @@
                           <li class="nav-item">
                             <a class="nav-link active" id="custom-tabs-one-trans-tab" data-toggle="pill" href="#custom-tabs-one-trans" role="tab" aria-controls="custom-tabs-one-trans" aria-selected="true">Translation</a>
                           </li>
-                          @if( $item->category->code!='contacts')      
+                          @if( $item->category->code!='contacts'&& $item->category->code!='translate')      
                             <li class="nav-item">
                             <a class="nav-link" id="custom-tabs-one-media-tab" data-toggle="pill" href="#custom-tabs-one-media" role="tab" aria-controls="custom-tabs-one-media" aria-selected="false">Media</a>
                           </li>  
