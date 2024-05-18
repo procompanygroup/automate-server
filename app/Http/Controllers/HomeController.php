@@ -40,17 +40,19 @@ class HomeController extends Controller
      {
         $lang=$formdata['lang'];
      } 
+     $active='home';
        if(isset($lang)){
       //  $lang= $formdata["lang"];
       $transarr=$sitedctrlr->FillTransData($lang);
       $defultlang=$transarr['langs']->first();
       $homearr= $sitedctrlr->gethomedata( $defultlang->id);
-        return view('site.home',['slidedata'=> $slidedata,'lang'=>$lang, 'transarr'=>$transarr,'defultlang'=>$defultlang,'homearr'=> $homearr]);
+ 
+        return view('site.home',['slidedata'=> $slidedata,'lang'=>$lang, 'transarr'=>$transarr,'defultlang'=>$defultlang,'homearr'=> $homearr, 'active_item'=>$active]);
        }else{
         $transarr=$sitedctrlr->FillTransData();
         $defultlang=$transarr['langs']->first();
         $homearr= $sitedctrlr->gethomedata( $defultlang->id);
-        return view('site.home',['slidedata'=> $slidedata,'transarr'=>$transarr,'defultlang'=>$defultlang,'homearr'=> $homearr]);
+        return view('site.home',['slidedata'=> $slidedata,'transarr'=>$transarr,'defultlang'=>$defultlang,'homearr'=> $homearr,'active_item'=>$active]);
        }
       
     }
@@ -81,18 +83,23 @@ class HomeController extends Controller
      $catmodel= Category::where('slug',$slug)->select('id','code')->first();
      $current_path=$sitedctrlr->getpath($lang,$slug); 
 if($catmodel->code=='projects'){
+   
    $cat= $sitedctrlr->getcatwithposts( $langitem->id,$slug);
-   return view('site.content.project',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
+   $translateArr=   $sitedctrlr->gettranscat( $langitem->id);
+  
+$more=$translateArr['posts']->where('code','more')->first()['tr_title'];
+
+   return view('site.content.project',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'tr_more'=>$more,'active_item'=>$cat['code']]);  
 }else if($catmodel->code=='contacts'){
  
    $cat= $sitedctrlr->getcontactinfo( $langitem->id,$slug);
 
-   return view('site.content.contact',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
+   return view('site.content.contact',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'active_item'=>$cat['code']]);  
 }else{
   
    $cat= $sitedctrlr->getcatinfo( $langitem->id,$slug);
-    
-        return view('site.content.about',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
+    $active=$cat['parent_code'];
+        return view('site.content.about',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'active_item'=> $active]);  
 }
      
       
@@ -107,10 +114,13 @@ if($catmodel->code=='projects'){
      $current_path=$sitedctrlr->getpath($lang,$slug); 
 if($catmodel->code=='projects'){
    $catpostArr= $sitedctrlr->getcatwithpost( $langitem->id,$slug,$postslug);
+
+
    $cat=$catpostArr['category'];
    $post=$catpostArr['posts']->first();
+
    if($catpostArr['posts']->count()>0){
-      return view('site.content.post',['category'=>$cat,'postcontent'=>$post,'lang'=>$lang ,'current_path'=>$current_path]);  
+      return view('site.content.post',['category'=>$cat,'postcontent'=>$post,'lang'=>$lang ,'current_path'=>$current_path,'active_item'=>$cat['code']]);  
 
    }else{
    abort(404, '');

@@ -378,6 +378,25 @@ if($locPost->post && $locPost->post->langposts->first()){
      
         return     $item ;
     }
+    public function gettranscat($lang_id)
+    {        //projects and refs
+        $Dbitem= Category::with([ 
+            'langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           }, 'posts' => function ($q) use ($lang_id) {
+            $q->where('status',1)
+            ->with([ 'langposts' => function ($q) use ($lang_id) {
+                $q->where('lang_id', $lang_id) ;
+            } 
+
+            ])->orderBy('sequence') ;
+        } ])->orderBy('sequence')->where('code','translate')->first();   
+
+        $item =$this->mapcatwithpost($Dbitem,$lang_id);
+
+     
+        return     $item ;
+    }
     public function getcatwithpost($lang_id,$slug,$postslug)
     {        //projects and refs
         $Dbitem= Category::with([ 
@@ -453,7 +472,7 @@ $tr_content='';
             $tr_title= $category->langposts->first()->title_trans;
             $tr_content= $category->langposts->first()->content_trans;
         }
- 
+       $pcode= $category->parent->code;
 $sons=$this->mapcategorylist($category->sons,$lang_id);
         return [
             'id' =>$category->id,
@@ -468,6 +487,7 @@ $sons=$this->mapcategorylist($category->sons,$lang_id);
             'code'=>$category->code,
             'tr_title' => $tr_title,
             'tr_content' =>$tr_content,                 
+           'parent_code'=>$pcode,
            
             'sons' => $sons, 
            
