@@ -356,6 +356,21 @@ $category=Category::find($id);
 
         
     }
+    public function translate()
+    {
+      
+$category=Category::where('code','translate')->first();
+          $list = Post::where('category_id',$category->id)->get();       
+              
+         return view("admin.post.show", [          
+         "list"=>   $list,    "category"=>   $category,          
+         ]);
+      
+     
+
+
+        
+    }
 
     public function uploadLargeFiles(Request $request) {
       $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
