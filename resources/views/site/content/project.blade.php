@@ -35,7 +35,7 @@
                             {{ Str::of($category['tr_content'])->toHtmlString() }}
                         </header>
 
-                        <div class="row gy-4">
+                        <div class="row gy-4 vid-row">
                             @foreach ($category['posts'] as $post)
                                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
                                     data-aos-delay="100">
@@ -60,7 +60,8 @@
                                                 <span></span>
                                                 <p></p>
                                             @else
-                                                {{ Str::of($post['tr_content'])->toHtmlString() }}
+                                            <p style="text-align: justify;"> {{ Str::of($post['tr_content'])->toHtmlString() }}
+                                               <a href="{{url('lang/'.$lang.'/page'.'/'.$category['slug'].'/'.$post['slug'])}}">{{ $tr_more }}</a></p>
                                             @endif
                                         </div>
                                     </div>

@@ -72,8 +72,8 @@
   <script src="{{URL::asset('assets/site/assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
   <script src="{{URL::asset('assets/site/assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
   <script src="{{URL::asset('assets/site/assets/vendor/waypoints/noframework.waypoints.js')}}"></script>
-  <script src="{{URL::asset('assets/site/assets/vendor/php-email-form/validate.js')}}"></script>
 
+  @yield('js')
   <!-- Template Main JS File -->
   <script src="{{URL::asset('assets/site/assets/js/main.js')}}"></script>
 

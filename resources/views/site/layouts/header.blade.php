@@ -31,12 +31,12 @@
   
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto active" href="{{ url('lang',$transarr['langs']->first()->code)}}"> <span>{{Str::of($menuarr->first()['tr_title'])->toHtmlString()}}</span></a></li>
+            <li><a class="nav-link scrollto @if($active_item=='home') active @endif" href="{{ url('lang',$transarr['langs']->first()->code)}}"> <span>{{Str::of($menuarr->first()['tr_title'])->toHtmlString()}}</span></a></li>
             @foreach ($menuarr->skip(1) as $item)
             <li  @if(sizeof($item['sons'])) 
               class="dropdown"  @endif >           
-              <a class="nav-link scrollto"
-              @if(sizeof($item['sons'])&& $item['code']=='company')) 
+              <a class="nav-link scrollto @if(isset($category)) @if($category['code']==$item['code'] ||$item['code']==$active_item ) active @endif  @endif"
+              @if(sizeof($item['sons'])&& $item['code']=='company')
                href="#"
                @else
                href="{{ url('/lang'.'/'.$transarr['langs']->first()->code.'/page'.'/'.$item['slug']) }}"

@@ -78,5 +78,10 @@
       </div>
     </section><!-- End Contact Section -->
 </main><!-- End #main -->
-<script src="{{URL::asset('assets/admin/plugins/jquery/jquery.min.js')}}"></script>
+
 @endsection
+@section('js')
+<script src="{{URL::asset('assets/admin/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{URL::asset('assets/site/assets/vendor/php-email-form/validate.js')}}"></script>
+@endsection
+

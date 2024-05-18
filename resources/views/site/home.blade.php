@@ -65,7 +65,7 @@
 
 
         <!-- ======= Featured Services Section ======= -->
-        <section id="featured-services" class="featured-services">
+        {{-- <section id="featured-services" class="featured-services">
             <div class="container" data-aos="fade-up">
 
                 <div class="row">
@@ -108,6 +108,7 @@
                 </div>
 
             </div>
-        </section><!-- End Featured Services Section -->
+        </section> --}}
+        <!-- End Featured Services Section -->
     </main><!-- End #main -->
 @endsection
