@@ -63,8 +63,12 @@
               <ul>
                 @foreach ( $transarr['langs']->skip(1) as $langrow )
                 <li><a class="lang-menu" 
-  @if(isset($category))
-    href="{{route(\Illuminate\Support\Facades\Route::currentRouteName(),['lang' => $langrow->code,'slug'=>$category['slug']])}}"
+
+  @if(isset($postcontent))  
+  href="{{route(\Illuminate\Support\Facades\Route::currentRouteName(),['lang' => $langrow->code,'slug'=>$category['slug'],'postslug'=>$postcontent['slug']])}}"
+      @elseif(isset($category))
+      href="{{route(\Illuminate\Support\Facades\Route::currentRouteName(),['lang' => $langrow->code,'slug'=>$category['slug']])}}"
+ 
     @else  
     href="{{route(\Illuminate\Support\Facades\Route::currentRouteName(),['lang' => $langrow->code])}}"
  @endif

@@ -378,6 +378,33 @@ if($locPost->post && $locPost->post->langposts->first()){
      
         return     $item ;
     }
+    public function getcatwithpost($lang_id,$slug,$postslug)
+    {        //projects and refs
+        $Dbitem= Category::with([ 
+            'langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           }, 'posts' => function ($q) use ($lang_id,$postslug) {
+            $q->where('status',1)->where('slug',$postslug)
+            ->with([ 'langposts' => function ($q) use ($lang_id) {
+                $q->where('lang_id', $lang_id) ;
+            } , 'mediaposts' => function ($q) {
+                $q->with('mediastore');
+            }
+
+            ])->orderBy('sequence') ;
+        } ])->orderBy('sequence')->where('slug',$slug)->first();   
+/*
+[
+            'mediaposts' => function ($q) use ($id) {
+                $q->with('mediastore');
+            }
+        ]
+*/
+        $item =$this->mapcatpostArr($Dbitem,$lang_id);
+        //   return $item;
+     
+        return     $item ;
+    }
 
     public function getcatwithmedia($lang_id,$code)
     {        //projects and refs
@@ -478,6 +505,37 @@ $sons=$this->mapcategorylist($category->sons,$lang_id);
             ];
        
     }
+    public function mapcatpostArr($category,$lang_id){
+         
+        $tr_title='';
+         $tr_content='';
+        if( $category->langposts->first()){
+            $tr_title= $category->langposts->first()->title_trans;
+            $tr_content= $category->langposts->first()->content_trans;
+        }
+ 
+$posts=$this->mappostlist($category->posts );
+$categoryArr=[
+    'id' =>$category->id,
+    'title'=>$category->title,
+    'slug'=>$category->slug,
+    'desc'=>$category->desc,
+    'meta_key'=>$category->meta_key,
+    'parent_id'=>$category->parent_id,
+    'sequence'=>$category->sequence,
+    'status'=>$category->status,             
+    'notes'=>$category->notes,    
+    'code'=>$category->code,
+    'tr_title' => $tr_title,
+    'tr_content' =>$tr_content,   
+    
+]; 
+        return [                           
+           'category'=>$categoryArr,
+            'posts' =>  $posts, 
+            ];
+   
+}
     public function mappostlist($post ){
         $List = $post->map(function ($postmodel)  {
             $tr_title='';
@@ -574,6 +632,32 @@ public $mainpathArr =[];
         //   return $item;     
         return  $this->mainpathArr;
     }
+    public function getpathwithpost($lang_code,$slug,$postslug)
+    {
+        $curentlang=Language::where('code',$lang_code)->first();
+        $lang_id=$curentlang->id;
+        $homecatdb=Category::with([ 
+            'langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           }])->where('code','home')->first();
+           $homecat=$this->mapcategoryPath( $homecatdb,$lang_id,$curentlang->code);
+
+        $Dbitem= Category::with([ 
+            'langposts' => function ($q) use ($lang_id) {
+               $q->where('lang_id', $lang_id) ;
+           }])->where('slug',$slug)->first();
+
+           while($Dbitem->code!='main-menu'){
+            $parentid=$Dbitem->parent_id;
+            $item =$this->mapcategoryPath($Dbitem,$lang_id,$curentlang->code);
+            $this->mainpathArr[]=  $item;
+            $Dbitem=$this->getbyid($parentid,$lang_id);
+           }     
+           $this->mainpathArr[]=$homecat ;  
+           $this->mainpathArr=  array_reverse($this->mainpathArr)   ; 
+        //   return $item;     
+        return  $this->mainpathArr;
+    }
     public function getbyid($category_id,$lang_id){
         $Dbitem= Category::with([ 
             'langposts' => function ($q) use ($lang_id) {
@@ -614,7 +698,39 @@ $is_link=1;
            
         ];
     }
+    public function mapcategoryPathwithPost($category,$lang_id,$lang_code){
+        $tr_title='';
+        $urlpath='#';
+        $is_link=0;
+        if( $category->langposts->first()){
+            $tr_title= $category->langposts->first()->title_trans;
+         //   $tr_content= $category->langposts->first()->content_trans;
+        }
+ if($category->code=='home'){
+$urlpath=url('lang',$lang_code);
+$is_link=1;
+ }else{
 
+ }
+ 
+        return [
+            'id' =>$category->id,
+          //  'title'=>$category->title,
+            'slug'=>$category->slug,
+         //   'desc'=>$category->desc,
+         //   'meta_key'=>$category->meta_key,
+            'parent_id'=>$category->parent_id,
+          //  'sequence'=>$category->sequence,
+         //   'status'=>$category->status,             
+          //  'notes'=>$category->notes,    
+            'code'=>$category->code,
+            'tr_title' => $tr_title,
+          //  'tr_content' =>$tr_content,                 
+           'urlpath'=>$urlpath,
+           'is_link'=>$is_link,
+           
+        ];
+    }
     public function Fillfordash()    {
         $strgCtrlr = new StorageController();
         $path = $strgCtrlr->SitePath('image');

@@ -52,16 +52,19 @@
 
                                 </div>
                             </div>
-
-                            {{-- <div class="form-group row" style="display: none;">
+                            @if( $item->category->code=='projects')
+                           <div class="form-group row"  >
                                 <label for="slug" class="col-sm-2 col-form-label">Slug</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control " name="slug" id="slug"
-                                        placeholder="Slug" value="{{ $item->slug }}">
+                                        placeholder="Slug" value="{{ $item->slug }}"   @readonly(true)  >
                                     <span id="slug-error" class="error invalid-feedback"></span>
 
                                 </div>
                             </div> 
+                            @endif
+  {{--
+
                              <div class="form-group row">
                                 <label for="metakey" class="col-sm-2 col-form-label">Keywords</label>
                                 <div class="col-sm-10">

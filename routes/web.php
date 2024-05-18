@@ -249,7 +249,7 @@ Route::prefix('lang/{lang}')->group(function () {
     Route::get('/', [HomeController::class, 'index']);
    // Route::get('/about', [HomeController::class, 'about']);
     Route::get('/page/{slug}', [HomeController::class, 'getcontent']);
-    
+    Route::get('/page/{slug}/{postslug}', [HomeController::class, 'getpostcontent']);
 });
 Route::post('/sendmail', [MailController::class, 'store']);
 require __DIR__ . '/auth.php';

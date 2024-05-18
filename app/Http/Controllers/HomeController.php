@@ -97,6 +97,41 @@ if($catmodel->code=='projects'){
      
       
     }
+    public function getpostcontent( $lang,$slug,$postslug)
+    {
+    //  return $postslug;
+     //  $formdata=$request->all();
+     $sitedctrlr=new SiteDataController();    
+     $langitem = Language::where('status',1)->where('code', $lang)->first();
+     $catmodel= Category::where('slug',$slug)->select('id','code')->first();
+     $current_path=$sitedctrlr->getpath($lang,$slug); 
+if($catmodel->code=='projects'){
+   $catpostArr= $sitedctrlr->getcatwithpost( $langitem->id,$slug,$postslug);
+   $cat=$catpostArr['category'];
+   $post=$catpostArr['posts']->first();
+   if($catpostArr['posts']->count()>0){
+      return view('site.content.post',['category'=>$cat,'postcontent'=>$post,'lang'=>$lang ,'current_path'=>$current_path]);  
+
+   }else{
+   abort(404, '');
+   }
+}else{
+   abort(404, '');
+}
+// else if($catmodel->code=='contacts'){
+ 
+//    $cat= $sitedctrlr->getcontactinfo( $langitem->id,$slug);
+
+//    return view('site.content.contact',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
+// }else{
+  
+//    $cat= $sitedctrlr->getcatinfo( $langitem->id,$slug);
+    
+//         return view('site.content.about',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path]);  
+// }
+     
+      
+    }
     public function changelang($lang)
     {
         $sitedctrlr=new SiteDataController();

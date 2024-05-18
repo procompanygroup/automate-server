@@ -67,7 +67,15 @@ color:#FFF;
   transform: translateY(-50%);
   width: auto;
 }
-
+.vid-row {
+  display: flex;
+  justify-content: center;
+}
+.vid-col {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  max-height: 200px;
+}
 /* .icon-bar a {
   display: block;
   text-align: center;

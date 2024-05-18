@@ -41,17 +41,17 @@
                                     data-aos-delay="100">
                                     <div class="member">
                                         <div class="member-img">
-                                            @if ($post['mediastore']->where('type', 'video')->first())
+                                            {{-- @if ($post['mediastore']->where('type', 'video')->first())
                                                 <video controls controlsList="nodownload" oncontextmenu="return false"
                                                     class="img-fluid">
                                                     <source
                                                         src="{{ $post['mediastore']->where('type', 'video')->first()['image_path'] }}"
                                                         type="video/mp4">
                                                 </video>
-                                            @else
+                                            @else --}}
                                                 <img src="@if ($post['mediastore']->first()) {{ $post['mediastore']->first()['image_path'] }}@else assets/img/team/team-2.jpg @endif"
                                                     class="img-fluid" alt="">
-                                            @endif
+                                            {{-- @endif --}}
 
                                         </div>
                                         <div class="member-info">
