@@ -7,7 +7,7 @@
           <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:{{$mainarr['emailrow']->value1}}">{{ $mainarr['emailrow']->value1 }}</a></i>
           @endif
           @if($mainarr['phonerow']->is_active==1)
-          <i class="bi bi-phone d-flex align-items-center ms-4"><span>{{ $mainarr['phonerow']->value1 }}</span></i>
+          <i class="bi bi-phone d-flex align-items-center ms-4 topbar-phone"><span>{{ $mainarr['phonerow']->value1 }}</span></i>
           @endif
         </div>
         <div class="social-links d-none d-md-flex align-items-center">
