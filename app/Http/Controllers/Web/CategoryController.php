@@ -121,7 +121,7 @@ class CategoryController extends Controller
    Category::find($id)->update([
      //'user_name'=>$formdata['user_name'],
     // 'title' => $formdata['title'],
-    'meta_key' => $formdata['metakey'],
+    'meta_key' =>isset ($formdata['metakey']) ? $formdata['metakey'] : '',  
     'slug' =>Str::slug($tmpslug),   
      'status' => isset ($formdata["status"]) ? 1 : 0,  
      'update_user_id'=>   Auth::user()->id, 

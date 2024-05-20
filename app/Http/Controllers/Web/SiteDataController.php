@@ -787,11 +787,13 @@ $is_link=1;
     public function gethomedata($lang_id)
     {        //projects and refs
         $ref= Category::where('code','references')->where('status',1)->first(); 
+     $main_banner=$this->getcatbycode($lang_id,'main-banner');
         if( $ref){
             $ref=$this->getcatwithposts($lang_id, $ref->slug);
         }
         $homearr = [
             "references" => $ref,
+            "main_banner"=>$main_banner,
         ];
         return  $homearr ;
     }
@@ -800,6 +802,15 @@ $is_link=1;
         $catalog= Category::where('code','catalog')->where('status',1)->first(); 
         if($catalog){
             $catalog=$this->getcatwithmedia($lang_id, $catalog->slug);
+        }
+       
+        return  $catalog;
+    }
+    public function getcatbycode($lang_id,$code)
+    {        //projects and refs
+        $catalog= Category::where('code',$code)->where('status',1)->first(); 
+        if($catalog){
+            $catalog=$this->getcatwithmedia($lang_id,$code);
         }
        
         return  $catalog;
