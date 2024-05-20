@@ -40,7 +40,7 @@
                                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
                                     data-aos-delay="100">
                                     <div class="member">
-                                        <div class="member-img">
+                                        <div class="member-img pro-img-div">
                                             {{-- @if ($post['mediastore']->where('type', 'video')->first())
                                                 <video controls controlsList="nodownload" oncontextmenu="return false"
                                                     class="img-fluid">
@@ -49,8 +49,8 @@
                                                         type="video/mp4">
                                                 </video>
                                             @else --}}
-                                                <img src="@if ($post['mediastore']->first()) {{ $post['mediastore']->first()['image_path'] }}@else assets/img/team/team-2.jpg @endif"
-                                                    class="img-fluid" alt="">
+                                                <img src="@if ($post['mediastore']->where('type', 'image')->first()) {{ $post['mediastore']->where('type', 'image')->first()['image_path'] }}@else assets/img/team/team-2.jpg @endif"
+                                                    class="img-fluid pro-img" alt="">
                                             {{-- @endif --}}
 
                                         </div>

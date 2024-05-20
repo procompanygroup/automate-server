@@ -61,6 +61,7 @@
 
                                 </div>
                             </div>
+                            @if( $item->code!='main-banner'&&$item->code!='catalog') 
                             <div class="form-group row">
                                 <label for="metakey" class="col-sm-2 col-form-label">Keywords</label>
                                 <div class="col-sm-10">
@@ -68,6 +69,7 @@
                                     <span id="metakey-error" class="error invalid-feedback"></span>
                                 </div>
                             </div>
+                            @endif
                             <div class="form-group row">
                                 <label for="status" class="col-sm-2 col-form-label">Status</label>
                                 <div class="col-sm-10 custom-control custom-switch ">
@@ -223,11 +225,12 @@
                                                                 aria-selected="true">Images</a>
                                                         </li>
                                                     @endif
-
+                                                    @if ($item->code == 'main-banner')
                                                     <!-- /.Video-->
-                                                    {{-- <li class="nav-item">
+                                                    <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-four-video-tab" data-toggle="pill" href="#custom-tabs-four-video" role="tab" aria-controls="custom-tabs-four-video" aria-selected="false">Video</a>
-                                  </li>                                   --}}
+                                  </li>                                   
+                                  @endif
 
                                                 </ul>
                                             </div>
@@ -320,7 +323,7 @@
                                                     </div>
 
                                                     <!-- Video modal  content-->
-                                                    {{-- <div class="tab-pane fade" id="custom-tabs-four-video" role="tabpanel" aria-labelledby="custom-tabs-four-video-tab">
+                                                     <div class="tab-pane fade" id="custom-tabs-four-video" role="tabpanel" aria-labelledby="custom-tabs-four-video-tab">
                                      <!-- Video -->
                                     <div class="card-header">
                                       <h3 class="card-title"></h3>                            
@@ -346,7 +349,7 @@
                                       @endforeach                                      
                                     </div>
                                     </div>
-                                   --}}
+                                 
                                                   
                                                 </div>
                                             </div>

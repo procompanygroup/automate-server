@@ -1,16 +1,47 @@
 @extends('site.layouts.layout')
 @section('mainslide')
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center">
+    @if ($homearr['main_banner']['mediastore']->where('type','video')->first())
+    <div class="banner" >
+        <video autoplay muted loop controlsList="nodownload" oncontextmenu="return false" class="banner-vid">
+            <source src="{{$homearr['main_banner']['mediastore']->where('type','video')->first()['image_path'] }}" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+         
+    </div>
+
+        @elseif($homearr['main_banner']['mediastore']->where('type','image')->first())
+         <!-- ======= Hero Section ======= -->
+    <section id="hero" style=" background: url({{$homearr['main_banner']['mediastore']->where('type','image')->first()['image_path'] }}) top left;" class="d-flex align-items-center">
         <div class="container" data-aos="zoom-out" data-aos-delay="100">
-            <h1><span> {{ $slidedata['title'] }}</span></h1>
-            <h2> {{ $slidedata['desc'] }}</h2>
+            {{ Str::of($homearr['main_banner']['tr_content'])->toHtmlString()}}
+            
+             
+        </div>
+    </section>
+	<!-- End Hero -->
+    @else
+     <!-- ======= Hero Section ======= -->
+     <section id="hero"  class="d-flex align-items-center hero-o">
+        <div class="container" data-aos="zoom-out" data-aos-delay="100">            
+        </div>
+    </section>
+	<!-- End Hero -->
+    @endif
+ 
+         
+
+        {{-- <div class="container" data-aos="zoom-out" data-aos-delay="100">
+            {{ Str::of($homearr['main_banner']['tr_content'])->toHtmlString()}}
+            
             <div class="d-flex">
 
-                <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                <a href="#about" class="btn-get-started scrollto">Get Started1</a>
             </div>
-        </div>
-    </section><!-- End Hero -->
+        </div> --}}
+ 
+    
+    <!-- End Hero -->
 @endsection
 @section('content')
 
