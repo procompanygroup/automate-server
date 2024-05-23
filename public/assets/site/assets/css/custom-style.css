@@ -132,6 +132,27 @@ color:#FFF;
 
 }
 
+.pro-banner {
+  box-shadow:  rgba(14, 30, 37, 0.32) 0px 2px 16px 1px, rgba(14, 30, 37, 0.32) 0px 2px 16px 8px;
+  padding: 300px 0;
+  /* background: url("../img/testimonials-bg.jpg") no-repeat; */
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+ .pro-banner1::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+}  
+
  
 
  

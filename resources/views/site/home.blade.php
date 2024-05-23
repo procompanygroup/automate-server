@@ -43,10 +43,21 @@
     
     <!-- End Hero -->
 @endsection
+
 @section('content')
 
     <main id="main">
-      
+       <!-- ======= project banner Section ======= -->
+@if($homearr['project_banner']['mediastore']->where('type','image')->first())
+
+       <section   class="pro-banner" style=" background: url({{$homearr['project_banner']['mediastore']->where('type','image')->first()['image_path'] }}) no-repeat;"> 
+        <div class="container"> 
+          
+        </div>
+      </section>
+      @endif
+        <!-- ======= End project banner Section ======= -->
+
         <!-- ======= Testimonials Section ======= -->
         @if ($homearr['references'])
             @if (count($homearr['references']['posts']) > 0)
