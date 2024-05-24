@@ -57,15 +57,18 @@ opacity:0.8;
 color:#FFF;
 }
  /* catalog */
-.icon-bar {
-  position: fixed;
-  padding: 15px;
-  z-index: 2;
-  top: 40%;
+.icon-bar { 
+  padding: 15px; 
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   width: auto;
+  position:fixed;  
+	bottom:50%;
+	left:5px;  
+	text-align:center;
+  font-size:40px;	 
+  z-index:100;
 }
 .vid-row {
   display: flex;

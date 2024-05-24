@@ -1955,7 +1955,7 @@ border-top-right-radius: 4px;
 */
 .nav-menu-side {
   padding: 0;
-  display: block;
+   display: block; 
 }
 
 .nav-menu-side * {
@@ -1965,7 +1965,7 @@ border-top-right-radius: 4px;
 }
 
 .nav-menu-side>ul>li {
-  position: relative;
+  position: fixed;
   white-space: nowrap;
 }
 
