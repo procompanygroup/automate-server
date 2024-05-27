@@ -49,8 +49,9 @@
                                                         type="video/mp4">
                                                 </video>
                                             @else --}}
+                                            <a href="{{url('lang/'.$lang.'/page'.'/'.$category['slug'].'/'.$post['slug'])}}">
                                                 <img src="@if ($post['mediastore']->where('type', 'image')->first()) {{ $post['mediastore']->where('type', 'image')->first()['image_path'] }}@else assets/img/team/team-2.jpg @endif"
-                                                    class="img-fluid pro-img" alt="">
+                                                    class="img-fluid pro-img" alt=""></a>
                                             {{-- @endif --}}
 
                                         </div>
