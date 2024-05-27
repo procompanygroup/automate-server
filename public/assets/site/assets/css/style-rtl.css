@@ -750,6 +750,10 @@ section {
 .featured-services .icon-box:hover .description {
   color: #fff;
 }
+.featured-services .icon-box:hover .title ,
+.featured-services .icon-box:hover p {
+  color: #fff;
+}
 
 .featured-services .icon-box:hover .icon i {
   color: #fff;

@@ -95,7 +95,14 @@ $more=$translateArr['posts']->where('code','more')->first()['tr_title'];
    $cat= $sitedctrlr->getcontactinfo( $langitem->id,$slug);
 
    return view('site.content.contact',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'active_item'=>$cat['code']]);  
-}else{
+}
+else if($catmodel->code=='services'){
+   
+   $cat= $sitedctrlr->getcatwithposts( $langitem->id,$slug);
+ //  $translateArr=   $sitedctrlr->gettranscat( $langitem->id);
+      return view('site.content.service',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'active_item'=>$cat['code']]);  
+}
+else{
   
    $cat= $sitedctrlr->getcatinfo( $langitem->id,$slug);
     $active=$cat['parent_code'];

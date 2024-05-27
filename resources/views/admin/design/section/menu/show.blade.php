@@ -84,7 +84,7 @@
                           </a>
                             @endif
                             
-                            @if($item->category->code=='projects'||$item->category->code=='references')
+                            @if($item->category->code=='projects'||$item->category->code=='references'||$item->category->code=='services')
                             <a class="btn btn-info btn-sm" href="{{url('admin/post/showbycatid', $item->category->id)}}">
                               <i class="fas fa-pencil-alt">
                               </i>                              

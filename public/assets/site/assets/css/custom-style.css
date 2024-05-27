@@ -156,6 +156,25 @@ color:#FFF;
   background: rgba(0, 0, 0, 0.7);
 }  
 
+.service-box{
+  display: flex;
+  width: 100%;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.service-col{
+  padding-top: 12px;
+    padding-bottom: 12px;
+}
+.mb-5-service {
+  margin-bottom: 5px !important;
+}
+.service-title{
+  width: 100%;
+  text-align: center;
+}
+
+
  
 
  
