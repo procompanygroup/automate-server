@@ -48,13 +48,15 @@
 
     <main id="main">
        <!-- ======= project banner Section ======= -->
+       @if($homearr['project_banner'])
 @if($homearr['project_banner']['mediastore']->where('type','image')->first())
 
-       <section   class="pro-banner" style=" background: url({{$homearr['project_banner']['mediastore']->where('type','image')->first()['image_path'] }}) no-repeat;"> 
+       <section   class="pro-banner" style=" background: url({{$homearr['project_banner']['mediastore']->where('type','image')->first()['image_path'] }}); background-size: 100% 100%;"> 
         <div class="container"> 
           
         </div>
       </section>
+      @endif
       @endif
         <!-- ======= End project banner Section ======= -->
 
