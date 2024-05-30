@@ -68,7 +68,7 @@
                                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="email"class="form-control" id="email"
-                                        placeholder="Email" value="">
+                                        placeholder="* Email" value="">
                                     <span id="email-error" class="error invalid-feedback"></span>
                                 </div>
                             </div>

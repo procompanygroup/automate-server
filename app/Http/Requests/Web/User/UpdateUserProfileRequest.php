@@ -16,7 +16,7 @@ class UpdateUserProfileRequest extends FormRequest
     protected   $minpass=8;
     protected   $maxpass=16;
     protected  $minMobileLength=10;
-    protected $maxMobileLength=10;
+    protected $maxMobileLength=15;
     protected $maxlength=500;
     protected $alphaexpr='/^[\pL\s\_\-\0-9]+$/u';
     protected $alphaAtexpr='/^[\pL\s\_\-\@\.\0-9]+$/u';
@@ -32,7 +32,7 @@ class UpdateUserProfileRequest extends FormRequest
         //   'name'=>'required|unique:users,name',  
            'name'  =>  'required|string|unique:users,name,'.$this->id.'|regex:'.$this->alphaAtexpr,   
         // 'name'=>'required|alpha_num:ascii|unique:users,name',        
-         'email'=>'nullable|email|unique:users,email,'.$this->id,      
+         'email'=>'required|email|unique:users,email,'.$this->id,      
          'password'=>'nullable|between:'. $this->minpass.','. $this->maxpass,
          'confirm_password' => 'same:password',
          'mobile'=>'nullable|numeric|digits_between:'. $this->minMobileLength.','.$this->maxMobileLength,          
