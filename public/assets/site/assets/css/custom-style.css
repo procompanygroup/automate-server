@@ -179,6 +179,11 @@ color:#FFF;
   font-size: 15px;
   line-height:1.8;
 }
+.slide-image{
+  display: flex; 
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
 
  
 

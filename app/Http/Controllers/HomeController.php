@@ -90,7 +90,16 @@ if($catmodel->code=='projects'){
 $more=$translateArr['posts']->where('code','more')->first()['tr_title'];
 
    return view('site.content.project',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'tr_more'=>$more,'active_item'=>$cat['code']]);  
-}else if($catmodel->code=='contacts'){
+}else if($catmodel->code=='products'){
+   
+   $cat= $sitedctrlr->getcatwithposts( $langitem->id,$slug);
+   $translateArr=   $sitedctrlr->gettranscat( $langitem->id);
+  
+$more=$translateArr['posts']->where('code','details')->first()['tr_title'];
+
+   return view('site.content.products',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'tr_more'=>$more,'active_item'=>$cat['code']]);  
+}
+else if($catmodel->code=='contacts'){
  
    $cat= $sitedctrlr->getcontactinfo( $langitem->id,$slug);
 
@@ -132,7 +141,21 @@ if($catmodel->code=='projects'){
    }else{
    abort(404, '');
    }
-}else{
+}else if($catmodel->code=='products'){
+   $catpostArr= $sitedctrlr->getcatwithpost( $langitem->id,$slug,$postslug);
+
+
+   $cat=$catpostArr['category'];
+   $post=$catpostArr['posts']->first();
+
+   if($catpostArr['posts']->count()>0){
+      return view('site.content.product',['category'=>$cat,'postcontent'=>$post,'lang'=>$lang ,'current_path'=>$current_path,'active_item'=>$cat['code']]);  
+
+   }else{
+   abort(404, '');
+   }
+}
+else{
    abort(404, '');
 }
 // else if($catmodel->code=='contacts'){
