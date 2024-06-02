@@ -87,17 +87,21 @@ if($catmodel->code=='projects'){
    $cat= $sitedctrlr->getcatwithposts( $langitem->id,$slug);
    $translateArr=   $sitedctrlr->gettranscat( $langitem->id);
   
-$more=$translateArr['posts']->where('code','more')->first()['tr_title'];
-
+   $more_post=$translateArr['posts']->where('code','more')->first();
+   $more="";
+   if($more_post){
+$more=$more_post['tr_title'];
+   }
    return view('site.content.project',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'tr_more'=>$more,'active_item'=>$cat['code']]);  
 }else if($catmodel->code=='products'){
    
    $cat= $sitedctrlr->getcatwithposts( $langitem->id,$slug);
    $translateArr=   $sitedctrlr->gettranscat( $langitem->id);
   
-$more=$translateArr['posts']->where('code','details')->first()['tr_title'];
+  
+   
 
-   return view('site.content.products',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'tr_more'=>$more,'active_item'=>$cat['code']]);  
+   return view('site.content.products',['category'=>$cat,'lang'=>$lang ,'current_path'=>$current_path,'active_item'=>$cat['code']]);  
 }
 else if($catmodel->code=='contacts'){
  
