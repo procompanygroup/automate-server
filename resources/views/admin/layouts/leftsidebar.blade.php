@@ -180,12 +180,7 @@
                   <p>Add</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ url('/cpanel/language/sort') }}" class="nav-link">
-                  <i class="far fa fa-sort nav-icon"></i>
-                  <p>Sorting</p>
-                </a>
-              </li>
+             
             </ul>
           </li>
 
