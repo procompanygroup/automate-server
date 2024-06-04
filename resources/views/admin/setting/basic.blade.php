@@ -79,6 +79,49 @@
                 </div>
              
             </div>
+            <!-- email start -->
+            <div class="card card-info">
+               
+                <!-- email start -->
+                <div class="card-body  row">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal" name="email_form" method="POST" action="{{url('admin/setting/updatecontactemail')}}" 
+                            enctype="multipart/form-data" id="email_form">
+                            @csrf
+                            <div class="form-group row">
+                                <label for="contact_email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="contact_email" id="contact_email"
+                                        placeholder="Contact Email" value="{{$contact_email}}">
+
+                                    <span id="contact_email-error" class="error invalid-feedback"></span>
+
+                                </div>
+                            </div>  
+                            <div class="form-group row">
+                                <label for="password" class="col-sm-2 col-form-label">Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" name="password" id="password"
+                                        placeholder="Password" value="">
+
+                                    <span id="password-error" class="error invalid-feedback"></span>
+
+                                </div>
+                            </div>                       
+                            <div class="form-group row">
+                                <div class="col-sm-2 col-form-label"></div>
+                                <div class="col-sm-10">
+                                    <button type="submit" type="submit" name="btn_update_contact_email" id="btn_update_contact_email"
+                                        class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
             <div class="card card-info">
                
                 <!-- whatsapp start -->

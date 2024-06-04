@@ -5,6 +5,12 @@ $(document).ready(function () {
         var formid = $(this).closest('form').attr("id");
         sendform('#'+formid,'');
         });
+			//	#contact_email
+			$('#btn_update_contact_email').on('click', function (e) {
+				e.preventDefault();	 
+				var formid = $(this).closest('form').attr("id");
+				sendform('#'+formid,'');
+				});
 	//	#whatsapp
 		$('#btn_update_whatsapp').on('click', function (e) {
 			e.preventDefault();	 

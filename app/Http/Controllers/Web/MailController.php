@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Mail\StoreRequest;
 use App\Providers\MailConfigServiceProvider;
 use App\Http\Controllers\Web\SiteDataController;
-
+use App\Models\Setting;
 //use FFMpeg;
 class MailController extends Controller
 {
@@ -72,16 +72,22 @@ class MailController extends Controller
       $sitedctrlr=new SiteDataController();  
       $comdata=  $sitedctrlr->getCompanyData();
       //return $lang_code;
-      $mailTo = $comdata['com_email'] ;    
+   //   $mailTo = $comdata['com_email'] ;  
+     
+      $item = Setting::where('category','site-info')->where('dep','contact_email')->first(); 
+      $username= $item->value1;
+      $password=$item->value2;
+      $mailTo =  $item->value1 ;
      // $app = App::getInstance();
+
       $config = array(
         'driver'     => 'smtp',
         'host'       => 'mail.prevalentautomation.com',
         'port'       => '587',
         'from'       => array('address' =>$clientmail, 'name' =>$name),
         'encryption' => '',
-        'username'   => 'info@prevalentautomation.com',
-        'password'   => '7o()8khK_YIU',
+        'username'   => $username,
+        'password'   => $password,
         'sendmail'   => '/usr/sbin/sendmail -bs',
         'pretend'    => false,
         'timeout' => null,
@@ -98,7 +104,7 @@ class MailController extends Controller
       'com_title'=>$comdata['com_title']
      ];     
   // // Mail::to( $mailTo)->bcc($bcc)->send(new ContactEmail( $data));
-  Mail::to( $mailTo)->send(new ContactEmail( $data)); 
+  Mail::to($mailTo)->send(new ContactEmail( $data)); 
 return "OK";
      // return response()->json("ok");
     }

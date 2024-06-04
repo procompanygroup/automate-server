@@ -137,6 +137,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
             Route::post('/updatelogo', [SettingController::class, 'updatelogo']);
             Route::post('/updatewhats', [SettingController::class, 'updatewhats']);
             Route::post('/updatelocation', [SettingController::class, 'updatelocation']);
+            Route::post('/updatecontactemail', [SettingController::class, 'updatecontactemail']);
             //social
             Route::get('/getsocial', [SettingController::class, 'getsocial'])->name('setting.getsocial');
             Route::get('/createsocial', [SettingController::class, 'createsocial']);

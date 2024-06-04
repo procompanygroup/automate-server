@@ -20,7 +20,7 @@ use App\Http\Requests\Setting\UpdatePhoneRequest;
 use App\Models\LocationSetting;
 use  App\Http\Requests\Setting\UpdateWhatsRequest;
 use  App\Http\Requests\Setting\UpdateLocationRequest;
-
+use App\Http\Requests\Setting\UpdateContactEmailRequest;
 
 class SettingController extends Controller
 {
@@ -63,6 +63,8 @@ $whatsrow= $List->where('dep','whatsapp')->first();
 $whats=$whatsrow->value1;
 $locationrow= $List->where('dep','location')->first();
 $location=$locationrow->value1;
+$contact_emailrow=$List->where('dep','contact_email')->first();
+$contact_email=$contact_emailrow->value1;
         return view("admin.setting.basic", [          
         "title"=>$title,
         "desc"=>$desc,
@@ -71,6 +73,7 @@ $location=$locationrow->value1;
         "logo"=>$logo, 
         "whats"=>$whats,   
         "location"=>$location,
+        "contact_email"=>$contact_email,
         ]);
     }
 
@@ -342,6 +345,32 @@ $emailrow= $List->where('dep','email')->first();
           'is_active'=>  isset ($formdata["is_active-e"]) ? 1 : 0, 
      
         ]);  
+        return response()->json("ok");
+      }
+    }
+
+    //updatecontactemail
+    public function updatecontactemail(UpdateContactEmailRequest $request)
+    {
+      $formdata = $request->all();
+      $validator = Validator::make(
+        $formdata,
+        $request->rules(),
+        $request->messages()
+      );
+      if ($validator->fails()) {
+        return response()->json($validator);
+      } else { 
+          $item = Setting::where('category','site-info')->where('dep','contact_email')->first();
+        Setting::find( $item->id)->update([      
+          'value1'=> $formdata['contact_email'],      
+        ]); 
+        if (isset ($formdata['password'])) {
+          $password = trim($formdata['password']);
+          Setting::find( $item->id)->update([ 
+            'value2' => $password,
+          ]);
+        }
         return response()->json("ok");
       }
     }
