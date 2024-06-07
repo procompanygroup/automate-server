@@ -77,7 +77,7 @@
                                             <div class="testimonial-item">
                                                 <div class="member-img testimonial-member-img">
                                                     <img src="@if ($post['mediastore']->first()) {{ $post['mediastore']->first()['image_path'] }}@else assets/img/team/team-2.jpg @endif"
-                                                        class="img-fluid" alt="">
+                                                        class="img-fluid" alt="{{$post['tr_title']}}">
                                                 </div>
                                                 <div class="member-info testimonial-info">
                                                     <h4>{{ Str::of($post['tr_title'])->toHtmlString() }}</h4>
